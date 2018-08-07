@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.ProdutosFrete" table="produtos_frete" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="frete" class="entidades.Frete" fetch="select">
+            <column name="ref_frete" not-null="true" />
+        </many-to-one>
+        <property name="descricao" type="string">
+            <column name="descricao" not-null="true" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="10" scale="3" not-null="true" />
+        </property>
+        <property name="peso" type="big_decimal">
+            <column name="peso" precision="10" scale="3" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

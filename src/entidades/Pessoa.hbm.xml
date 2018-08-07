@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Pessoa" table="pessoa" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="100" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" not-null="true" />
+        </property>
+        <property name="telefone" type="string">
+            <column name="telefone" length="20" not-null="true" />
+        </property>
+        <property name="nascimento" type="date">
+            <column name="nascimento" length="13" />
+        </property>
+        <one-to-one name="pessoaJuridica" class="entidades.PessoaJuridica"></one-to-one>
+        <set name="fretesForRefDetinatario" table="frete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_detinatario" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Frete" />
+        </set>
+        <one-to-one name="pessoaFisica" class="entidades.PessoaFisica"></one-to-one>
+        <set name="fretesForRefSolicitante" table="frete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_solicitante" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Frete" />
+        </set>
+        <set name="enderecosPessoas" table="enderecos_pessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_pessoa" not-null="true" />
+            </key>
+            <one-to-many class="entidades.EnderecosPessoa" />
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_pessoa" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>

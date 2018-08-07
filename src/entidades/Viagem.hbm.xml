@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Viagem" table="viagem" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="unidadeByRefUnidadeDestino" class="entidades.Unidade" fetch="select">
+            <column name="ref_unidade_destino" not-null="true" />
+        </many-to-one>
+        <many-to-one name="unidadeByRefUnidadeOrigem" class="entidades.Unidade" fetch="select">
+            <column name="ref_unidade_origem" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="entidades.Usuario" fetch="select">
+            <column name="ref_motorista" not-null="true" />
+        </many-to-one>
+        <many-to-one name="veiculo" class="entidades.Veiculo" fetch="select">
+            <column name="ref_veiculo" not-null="true" />
+        </many-to-one>
+        <property name="dataInicio" type="date">
+            <column name="data_inicio" length="13" not-null="true" />
+        </property>
+        <property name="dataFinal" type="date">
+            <column name="data_final" length="13" />
+        </property>
+        <property name="quilometragem" type="big_decimal">
+            <column name="quilometragem" precision="10" not-null="true" />
+        </property>
+        <set name="freteViagems" table="frete_viagem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_viagem" not-null="true" />
+            </key>
+            <one-to-many class="entidades.FreteViagem" />
+        </set>
+    </class>
+</hibernate-mapping>

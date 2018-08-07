@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Frete" table="frete" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="endereco" class="entidades.Endereco" fetch="select">
+            <column name="ref_endereco_destino" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estadoFrete" class="entidades.EstadoFrete" fetch="select">
+            <column name="ref_estado_frete" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pessoaByRefDetinatario" class="entidades.Pessoa" fetch="select">
+            <column name="ref_detinatario" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pessoaByRefSolicitante" class="entidades.Pessoa" fetch="select">
+            <column name="ref_solicitante" not-null="true" />
+        </many-to-one>
+        <many-to-one name="unidade" class="entidades.Unidade" fetch="select">
+            <column name="ref_unidade_origem" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="entidades.Usuario" fetch="select">
+            <column name="ref_operador" not-null="true" />
+        </many-to-one>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="10" scale="3" not-null="true" />
+        </property>
+        <property name="dataPedido" type="date">
+            <column name="data_pedido" length="13" not-null="true" />
+        </property>
+        <property name="dataEntrega" type="date">
+            <column name="data_entrega" length="13" />
+        </property>
+        <set name="freteViagems" table="frete_viagem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_frete" not-null="true" />
+            </key>
+            <one-to-many class="entidades.FreteViagem" />
+        </set>
+        <set name="produtosFretes" table="produtos_frete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_frete" not-null="true" />
+            </key>
+            <one-to-many class="entidades.ProdutosFrete" />
+        </set>
+    </class>
+</hibernate-mapping>

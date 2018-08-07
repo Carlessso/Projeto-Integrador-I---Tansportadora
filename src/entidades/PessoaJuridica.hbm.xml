@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.PessoaJuridica" table="pessoa_juridica" schema="public" optimistic-lock="version">
+        <id name="refPessoa" type="int">
+            <column name="ref_pessoa" />
+            <generator class="foreign">
+                <param name="property">pessoa</param>
+            </generator>
+        </id>
+        <one-to-one name="pessoa" class="entidades.Pessoa" constrained="true"></one-to-one>
+        <property name="nomeFantasia" type="string">
+            <column name="nome_fantasia" length="100" not-null="true" />
+        </property>
+        <property name="cnpj" type="string">
+            <column name="cnpj" length="15" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

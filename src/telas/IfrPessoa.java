@@ -6,11 +6,17 @@
 package telas;
 
 import entidades.ComboItens;
+import entidades.Pessoa;
+import entidades.PessoaFisica;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import util.FormataCampo;
 import util.Formatacao;
+import util.HibernateUtil;
 import util.Validacao;
 
 /**
@@ -670,6 +676,30 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
 
+        Pessoa p = new Pessoa();
+        PessoaFisica pf = new PessoaFisica();
+        p.setEmail("ramones@gmail.com");
+        p.setNascimento(new Date(1995,05,27));
+        p.setNome("Ramones");
+        p.setTelefone("992914232");
+        pf.setCpf("02801228028");
+        pf.setPessoa(p);
+        pf.setRg("1104888522");
+        
+        Session sessao = null;
+        try {
+        sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            sessao.save(pf);
+            t.commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed

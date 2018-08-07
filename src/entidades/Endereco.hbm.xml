@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Endereco" table="endereco" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cidade" class="entidades.Cidade" fetch="select">
+            <column name="ref_cidade" not-null="true" />
+        </many-to-one>
+        <property name="rua" type="string">
+            <column name="rua" not-null="true" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="bairro" not-null="true" />
+        </property>
+        <property name="complemento" type="string">
+            <column name="complemento" />
+        </property>
+        <property name="cep" type="string">
+            <column name="cep" length="8" not-null="true" />
+        </property>
+        <property name="numero" type="int">
+            <column name="numero" not-null="true" />
+        </property>
+        <set name="enderecosPessoas" table="enderecos_pessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_endereco" not-null="true" />
+            </key>
+            <one-to-many class="entidades.EnderecosPessoa" />
+        </set>
+        <set name="fretes" table="frete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_endereco_destino" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Frete" />
+        </set>
+        <set name="unidades" table="unidade" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_endereco" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Unidade" />
+        </set>
+    </class>
+</hibernate-mapping>

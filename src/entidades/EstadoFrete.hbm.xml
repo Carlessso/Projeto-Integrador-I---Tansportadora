@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.EstadoFrete" table="estado_frete" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="45" not-null="true" />
+        </property>
+        <set name="fretes" table="frete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_estado_frete" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Frete" />
+        </set>
+    </class>
+</hibernate-mapping>
