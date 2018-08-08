@@ -122,17 +122,25 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="tfdSegundoNome" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
+                                          <Component id="tfdSegundo" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
                                           <Component id="ftfCodigo" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblAvisoCodigo" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblAvisoRG" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblAvisoSegundo" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="tfdEmail" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                  <Component id="ftfTelefone" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="tfdEmail" min="-2" pref="182" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblAvisoEmail" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="ftfTelefone" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblAvisoTelefone" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="tfdPrimeiroNome" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
@@ -152,7 +160,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnAvancar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnGravarPessoa" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -179,8 +187,8 @@
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblRG" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfdSegundoNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAvisoRG" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfdSegundo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvisoSegundo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -203,15 +211,17 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfdEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvisoEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ftfTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvisoTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAvancar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGravarPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -266,10 +276,10 @@
                 <Property name="text" type="java.lang.String" value="RG *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfdSegundoNome">
+            <Component class="javax.swing.JTextField" name="tfdSegundo">
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdSegundoNomeFocusLost"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdSegundoNomeKeyTyped"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdSegundoFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdSegundoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCodigo">
@@ -316,6 +326,9 @@
                 </Property>
                 <Property name="focusLostBehavior" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ftfTelefoneFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -324,6 +337,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfdEmail">
               <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdEmailFocusLost"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdEmailKeyTyped"/>
               </Events>
             </Component>
@@ -335,12 +349,12 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoPrimeiroNome.setVisible(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblAvisoRG">
+            <Component class="javax.swing.JLabel" name="lblAvisoSegundo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="RG Inv&#xe1;lido!"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoRG.setVisible(false);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoSegundo.setVisible(false);"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAvisoCodigo">
@@ -359,12 +373,12 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoData.setVisible(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAvancar">
+            <Component class="javax.swing.JButton" name="btnGravarPessoa">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Avan&#xe7;ar"/>
+                <Property name="text" type="java.lang.String" value="Gravar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvancarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarPessoaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCancelar">
@@ -374,6 +388,22 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvisoEmail">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email Inv&#xe1;lido!"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoEmail.setVisible(false);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvisoTelefone">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Telefone Inv&#xe1;lido!"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoTelefone.setVisible(false);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -434,7 +464,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="btnCancelar2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnGravar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnGravarEndereco" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -509,7 +539,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnGravar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGravarEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancelar2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -638,12 +668,12 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblAvisoCep.setVisible(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGravar">
+            <Component class="javax.swing.JButton" name="btnGravarEndereco">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gravar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarEnderecoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAvisoBairro">

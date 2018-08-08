@@ -5,11 +5,16 @@
  */
 package telas;
 
+import daos.Dao;
 import entidades.ComboItens;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
+import entidades.PessoaJuridica;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -24,11 +29,18 @@ import util.Validacao;
  * @author ramon
  */
 public class IfrPessoa extends javax.swing.JInternalFrame {
+
     /**
      * Creates new form IfrPessoa
      */
+    private Pessoa atual = new Pessoa();
+    private PessoaFisica pfAtual = new PessoaFisica();
+    private PessoaJuridica pjAtual = new PessoaJuridica();
+
     public IfrPessoa() {
         initComponents();
+        pfAtual.setPessoa(atual);
+        pjAtual.setPessoa(atual);
     }
 
     /**
@@ -52,7 +64,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblPrimeiroNome = new javax.swing.JLabel();
         tfdPrimeiroNome = new javax.swing.JTextField();
         lblRG = new javax.swing.JLabel();
-        tfdSegundoNome = new javax.swing.JTextField();
+        tfdSegundo = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         ftfCodigo = new javax.swing.JFormattedTextField();
         lblData = new javax.swing.JLabel();
@@ -62,11 +74,13 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         tfdEmail = new javax.swing.JTextField();
         lblAvisoPrimeiroNome = new javax.swing.JLabel();
-        lblAvisoRG = new javax.swing.JLabel();
+        lblAvisoSegundo = new javax.swing.JLabel();
         lblAvisoCodigo = new javax.swing.JLabel();
         lblAvisoData = new javax.swing.JLabel();
-        btnAvancar = new javax.swing.JButton();
+        btnGravarPessoa = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblAvisoEmail = new javax.swing.JLabel();
+        lblAvisoTelefone = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         tfdLogradouro = new javax.swing.JTextField();
@@ -85,7 +99,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdBairro = new javax.swing.JTextField();
         lblAvisoLogradouro = new javax.swing.JLabel();
         lblAvisoCep = new javax.swing.JLabel();
-        btnGravar = new javax.swing.JButton();
+        btnGravarEndereco = new javax.swing.JButton();
         lblAvisoBairro = new javax.swing.JLabel();
         btnCancelar2 = new javax.swing.JButton();
         tfdComplemento = new javax.swing.JTextField();
@@ -155,14 +169,14 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
         lblRG.setText("RG *");
 
-        tfdSegundoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfdSegundo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                tfdSegundoNomeFocusLost(evt);
+                tfdSegundoFocusLost(evt);
             }
         });
-        tfdSegundoNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfdSegundo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfdSegundoNomeKeyTyped(evt);
+                tfdSegundoKeyTyped(evt);
             }
         });
 
@@ -202,9 +216,19 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         ftfTelefone.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        ftfTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftfTelefoneFocusLost(evt);
+            }
+        });
 
         jLabel7.setText("Email");
 
+        tfdEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdEmailFocusLost(evt);
+            }
+        });
         tfdEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfdEmailKeyTyped(evt);
@@ -214,8 +238,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoPrimeiroNome.setText("Nome Inválido!");
         lblAvisoPrimeiroNome.setVisible(false);
 
-        lblAvisoRG.setText("RG Inválido!");
-        lblAvisoRG.setVisible(false);
+        lblAvisoSegundo.setText("RG Inválido!");
+        lblAvisoSegundo.setVisible(false);
 
         lblAvisoCodigo.setText("CPF Inválido!");
         lblAvisoCodigo.setVisible(false);
@@ -223,10 +247,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoData.setText("Data Inválida!");
         lblAvisoData.setVisible(false);
 
-        btnAvancar.setText("Avançar");
-        btnAvancar.addActionListener(new java.awt.event.ActionListener() {
+        btnGravarPessoa.setText("Gravar");
+        btnGravarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAvancarActionPerformed(evt);
+                btnGravarPessoaActionPerformed(evt);
             }
         });
 
@@ -236,6 +260,12 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+
+        lblAvisoEmail.setText("Email Inválido!");
+        lblAvisoEmail.setVisible(false);
+
+        lblAvisoTelefone.setText("Telefone Inválido!");
+        lblAvisoTelefone.setVisible(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,14 +297,20 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                                 .addComponent(lblAvisoData))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfdSegundoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfdSegundo, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ftfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblAvisoCodigo)
-                                    .addComponent(lblAvisoRG)))
-                            .addComponent(tfdEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAvisoSegundo)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tfdEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAvisoEmail))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAvisoTelefone))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfdPrimeiroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,7 +325,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAvancar)))
+                        .addComponent(btnGravarPessoa)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -309,8 +345,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRG)
-                    .addComponent(tfdSegundoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAvisoRG))
+                    .addComponent(tfdSegundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAvisoSegundo))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -327,14 +363,16 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(tfdEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAvisoEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAvisoTelefone))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAvancar)
+                    .addComponent(btnGravarPessoa)
                     .addComponent(btnCancelar))
                 .addContainerGap())
         );
@@ -417,10 +455,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoCep.setText("CEP Inválido");
         lblAvisoCep.setVisible(false);
 
-        btnGravar.setText("Gravar");
-        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+        btnGravarEndereco.setText("Gravar");
+        btnGravarEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGravarActionPerformed(evt);
+                btnGravarEnderecoActionPerformed(evt);
             }
         });
 
@@ -465,19 +503,17 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                         .addComponent(lblAvisoLogradouro)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
-                            .addGap(315, 315, 315))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(lblAvisoBairro)
-                            .addGap(177, 177, 177)))
+                            .addComponent(lblAvisoBairro))
+                        .addGap(284, 284, 284))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnCancelar2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnGravar))
+                                .addComponent(btnGravarEndereco))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
@@ -531,7 +567,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                             .addComponent(lblAvisoBairro))))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGravar)
+                    .addComponent(btnGravarEndereco)
                     .addComponent(btnCancelar2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -674,40 +710,16 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+    private void btnGravarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarEnderecoActionPerformed
 
-        Pessoa p = new Pessoa();
-        PessoaFisica pf = new PessoaFisica();
-        p.setEmail("ramones@gmail.com");
-        p.setNascimento(new Date(1995,05,27));
-        p.setNome("Ramones");
-        p.setTelefone("992914232");
-        pf.setCpf("02801228028");
-        pf.setPessoa(p);
-        pf.setRg("1104888522");
-        
-        Session sessao = null;
-        try {
-        sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            sessao.save(pf);
-            t.commit();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
-        
-    }//GEN-LAST:event_btnGravarActionPerformed
+    }//GEN-LAST:event_btnGravarEnderecoActionPerformed
 
     private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
-        
+
     }//GEN-LAST:event_cbEstadoActionPerformed
 
     private void cbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPaisActionPerformed
-        
+
     }//GEN-LAST:event_cbPaisActionPerformed
 
     private void radJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radJuridicaActionPerformed
@@ -725,12 +737,12 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         FormataCampo.limitaTamanho(tfdPrimeiroNome.getText(), evt, 250);
     }//GEN-LAST:event_tfdPrimeiroNomeKeyTyped
 
-    private void tfdSegundoNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdSegundoNomeKeyTyped
+    private void tfdSegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdSegundoKeyTyped
         if (radFisica.isSelected()) {
             FormataCampo.semNumeros(evt);
         }
-        FormataCampo.limitaTamanho(tfdSegundoNome.getText(), evt, 200);
-    }//GEN-LAST:event_tfdSegundoNomeKeyTyped
+        FormataCampo.limitaTamanho(tfdSegundo.getText(), evt, 200);
+    }//GEN-LAST:event_tfdSegundoKeyTyped
 
     private void tfdEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdEmailKeyTyped
         FormataCampo.limitaTamanho(tfdEmail.getText(), evt, 250);
@@ -757,14 +769,14 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         Formatacao.formataJTextField(tfdPrimeiroNome);
     }//GEN-LAST:event_tfdPrimeiroNomeFocusLost
 
-    private void tfdSegundoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdSegundoNomeFocusLost
-        if (Formatacao.removerFormatacao(tfdSegundoNome.getText()).length() > 0) {
-            lblAvisoRG.setVisible(false);
+    private void tfdSegundoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdSegundoFocusLost
+        if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() > 0) {
+            lblAvisoSegundo.setVisible(false);
         } else {
-            lblAvisoRG.setVisible(true);
+            lblAvisoSegundo.setVisible(true);
         }
-        Formatacao.formataJTextField(tfdSegundoNome);
-    }//GEN-LAST:event_tfdSegundoNomeFocusLost
+        Formatacao.formataJTextField(tfdSegundo);
+    }//GEN-LAST:event_tfdSegundoFocusLost
 
     private void ftfCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftfCodigoFocusLost
         String codigo = Formatacao.removerFormatacao(ftfCodigo.getText());
@@ -832,13 +844,6 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdBairroFocusLost
 
     private void jTabbedPane4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane4StateChanged
-        if (jTabbedPane4.getSelectedIndex() == 1) {
-            String erro = validaCamposDadosPessoais();
-            if (!erro.equals("")) {
-                jTabbedPane4.setSelectedIndex(0);
-                JOptionPane.showMessageDialog(this, "Complete o(s) seguinte(s) dado(s): \n" + erro);
-            }
-        }
         if (jTabbedPane4.getSelectedIndex() == 2) {
             cbFiltro.removeAllItems();
             cbFiltro.addItem("CPF");
@@ -849,22 +854,47 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabbedPane4StateChanged
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancarActionPerformed
+    private void btnGravarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarPessoaActionPerformed
         String erro = validaCamposDadosPessoais();
         if (!erro.equals("")) {
             jTabbedPane4.setSelectedIndex(0);
             JOptionPane.showMessageDialog(this, "Complete o(s) seguinte(s) dado(s): \n" + erro);
         } else {
+            try {
+                atual.setEmail(tfdEmail.getText());
+                atual.setNascimento(Formatacao.transformarParaData(ftfData.getText()));
+                atual.setNome(tfdPrimeiroNome.getText());
+                atual.setTelefone(ftfTelefone.getText());
+                
+                String salvar;
+                if(radFisica.isSelected()){
+                pfAtual.setCpf("02801228028");
+                pfAtual.setRg("1104888522");
+                }else{
+                    
+                }
+
+                if (Dao.salvar(pfAtual).equals("Sucesso")) {
+                    JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");
+                    jTabbedPane4.setSelectedIndex(1);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao cadastrar pessoa!");
+                }
+                
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar pessoa!");
+                Logger.getLogger(IfrPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
             jTabbedPane4.setSelectedIndex(1);
         }
-    }//GEN-LAST:event_btnAvancarActionPerformed
+    }//GEN-LAST:event_btnGravarPessoaActionPerformed
 
     private void radPjuridicaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radPjuridicaCActionPerformed
         cbFiltro.removeAllItems();
@@ -896,6 +926,32 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         this.resetaCampos();
         jTabbedPane4.setSelectedIndex(0);
     }//GEN-LAST:event_btnCancelar2ActionPerformed
+
+    private void tfdEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdEmailFocusLost
+        String email = tfdEmail.getText();
+        if (email.length() > 0) {
+            if (Validacao.validarEmail(email)) {
+                lblAvisoEmail.setVisible(false);
+            } else {
+                lblAvisoEmail.setVisible(true);
+            }
+        } else {
+            lblAvisoEmail.setVisible(false);
+        }
+    }//GEN-LAST:event_tfdEmailFocusLost
+
+    private void ftfTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftfTelefoneFocusLost
+        String telefone = ftfTelefone.getText().trim();
+        if (!telefone.equals("(  )")) {
+            if (telefone.length() < 13) {
+                lblAvisoTelefone.setVisible(true);
+            } else {
+                lblAvisoTelefone.setVisible(false);
+            }
+        } else {
+            lblAvisoTelefone.setVisible(false);
+        }
+    }//GEN-LAST:event_ftfTelefoneFocusLost
     private String validaCamposDadosPessoais() {
         String erro = "";
         if (Formatacao.removerFormatacao(tfdPrimeiroNome.getText()).length() == 0) {
@@ -906,15 +962,27 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 erro = "Insira a Razão Social. \n";
             }
         }
-        if (Formatacao.removerFormatacao(tfdSegundoNome.getText()).length() == 0) {
-            lblAvisoRG.setVisible(true);
+        if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() == 0) {
+            lblAvisoSegundo.setVisible(true);
             if (radFisica.isSelected()) {
-                erro = erro + "Insira o Sobrenome. \n";
+                erro = erro + "Insira o RG. \n";
             } else {
                 erro = erro + "Insira o Nome Fantasia. \n";
             }
         }
-        
+
+        String codigo = Formatacao.removerFormatacao(ftfCodigo.getText());
+
+        if (radFisica.isSelected()) {
+            if (!Validacao.validarCPF(codigo)) {
+                lblAvisoCodigo.setVisible(true);
+                erro = erro + "CPF Inválido. \n";
+            }
+        } else if (!Validacao.validarCNPJ(codigo)) {
+            lblAvisoCodigo.setVisible(true);
+            erro = erro + "CNPJ Inválido. \n";
+        }
+
         if (!ftfData.getText().equals("  /  /    ")) {
             if (!ftfData.getText().contains(" ")) {
                 if (!Validacao.validarDataFormatada(ftfData.getText())) {
@@ -935,6 +1003,23 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 erro = erro + "Data Inválida. \n";
             }
         }
+
+        String email = tfdEmail.getText();
+        if (email.length() > 0) {
+            if (!Validacao.validarEmail(email)) {
+                lblAvisoEmail.setVisible(true);
+                erro = erro + "Email Inválido. \n";
+            }
+        }
+
+        String telefone = ftfTelefone.getText().trim();
+        if (!telefone.equals("(  )")) {
+            if (telefone.length() < 13) {
+                lblAvisoTelefone.setVisible(true);
+                erro = erro + "Telefone Inválido. \n";
+            }
+        }
+
         return erro;
     }
 
@@ -965,7 +1050,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdLogradouro.setText("");
         tfdNumero.setText("");
         tfdPrimeiroNome.setText("");
-        tfdSegundoNome.setText("");
+        tfdSegundo.setText("");
+        this.removeAvisos();
         tfdPrimeiroNome.requestFocus();
         ftfCodigo.setEditable(true);
         radFisica.setEnabled(true);
@@ -973,34 +1059,48 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }
 
     private void paraJuridica() {
+        this.removeAvisos();
+        tfdPrimeiroNome.requestFocus();
         Formatacao.reformatarCnpj(ftfCodigo);
         lblCodigo.setText("CNPJ *");
         lblData.setText("Fundação");
         lblPrimeiroNome.setText("Razão Social *");
         lblRG.setText("Nome Fantasia *");
         lblAvisoPrimeiroNome.setText("Razão Social Inválida");
-        lblAvisoRG.setText("Nome Fantasia Inválido");
+        lblAvisoSegundo.setText("Nome Fantasia Inválido");
         lblAvisoCodigo.setText("CNPJ Inválido");
     }
 
     private void paraFisica() {
+        this.removeAvisos();
+        tfdPrimeiroNome.requestFocus();
         Formatacao.reformatarCpf(ftfCodigo);
         lblCodigo.setText("CPF *");
         lblData.setText("Nascimento");
         lblPrimeiroNome.setText("Nome completo *");
         lblRG.setText("RG *");
         lblAvisoPrimeiroNome.setText("Nome Inválido");
-        lblAvisoRG.setText("RG Inválido");
+        lblAvisoSegundo.setText("RG Inválido");
         lblAvisoCodigo.setText("CPF Inválido");
     }
+
+    private void removeAvisos() {
+        lblAvisoPrimeiroNome.setVisible(false);
+        lblAvisoSegundo.setVisible(false);
+        lblAvisoCodigo.setVisible(false);
+        lblAvisoData.setVisible(false);
+        lblAvisoEmail.setVisible(false);
+        lblAvisoTelefone.setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAvancar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelar2;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnGravarEndereco;
+    private javax.swing.JButton btnGravarPessoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1035,9 +1135,11 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblAvisoCep;
     private javax.swing.JLabel lblAvisoCodigo;
     private javax.swing.JLabel lblAvisoData;
+    private javax.swing.JLabel lblAvisoEmail;
     private javax.swing.JLabel lblAvisoLogradouro;
     private javax.swing.JLabel lblAvisoPrimeiroNome;
-    private javax.swing.JLabel lblAvisoRG;
+    private javax.swing.JLabel lblAvisoSegundo;
+    private javax.swing.JLabel lblAvisoTelefone;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblPrimeiroNome;
@@ -1054,6 +1156,6 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfdLogradouro;
     private javax.swing.JTextField tfdNumero;
     private javax.swing.JTextField tfdPrimeiroNome;
-    private javax.swing.JTextField tfdSegundoNome;
+    private javax.swing.JTextField tfdSegundo;
     // End of variables declaration//GEN-END:variables
 }
