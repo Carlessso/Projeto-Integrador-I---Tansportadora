@@ -10,7 +10,7 @@
                 <param name="property">pessoa</param>
             </generator>
         </id>
-        <one-to-one name="pessoa" class="entidades.Pessoa" constrained="true"></one-to-one>
+        <one-to-one name="pessoa" class="entidades.Pessoa" constrained="true" lazy="false"></one-to-one>
         <property name="cpf" type="string">
             <column name="cpf" length="12" not-null="true" />
         </property>

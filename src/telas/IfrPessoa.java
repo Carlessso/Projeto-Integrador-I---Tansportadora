@@ -6,6 +6,8 @@
 package telas;
 
 import daos.Dao;
+import daos.PessoaFisicaDao;
+import daos.PessoaJuridicaDao;
 import entidades.ComboItens;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
@@ -13,6 +15,7 @@ import entidades.PessoaJuridica;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -576,7 +579,12 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Critério");
 
-        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "Nome", "Sobrenome" }));
+        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "Nome", "RG" }));
+        cbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFiltroActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +601,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome Completo", "CPF", "Nascimento"
             }
         ));
         jScrollPane2.setViewportView(tblPessoa);
@@ -739,9 +747,11 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
     private void tfdSegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdSegundoKeyTyped
         if (radFisica.isSelected()) {
-            FormataCampo.semNumeros(evt);
+            FormataCampo.somenteNumeros(evt);
+            FormataCampo.limitaTamanho(tfdSegundo.getText(), evt, 10);
+        } else {
+            FormataCampo.limitaTamanho(tfdSegundo.getText(), evt, 100);
         }
-        FormataCampo.limitaTamanho(tfdSegundo.getText(), evt, 200);
     }//GEN-LAST:event_tfdSegundoKeyTyped
 
     private void tfdEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdEmailKeyTyped
@@ -770,10 +780,16 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdPrimeiroNomeFocusLost
 
     private void tfdSegundoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdSegundoFocusLost
-        if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() > 0) {
-            lblAvisoSegundo.setVisible(false);
-        } else {
+        if (radFisica.isSelected()) {
+            if (tfdSegundo.getText().length() != 10) {
+                lblAvisoSegundo.setVisible(true);
+            } else {
+                lblAvisoSegundo.setVisible(false);
+            }
+        } else if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() == 0) {
             lblAvisoSegundo.setVisible(true);
+        } else {
+            lblAvisoSegundo.setVisible(false);
         }
         Formatacao.formataJTextField(tfdSegundo);
     }//GEN-LAST:event_tfdSegundoFocusLost
@@ -848,17 +864,66 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             cbFiltro.removeAllItems();
             cbFiltro.addItem("CPF");
             cbFiltro.addItem("Nome");
-            cbFiltro.addItem("Sobrenome");
+            cbFiltro.addItem("RG");
             radPfisicaC.setSelected(true);
         }
     }//GEN-LAST:event_jTabbedPane4StateChanged
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        if (radPfisicaC.isSelected()) {
+            PessoaFisicaDao.popularTabelaFiltro(tblPessoa, tfdConsulta.getText(), cbFiltro.getSelectedItem().toString());
+        } else {
+            PessoaJuridicaDao.popularTabelaFiltro(tblPessoa, tfdConsulta.getText(), cbFiltro.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            this.resetaCampos();
+            ftfCodigo.setEditable(false);
+            radFisica.setEnabled(false);
+            radJuridica.setEnabled(false);
+            int idPessoa = Integer.parseInt(String.valueOf(tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0)));
+            PessoaFisica pf = new PessoaFisica();;
+            PessoaJuridica pj = new PessoaJuridica();;
+            Pessoa p;
 
+            if (radPfisicaC.isSelected()) {
+                pf = PessoaFisicaDao.buscaId(idPessoa);
+                p = pf.getPessoa();
+                pfAtual = pf;
+                radFisica.setSelected(true);
+                this.paraFisica();
+            } else {
+                pj = PessoaJuridicaDao.buscaId(idPessoa);
+                p = pj.getPessoa();
+                pjAtual = pj;
+                radJuridica.setSelected(true);
+                this.paraJuridica();
+            }
+
+            atual = p;
+
+            tfdPrimeiroNome.setText(p.getNome());
+            if (radFisica.isSelected()) {
+                tfdSegundo.setText(pf.getRg());
+                ftfCodigo.setText(pf.getCpf());
+            } else {
+                tfdSegundo.setText(pj.getNomeFantasia());
+                ftfCodigo.setText(pj.getCnpj());
+            }
+            if (p.getNascimento() != null) {
+                ftfData.setText(Formatacao.ajustaDataDMA(p.getNascimento().toString()));
+            }
+
+            tfdEmail.setText(p.getEmail());
+            ftfTelefone.setText(p.getTelefone());
+
+            jTabbedPane4.setSelectedIndex(0);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Escolha a pessoa a ser EDITADA!");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGravarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarPessoaActionPerformed
@@ -867,30 +932,43 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             jTabbedPane4.setSelectedIndex(0);
             JOptionPane.showMessageDialog(this, "Complete o(s) seguinte(s) dado(s): \n" + erro);
         } else {
-            try {
-                atual.setEmail(tfdEmail.getText());
-                atual.setNascimento(Formatacao.transformarParaData(ftfData.getText()));
-                atual.setNome(tfdPrimeiroNome.getText());
-                atual.setTelefone(ftfTelefone.getText());
-                
-                String salvar;
-                if(radFisica.isSelected()){
-                pfAtual.setCpf("02801228028");
-                pfAtual.setRg("1104888522");
-                }else{
-                    
+            atual.setEmail(tfdEmail.getText());
+            if (!ftfData.getText().equalsIgnoreCase("  /  /    ")) {
+                try {
+                    atual.setNascimento(Formatacao.transformarParaData(ftfData.getText()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(IfrPessoa.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                 atual.setNascimento(null);
+            }
+            atual.setNome(tfdPrimeiroNome.getText());
+            atual.setTelefone(ftfTelefone.getText());
 
-                if (Dao.salvar(pfAtual).equals("Sucesso")) {
-                    JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");
-                    jTabbedPane4.setSelectedIndex(1);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao cadastrar pessoa!");
-                }
-                
-            } catch (ParseException ex) {
+            Object salvar;
+            if (radFisica.isSelected()) {
+                pfAtual.setCpf(ftfCodigo.getText());
+                pfAtual.setRg(tfdSegundo.getText());
+                salvar = pfAtual;
+            } else {
+                pjAtual.setCnpj(ftfCodigo.getText());
+                pjAtual.setNomeFantasia(tfdSegundo.getText());
+                salvar = pjAtual;
+            }
+
+            String mensagemAtualizar = "Sucesso";
+            if (atual.getId() != 0) {
+                mensagemAtualizar = Dao.salvar(atual);
+            }
+
+            if (Dao.salvar(salvar).equals("Sucesso") && mensagemAtualizar.equals("Sucesso")) {
+                ftfCodigo.setEditable(false);
+                JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");
+                radFisica.setEnabled(false);
+                radJuridica.setEnabled(false);
+                jTabbedPane4.setSelectedIndex(1);
+            } else {
                 JOptionPane.showMessageDialog(this, "Erro ao cadastrar pessoa!");
-                Logger.getLogger(IfrPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
             jTabbedPane4.setSelectedIndex(1);
         }
@@ -907,7 +985,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         cbFiltro.removeAllItems();
         cbFiltro.addItem("CPF");
         cbFiltro.addItem("Nome");
-        cbFiltro.addItem("Sobrenome");
+        cbFiltro.addItem("RG");
     }//GEN-LAST:event_radPfisicaCActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -920,6 +998,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.resetaCampos();
+        atual = new Pessoa();
+        pfAtual = new PessoaFisica();
+        pjAtual = new PessoaJuridica();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar2ActionPerformed
@@ -952,6 +1033,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             lblAvisoTelefone.setVisible(false);
         }
     }//GEN-LAST:event_ftfTelefoneFocusLost
+
+    private void cbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFiltroActionPerformed
     private String validaCamposDadosPessoais() {
         String erro = "";
         if (Formatacao.removerFormatacao(tfdPrimeiroNome.getText()).length() == 0) {
@@ -962,13 +1047,15 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 erro = "Insira a Razão Social. \n";
             }
         }
-        if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() == 0) {
-            lblAvisoSegundo.setVisible(true);
-            if (radFisica.isSelected()) {
+
+        if (radFisica.isSelected()) {
+            if (tfdSegundo.getText().length() != 10) {
                 erro = erro + "Insira o RG. \n";
-            } else {
-                erro = erro + "Insira o Nome Fantasia. \n";
+                lblAvisoSegundo.setVisible(true);
             }
+        } else if (Formatacao.removerFormatacao(tfdSegundo.getText()).length() == 0) {
+            lblAvisoSegundo.setVisible(true);
+            erro = erro + "Insira o Nome Fantasia. \n";
         }
 
         String codigo = Formatacao.removerFormatacao(ftfCodigo.getText());
@@ -981,6 +1068,18 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         } else if (!Validacao.validarCNPJ(codigo)) {
             lblAvisoCodigo.setVisible(true);
             erro = erro + "CNPJ Inválido. \n";
+        }
+
+        if (atual.getId() == 0) {
+            if (radFisica.isSelected()) {
+                if (PessoaFisicaDao.cpfUsado(ftfCodigo.getText())) {
+                    lblAvisoCodigo.setVisible(true);
+                    erro = erro + "CPF em uso. \n";
+                }
+            } else if (PessoaJuridicaDao.cnpjUsado(ftfCodigo.getText())) {
+                lblAvisoCodigo.setVisible(true);
+                erro = erro + "CNPJ em uso. \n";
+            }
         }
 
         if (!ftfData.getText().equals("  /  /    ")) {
