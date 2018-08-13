@@ -10,6 +10,7 @@ import daos.EnderecoDao;
 import daos.UnidadeDao;
 import entidades.Endereco;
 import entidades.Unidade;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -31,7 +32,10 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         UnidadeDao.popularTabelaFiltro(tblUnidades, "", "descricao");
 
     }
-
+public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

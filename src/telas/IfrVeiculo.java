@@ -9,10 +9,12 @@ import daos.Dao;
 import daos.EstadoVeiculoDao;
 import daos.VeiculoDao;
 import entidades.Veiculo;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import util.FormataCampo;
 import util.Validacao;
 
 /**
@@ -30,7 +32,10 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
         EstadoVeiculoDao.populaCombo(cmbEstado);
         VeiculoDao.popularTabelaFiltro(tblVeiculos, "", "modelo");
     }
-
+public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +79,12 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
         jLabel9.setText("<html>Modelo:<font color = red>*</font></html>");
 
         jLabel10.setText("<html>Ano:<font color = red>*</font></html>");
+
+        tfdAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfdAnoKeyTyped(evt);
+            }
+        });
 
         jLabel11.setText("<html>Capacidade:<font color = red>*</font></html>");
 
@@ -309,14 +320,30 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(tfdDescricao.getText().equals("") || tfdDescricao.getText().length() < 4)
+        if(tfdDescricao.getText().length() < 4)
         {
             JOptionPane.showMessageDialog(this, "Preencha uma descrição válida!");
             return;
         }
-        if(tfdModelo.getText().equals("") || tfdModelo.getText().length() < 4)
+        if(tfdModelo.getText().length() < 4)
         {
             JOptionPane.showMessageDialog(this, "Preencha um modelo válido!");
+            return;
+        }
+        
+        if(tfdAno.getText().length() < 4)
+        {
+            JOptionPane.showMessageDialog(this, "Preencha um ano válido!");
+            return;
+        }
+        if(tfdQuilometragem.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Preencha uma quilometragem válida!");
+            return;
+        }
+        if(tfdCapacidade.getText().length() < 3)
+        {
+            JOptionPane.showMessageDialog(this, "Preencha uma capacidade válida!");
             return;
         }
          
@@ -397,6 +424,10 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Escolha o veículo a ser EDITADO!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tfdAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdAnoKeyTyped
+        FormataCampo.somenteNumeros(evt);
+    }//GEN-LAST:event_tfdAnoKeyTyped
 
     private void resetaCampos() {
         tfdDescricao.setText("");
