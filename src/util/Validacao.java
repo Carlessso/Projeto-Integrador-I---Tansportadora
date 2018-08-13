@@ -6,6 +6,8 @@ package util;
 
 import java.util.regex.*;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
@@ -28,7 +30,39 @@ public class Validacao {
         soma = 11 - soma % 11;
         return soma > 9 ? 0 : soma;
     }
-
+    
+    public static boolean ValidaNumero(JTextField Num) {
+        long valor;
+        boolean retorno = false;
+        if (Num.getText().length() != 0) {
+            try {
+                valor = Long.parseLong(Num.getText());
+                retorno = true;
+                
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "O campo " + Num.getName() + " só aceita números inteiros!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                Num.grabFocus();
+                retorno = false;
+            }
+        }        
+        return retorno;
+    }
+    public static boolean ValidaDouble(JTextField Num) {
+        double valor;
+        boolean retorno = false;
+        if (Num.getText().length() != 0) {
+            try {
+                valor = Double.parseDouble(Num.getText());
+                retorno = true;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "O campo " + Num.getName() + " só aceita números e o separador ponto!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                Num.grabFocus();
+                retorno = false;
+            }
+        }
+        return retorno;
+    }
+    
     public static boolean validarCPF(String cpf) {
         if ((cpf == null) || (cpf.length() != 11)) {
             return false;

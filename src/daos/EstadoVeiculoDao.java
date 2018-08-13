@@ -6,10 +6,12 @@
 package daos;
 
 import entidades.Estado;
+import entidades.EstadoVeiculo;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
 import java.sql.ResultSet;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -22,6 +24,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import util.ComboItens;
 import util.Formatacao;
 import util.HibernateUtil;
 
@@ -29,13 +32,13 @@ import util.HibernateUtil;
  *
  * @author Matheus
  */
-public class EstadoDao extends Dao {
+public class EstadoVeiculoDao extends Dao {
     
-    public static Estado buscaId(int id) {
+    public static EstadoVeiculo buscaId(int id) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Estado e = (Estado) sessao.get(Estado.class, id);
+            EstadoVeiculo e = (EstadoVeiculo) sessao.get(EstadoVeiculo.class, id);
             return e;
 
         } catch (HibernateException he) {
@@ -44,6 +47,35 @@ public class EstadoDao extends Dao {
             return null;
         } finally {
             sessao.close();
+        }
+    }
+    
+    public static void populaCombo(JComboBox combo) {
+        ComboItens item = new ComboItens();
+        item.setCodigo(0);
+        item.setDescricao("Selecione");
+        combo.addItem(item);
+
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit = null;
+            
+            crit = sessao.createCriteria(EstadoVeiculo.class);
+            
+            List dados = crit.list();
+            
+            for (Object dado : dados) {
+                EstadoVeiculo es = (EstadoVeiculo) dado;
+                item = new ComboItens();
+                item.setCodigo(es.getId());
+                item.setDescricao(es.getDescricao());
+
+                combo.addItem(item);
+            }
+
+        } catch (Exception e) {
+
         }
     }
 }
