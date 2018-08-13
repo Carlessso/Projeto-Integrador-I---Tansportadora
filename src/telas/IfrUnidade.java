@@ -108,7 +108,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Dados", jPanel1);
+        jTabbedPane1.addTab("Cadastro", jPanel1);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +254,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         }
         
         unidade.setDescricao(tfdDescricao.getText());
-        unidade.setEndereco(EnderecoDao.buscaId(1));
+        unidade.setEndereco(EnderecoDao.buscaId(cmbEndereco.getSelectedIndex()));
 
         if (Dao.salvar(unidade).equals("Sucesso")) {
             id = 0;
