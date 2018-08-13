@@ -79,9 +79,6 @@ public class Unidade  implements java.io.Serializable {
         this.viagemsForRefUnidadeOrigem = viagemsForRefUnidadeOrigem;
     }
 
-
-
-
 }
 
 

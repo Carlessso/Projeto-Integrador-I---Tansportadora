@@ -32,4 +32,22 @@ public class Dao {
                 sessao.close();
             }
     }
+    //recebe um objeto e o deleta
+    public static String deletar(Object o){
+        Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction t = sessao.beginTransaction();
+                sessao.delete(o);
+                t.commit();
+                
+                return "Sucesso";
+            } catch (HibernateException he) {
+                he.printStackTrace();
+                
+                return "Erro ao deletar";
+            } finally {
+                sessao.close();
+            }
+    }
 }
