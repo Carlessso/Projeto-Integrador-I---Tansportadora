@@ -154,7 +154,7 @@
                                       <Component id="lblAvisoPrimeiroNome" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="231" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -219,7 +219,7 @@
                           <Component id="ftfTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAvisoTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace pref="145" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGravarPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -257,12 +257,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tipo *"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Tipo:&lt;font color = red&gt;*&lt;/font&gt;&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPrimeiroNome">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nome completo *"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Nome completo:&lt;font color = red&gt;*&lt;/font&gt;&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfdPrimeiroNome">
@@ -273,7 +273,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblRG">
               <Properties>
-                <Property name="text" type="java.lang.String" value="RG *"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;RG:&lt;font color = red&gt;*&lt;/font&gt;&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfdSegundo">
@@ -284,7 +284,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblCodigo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CPF *"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;CPF:&lt;font color = red&gt;*&lt;/font&gt;&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="ftfCodigo">
@@ -375,7 +375,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnGravarPessoa">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gravar"/>
+                <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarPessoaActionPerformed"/>
@@ -460,28 +460,26 @@
                               <EmptySpace min="-2" pref="284" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnCancelar2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnGravarEndereco" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="tfdNumero" min="-2" pref="52" max="-2" attributes="0"/>
-                                          <Component id="tfdComplemento" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cbCidade" alignment="0" pref="145" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tfdNumero" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="tfdComplemento" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cbCidade" alignment="0" pref="145" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnCancelar2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnGravarEndereco" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -537,12 +535,12 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace pref="223" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGravarEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancelar2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -670,7 +668,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnGravarEndereco">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gravar"/>
+                <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarEnderecoActionPerformed"/>

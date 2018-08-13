@@ -12,6 +12,7 @@ import entidades.ComboItens;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
+import java.awt.Dimension;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +47,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         pjAtual.setPessoa(atual);
     }
 
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,9 +160,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Tipo *");
+        jLabel1.setText("<html>Tipo:<font color = red>*</font></html>");
 
-        lblPrimeiroNome.setText("Nome completo *");
+        lblPrimeiroNome.setText("<html>Nome completo:<font color = red>*</font></html>");
 
         tfdPrimeiroNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -170,7 +175,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             }
         });
 
-        lblRG.setText("RG *");
+        lblRG.setText("<html>RG:<font color = red>*</font></html>");
 
         tfdSegundo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -183,7 +188,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             }
         });
 
-        lblCodigo.setText("CPF *");
+        lblCodigo.setText("<html>CPF:<font color = red>*</font></html>");
 
         try {
             ftfCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -250,7 +255,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoData.setText("Data Inválida!");
         lblAvisoData.setVisible(false);
 
-        btnGravarPessoa.setText("Gravar");
+        btnGravarPessoa.setText("Salvar");
         btnGravarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGravarPessoaActionPerformed(evt);
@@ -281,11 +286,11 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblRG)
-                                    .addComponent(lblCodigo)
-                                    .addComponent(jLabel1)
+                                    .addComponent(lblRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7)
-                                    .addComponent(lblPrimeiroNome)))
+                                    .addComponent(lblPrimeiroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblData))
@@ -323,7 +328,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                                         .addComponent(radJuridica)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblAvisoPrimeiroNome)))
-                        .addGap(0, 232, Short.MAX_VALUE))
+                        .addGap(0, 231, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
@@ -336,25 +341,25 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(radFisica)
                         .addComponent(radJuridica)))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrimeiroNome)
+                    .addComponent(lblPrimeiroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdPrimeiroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvisoPrimeiroNome))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRG)
+                    .addComponent(lblRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdSegundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvisoSegundo))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(lblCodigo))
+                        .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ftfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblAvisoCodigo)))
@@ -373,7 +378,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvisoTelefone))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGravarPessoa)
                     .addComponent(btnCancelar))
@@ -458,7 +463,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoCep.setText("CEP Inválido");
         lblAvisoCep.setVisible(false);
 
-        btnGravarEndereco.setText("Gravar");
+        btnGravarEndereco.setText("Salvar");
         btnGravarEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGravarEnderecoActionPerformed(evt);
@@ -512,21 +517,21 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                             .addComponent(lblAvisoBairro))
                         .addGap(284, 284, 284))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnCancelar2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnGravarEndereco))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfdComplemento)
-                                    .addComponent(cbCidade, 0, 145, Short.MAX_VALUE))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfdComplemento)
+                            .addComponent(cbCidade, 0, 145, Short.MAX_VALUE))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGravarEndereco)
+                .addGap(63, 63, 63))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,11 +573,11 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                             .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
                             .addComponent(lblAvisoBairro))))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGravarEndereco)
                     .addComponent(btnCancelar2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane4.addTab("Endereço", jPanel3);
@@ -1161,10 +1166,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         this.removeAvisos();
         tfdPrimeiroNome.requestFocus();
         Formatacao.reformatarCnpj(ftfCodigo);
-        lblCodigo.setText("CNPJ *");
+        lblCodigo.setText("<html>CNPJ:<font color = red>*</font></html>");
         lblData.setText("Fundação");
-        lblPrimeiroNome.setText("Razão Social *");
-        lblRG.setText("Nome Fantasia *");
+        lblPrimeiroNome.setText("<html>Razão social:<font color = red>*</font></html>");
+        lblRG.setText("<html>Nome fantasia:<font color = red>*</font></html>");
         lblAvisoPrimeiroNome.setText("Razão Social Inválida");
         lblAvisoSegundo.setText("Nome Fantasia Inválido");
         lblAvisoCodigo.setText("CNPJ Inválido");
@@ -1174,10 +1179,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         this.removeAvisos();
         tfdPrimeiroNome.requestFocus();
         Formatacao.reformatarCpf(ftfCodigo);
-        lblCodigo.setText("CPF *");
+        lblCodigo.setText("<html>CPF:<font color = red>*</font></html>");
         lblData.setText("Nascimento");
-        lblPrimeiroNome.setText("Nome completo *");
-        lblRG.setText("RG *");
+        lblPrimeiroNome.setText("<html>Nome completo:<font color = red>*</font></html>");
+        lblRG.setText("<html>RG:<font color = red>*</font></html>");
         lblAvisoPrimeiroNome.setText("Nome Inválido");
         lblAvisoSegundo.setText("RG Inválido");
         lblAvisoCodigo.setText("CPF Inválido");

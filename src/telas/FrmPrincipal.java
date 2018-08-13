@@ -15,6 +15,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -192,18 +193,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         IfrVeiculo IfrVeiculo = new IfrVeiculo();
         jDesktopPane1.add(IfrVeiculo);
         IfrVeiculo.setVisible(true);
+        IfrVeiculo.setPosicao();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         IfrUnidade IfrUnidade = new IfrUnidade();
         jDesktopPane1.add(IfrUnidade);
         IfrUnidade.setVisible(true);
+        IfrUnidade.setPosicao();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         IfrPessoa ifrPessoa = new IfrPessoa();
         jDesktopPane1.add(ifrPessoa);
         ifrPessoa.setVisible(true);
+        ifrPessoa.setPosicao();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
