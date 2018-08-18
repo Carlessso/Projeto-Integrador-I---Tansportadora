@@ -5,113 +5,102 @@
  */
 package daos;
 
-/**
- *
- * @author Matheus
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import entidades.ComboItens;
-import entidades.Endereco;
-import entidades.EnderecosPessoa;
-import entidades.Estado;
 import entidades.Pessoa;
-import entidades.PessoaFisica;
-import entidades.Unidade;
-import java.sql.ResultSet;
-import java.util.Iterator;
+import entidades.Usuario;
 import java.util.List;
-import java.util.Vector;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
-import util.Formatacao;
 import util.HibernateUtil;
 
 /**
  *
  * @author Ramon
  */
-public class EnderecoDao extends Dao {
-
-    public static Endereco buscaId(int id) {
+public class UsuarioDao {
+    
+    public static Usuario buscaId(int id) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Endereco e = (Endereco) sessao.get(Endereco.class, id);
-            return e;
+            Usuario u = (Usuario) sessao.get(Usuario.class, id);
+            return u;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-
+           
             return null;
         } finally {
             sessao.close();
         }
     }
 
-    public static void populaCombo(JComboBox combo) {
-        ComboItens item = new ComboItens();
-        item.setCodigo(0);
-        item.setDescricao("Selecione");
-        combo.addItem(item);
-
+    public static boolean loginUsado(String login) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Criteria crit = null;
+            Criteria criterio = sessao.createCriteria(Usuario.class);
+            criterio.add(Restrictions.eq("login", login));
 
-            crit = sessao.createCriteria(Endereco.class);
+            return !criterio.list().isEmpty();
 
-            List dados = crit.list();
-
-            for (Object dado : dados) {
-                Endereco e = (Endereco) dado;
-                item = new ComboItens();
-                item.setCodigo(e.getId());
-                item.setDescricao(e.getCidade().getNome());
-
-                combo.addItem(item);
-            }
-
-        } catch (Exception e) {
-
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            return false;
+        } finally {
+            sessao.close();
         }
     }
 
-    public static void popularTabelaEndereco(JTable tabela, Pessoa pessoa) {
+    public static boolean pessoaUsada(Pessoa pessoa) {
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria criterio = sessao.createCriteria(Usuario.class);
+            criterio.add(Restrictions.eq("pessoa", pessoa));
+
+            return !criterio.list().isEmpty();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            return false;
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static void popularTabelaFiltro(JTable tabela, String criterio, String filtro) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
         Object[] cabecalho = new Object[4];
         cabecalho[0] = "Id";
-        cabecalho[1] = "Logradouro";
-        cabecalho[2] = "Número";
-        cabecalho[3] = "Cidade";
+        cabecalho[1] = "Login";
+        cabecalho[2] = "Nome Completo";
+        cabecalho[3] = "Ativo";
 
         Session sessao = null;
         List dados = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Criteria crit = sessao.createCriteria(EnderecosPessoa.class);;
+            Criteria crit;
             // definição dos filtros
-            crit.add(Restrictions.eq("pessoa", pessoa));
+            if (filtro.equals("Login")) {
+                filtro = "login";
+                crit = sessao.createCriteria(Usuario.class);
+            } else {
+                crit = sessao.createCriteria(Usuario.class);
+                crit.createAlias("pessoa", "p");
+                filtro = "p.nome";
+            }
+
+            crit.add(Restrictions.ilike(filtro, criterio, MatchMode.ANYWHERE));
             dados = crit.list();
 
             dadosTabela = new Object[dados.size()][4];
@@ -119,12 +108,15 @@ public class EnderecoDao extends Dao {
             int lin = 0;
 
             for (Object dado : dados) {
-                EnderecosPessoa ep = (EnderecosPessoa) dado;
-                Endereco e = ep.getEndereco();
-                dadosTabela[lin][0] = e.getId();
-                dadosTabela[lin][1] = e.getRua();
-                dadosTabela[lin][2] = e.getNumero();
-                dadosTabela[lin][3] = e.getCidade().getNome();
+                Usuario u = (Usuario) dado;
+                dadosTabela[lin][0] = u.getId();
+                dadosTabela[lin][1] = u.getLogin();
+                dadosTabela[lin][2] = u.getPessoa().getNome();
+                if (u.isAtivo()) {
+                    dadosTabela[lin][3] = "Ativado";
+                } else {
+                    dadosTabela[lin][3] = "Desativado";
+                }
                 lin++;
             }
 

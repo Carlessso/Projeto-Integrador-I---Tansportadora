@@ -231,7 +231,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        
+IfrUsuario ifrUsuario = new IfrUsuario();
+        jDesktopPane1.add(ifrUsuario);
+        ifrUsuario.setVisible(true);
+        ifrUsuario.setPosicao();
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed

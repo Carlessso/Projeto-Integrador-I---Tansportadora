@@ -24,7 +24,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
-import util.ComboItens;
+import entidades.ComboItens;
 import util.Formatacao;
 import util.HibernateUtil;
 

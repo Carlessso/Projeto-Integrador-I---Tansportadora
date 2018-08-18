@@ -8,7 +8,7 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="estado" class="entidades.Estado" fetch="select">
+        <many-to-one name="estado" class="entidades.Estado" fetch="select" lazy="false">
             <column name="ref_estado" not-null="true" />
         </many-to-one>
         <property name="nome" type="string">
