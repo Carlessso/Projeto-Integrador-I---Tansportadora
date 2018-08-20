@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import log4j.Log4J;
+import util.Formatacao;
 import util.Validacao;
 
 /**
@@ -62,6 +63,7 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         tfdMotivo = new javax.swing.JTextField();
         tfdValor = new javax.swing.JTextField();
         tfdData = new javax.swing.JFormattedTextField();
+        btnSalvar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         tfdCriterio = new javax.swing.JTextField();
@@ -75,12 +77,10 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbFiltroConsulta1 = new javax.swing.JComboBox<>();
-        btnConsultar1 = new javax.swing.JButton();
         btnBuscarDespesa = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         tfdBuscarDespesa = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
 
         setTitle("Gastos");
 
@@ -91,6 +91,13 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         jLabel3.setText("<html>Valor:<font color = red>*</font></html>");
 
         jLabel4.setText("<html>Data:<font color = red>*</font></html>");
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,6 +120,10 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
                         .addComponent(tfdData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                         .addComponent(tfdValor, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(139, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalvar)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +144,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addComponent(btnSalvar))
         );
 
         jTabbedPane1.addTab("Inclusão", jPanel1);
@@ -224,13 +236,6 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
 
         cbFiltroConsulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Nome" }));
 
-        btnConsultar1.setText("Buscar");
-        btnConsultar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultar1ActionPerformed(evt);
-            }
-        });
-
         btnBuscarDespesa.setText("Buscar");
         btnBuscarDespesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,9 +272,7 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addGap(386, 386, 386)
                     .addComponent(cbFiltroConsulta1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnConsultar1)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addContainerGap(92, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,12 +288,11 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
                 .addComponent(btnEditar))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(146, 146, 146)
+                    .addGap(147, 147, 147)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(cbFiltroConsulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnConsultar1))
-                    .addContainerGap(147, Short.MAX_VALUE)))
+                        .addComponent(cbFiltroConsulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(149, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Consulta", jPanel3);
@@ -302,13 +304,6 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -316,8 +311,6 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -325,10 +318,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnSalvar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -363,11 +354,26 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             return;
         }
         
-        if(tfdData.getText().length() < 10)
-        {
+        if (tfdData.getText().equals("  /  /    ") || tfdData.getText().contains(" ")) {
             JOptionPane.showMessageDialog(null, "Preencha uma data válida!");
             return;
         }
+        
+        if (!Validacao.validarDataFormatada(tfdData.getText())) {
+            JOptionPane.showMessageDialog(null, "Preencha uma data válida!");
+            return;
+        }
+        
+        try {
+            Date contrata = Formatacao.transformarParaData(tfdData.getText());
+            if (contrata.after(new Date(System.currentTimeMillis()))) {
+                JOptionPane.showMessageDialog(null, "Preencha uma data válida!");
+                return;
+            } 
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
         
         tfdValor.setName("Valor");
              
@@ -426,10 +432,6 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnConsultar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultar1ActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
             tfdDescricao.setText("");
@@ -466,7 +468,6 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarDespesa;
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnConsultar1;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbFiltroConsulta;
