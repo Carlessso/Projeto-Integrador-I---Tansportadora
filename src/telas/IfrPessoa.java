@@ -771,7 +771,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
         if (erro.isEmpty()) {
             endereco.setRua(tfdLogradouro.getText());
-            if (!tfdNumero.getText().isEmpty()) {
+            if (tfdNumero.getText().isEmpty()) {
+                endereco.setNumero(0);
+            }else{
                 endereco.setNumero(Integer.parseInt(tfdNumero.getText()));
             }
             endereco.setCep(ftfCep.getText().replaceAll("-", ""));
@@ -1300,7 +1302,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdComplemento.setText("");
         tfdBairro.setText("");
         tfdLogradouro.requestFocus();
-        endereco.setId(0);
+        endereco = new Endereco();
     }
 
     private void paraJuridica() {

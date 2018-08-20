@@ -401,9 +401,11 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
             if (id > 0) {
                 unidade.setId(id);
             }
-            
+
             endereco.setRua(tfdLogradouro.getText());
-            if (!tfdNumero.getText().isEmpty()) {
+            if (tfdNumero.getText().isEmpty()) {
+                endereco.setNumero(0);
+            } else {
                 endereco.setNumero(Integer.parseInt(tfdNumero.getText()));
             }
             endereco.setCep(ftfCep.getText().replaceAll("-", ""));
@@ -440,7 +442,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
 
             u = UnidadeDao.buscaId(idUnidade);
             endereco = u.getEndereco();
-            
+
             tfdDescricao.setText(u.getDescricao());
             tfdLogradouro.setText(endereco.getRua());
             tfdNumero.setText(endereco.getNumero() + "");
@@ -557,9 +559,9 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         }
         return erro;
     }
-    
+
     private void resetaCampos() {
-    tfdDescricao.setText("");
+        tfdDescricao.setText("");
         tfdLogradouro.setText("");
         tfdNumero.setText("");
         ftfCep.setText("");
