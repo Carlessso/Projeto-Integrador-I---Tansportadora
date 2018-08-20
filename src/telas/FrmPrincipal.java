@@ -231,7 +231,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-IfrUsuario ifrUsuario = new IfrUsuario();
+        IfrUsuario ifrUsuario = new IfrUsuario();
         jDesktopPane1.add(ifrUsuario);
         ifrUsuario.setVisible(true);
         ifrUsuario.setPosicao();
@@ -242,7 +242,10 @@ IfrUsuario ifrUsuario = new IfrUsuario();
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+        IfrDespesa IfrDespesa = new IfrDespesa();
+        jDesktopPane1.add(IfrDespesa);
+        IfrDespesa.setVisible(true);
+        IfrDespesa.setPosicao();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**

@@ -1,0 +1,5 @@
+2018-08-20 18:24:36 DEBUG log4j.Log4J           This is a Debug
+2018-08-20 18:24:36 INFO  log4j.Log4J           This is an Info
+2018-08-20 18:24:36 WARN  log4j.Log4J           This is a Warn
+2018-08-20 18:24:36 ERROR log4j.Log4J           This is an Error
+2018-08-20 18:24:36 FATAL log4j.Log4J           This is a Fatal

@@ -63,6 +63,19 @@ public class Validacao {
         return retorno;
     }
     
+    public static void formatarData(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter(' ');
+            m.setMask("##/##/####");
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
     public static boolean validarCPF(String cpf) {
         if ((cpf == null) || (cpf.length() != 11)) {
             return false;
