@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package telas;
+
+import transoft.TranSOFT;
+
 /**
  *
  * @author rhentges
@@ -275,7 +278,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

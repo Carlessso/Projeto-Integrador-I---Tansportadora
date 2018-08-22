@@ -48,7 +48,10 @@ Contributor(s):
     <property name="hibernate.connection.password">postgres</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="entidades/Alteracao.hbm.xml"/>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    
+    <mapping class="revision.UserRevEntity"/>
+    
     <mapping resource="entidades/Programas.hbm.xml"/>
     <mapping resource="entidades/Estado.hbm.xml"/>
     <mapping resource="entidades/PessoaJuridica.hbm.xml"/>
@@ -71,8 +74,14 @@ Contributor(s):
     <mapping resource="entidades/PermissoesUsuario.hbm.xml"/>
     <mapping resource="entidades/FreteViagem.hbm.xml"/>
     <mapping resource="entidades/Pessoa.hbm.xml"/>
-    <mapping resource="entidades/TipoOperacao.hbm.xml"/>
     <mapping resource="entidades/EstadoFrete.hbm.xml"/>
     <mapping resource="entidades/EstadoVeiculo.hbm.xml"/>
+    
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-update"/>
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-remove"/>
+    <listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-recreate"/>
   </session-factory>
 </hibernate-configuration>

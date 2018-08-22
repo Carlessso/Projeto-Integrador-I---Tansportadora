@@ -38,12 +38,6 @@
             </key>
             <one-to-many class="entidades.UsuarioGrupos" />
         </set>
-        <set name="alteracaos" table="alteracao" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="ref_usuario" not-null="true" />
-            </key>
-            <one-to-many class="entidades.Alteracao" />
-        </set>
         <set name="erros" table="erro" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="ref_usuario" not-null="true" />

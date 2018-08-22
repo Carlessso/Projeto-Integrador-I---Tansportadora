@@ -52,13 +52,11 @@ Contributor(s):
   <table-filter match-name="usuario_grupos"/>
   <table-filter match-name="unidade"/>
   <table-filter match-name="pais"/>
-  <table-filter match-name="alteracao"/>
   <table-filter match-name="despesa"/>
   <table-filter match-name="pessoa"/>
   <table-filter match-name="frete"/>
   <table-filter match-name="cidade"/>
   <table-filter match-name="permissoes_usuario"/>
-  <table-filter match-name="tipo_operacao"/>
   <table-filter match-name="viagem"/>
   <table-filter match-name="estado"/>
   <table-filter match-name="pessoa_fisica"/>

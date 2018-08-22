@@ -15,7 +15,7 @@
             <column name="nome_fantasia" length="100" not-null="true" />
         </property>
         <property name="cnpj" type="string">
-            <column name="cnpj" length="15" not-null="true" />
+            <column name="cnpj" length="18" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
