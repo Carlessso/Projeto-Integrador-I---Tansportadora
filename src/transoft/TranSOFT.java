@@ -6,8 +6,8 @@
 package transoft;
 
 import org.hibernate.envers.event.spi.EnversIntegrator;
-import revision.UserRevEntity;
-import revision.UserRevisionListener;
+import auditoria.UserRevEntity;
+import auditoria.UserRevisionListener;
 import telas.FrmPrincipal;
 import util.HibernateUtil;
 
@@ -18,10 +18,12 @@ import util.HibernateUtil;
 public class TranSOFT {
     
     public static String LOGIN;
+    public static boolean AUDITORIA;
     
     public static void main(String[] args) {
         
         LOGIN = "Teste";
+        AUDITORIA = true;
 
         FrmPrincipal form = new FrmPrincipal();
         form.setVisible(true);

@@ -49,9 +49,8 @@ Contributor(s):
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    
-    <mapping class="revision.UserRevEntity"/>
-    
+    <property name="hibernate.listeners.envers.autoRegister">false</property>
+    <mapping class="auditoria.UserRevEntity"/>
     <mapping resource="entidades/Programas.hbm.xml"/>
     <mapping resource="entidades/Estado.hbm.xml"/>
     <mapping resource="entidades/PessoaJuridica.hbm.xml"/>
@@ -76,7 +75,6 @@ Contributor(s):
     <mapping resource="entidades/Pessoa.hbm.xml"/>
     <mapping resource="entidades/EstadoFrete.hbm.xml"/>
     <mapping resource="entidades/EstadoVeiculo.hbm.xml"/>
-    
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>

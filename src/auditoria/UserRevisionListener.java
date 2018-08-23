@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package revision;
+package auditoria;
 
 import org.hibernate.envers.RevisionListener;
 import transoft.TranSOFT;

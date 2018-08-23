@@ -5,8 +5,6 @@
  */
 package telas;
 
-import transoft.TranSOFT;
-
 /**
  *
  * @author rhentges
