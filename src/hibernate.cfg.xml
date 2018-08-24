@@ -51,6 +51,7 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.listeners.envers.autoRegister">false</property>
     <mapping class="auditoria.UserRevEntity"/>
+    <mapping resource="entidades/Auditar.hbm.xml"/>
     <mapping resource="entidades/Programas.hbm.xml"/>
     <mapping resource="entidades/Estado.hbm.xml"/>
     <mapping resource="entidades/PessoaJuridica.hbm.xml"/>

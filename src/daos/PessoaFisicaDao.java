@@ -7,7 +7,6 @@ package daos;
 
 import entidades.Pessoa;
 import entidades.PessoaFisica;
-import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +14,8 @@ import javax.swing.table.TableColumn;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import util.Formatacao;
 import util.HibernateUtil;
 
