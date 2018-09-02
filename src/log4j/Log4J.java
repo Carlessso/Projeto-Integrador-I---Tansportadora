@@ -5,6 +5,7 @@
  */
 package log4j;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
  
 /**
@@ -20,6 +21,7 @@ static Logger log = Logger.getLogger(Log4J.class.getName());
  * @param args the command line arguments
  */
  public static void main(String[] args) {
+  log.setLevel(Level.ERROR);
  //logging in different levels
  log.trace("This is a Trace");
  log.debug("This is a Debug");
