@@ -6,7 +6,10 @@
 package transoft;
 
 import daos.AuditarDao;
-import telas.FrmPrincipal;
+import entidades.Usuario;
+import log4j.Log4J;
+import org.apache.log4j.Logger;
+import telas.FrmLogin;
 
 /**
  *
@@ -14,16 +17,17 @@ import telas.FrmPrincipal;
  */
 public class TranSOFT {
     
-    public static String LOGIN;
+    public static Usuario USUARIO;
     public static boolean AUDITORIA;
+    public static Logger log = Logger.getLogger(Log4J.class.getName());
     
     public static void main(String[] args) {
-        
-        LOGIN = "Teste";
-        
+                
         AUDITORIA = (AuditarDao.auditar()).getAuditar();
-
-        FrmPrincipal form = new FrmPrincipal();
+        
+        log.removeAllAppenders();
+        
+        FrmLogin form = new FrmLogin();
         form.setVisible(true);
 
     }

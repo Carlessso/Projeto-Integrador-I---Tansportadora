@@ -14,11 +14,9 @@ import transoft.TranSOFT;
  */
 public class UserRevisionListener implements RevisionListener {
 
-    public static String LOGIN = TranSOFT.LOGIN;
-    
     @Override
     public void newRevision(Object o) {
             UserRevEntity revisao = (UserRevEntity) o;
-            revisao.setLogin(LOGIN);
+            revisao.setLogin(TranSOFT.USUARIO.getLogin());
     }
 }

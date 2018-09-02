@@ -23,7 +23,7 @@ import util.HibernateUtil;
  * @author Ramon
  */
 public class UsuarioDao {
-    
+
     public static Usuario buscaId(int id) {
         Session sessao = null;
         try {
@@ -33,7 +33,32 @@ public class UsuarioDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
-           
+
+            return null;
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static Usuario validaLogin(String usuario, String senha) {
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria criterio = sessao.createCriteria(Usuario.class);
+            criterio.add(Restrictions.eq("login", usuario));
+            criterio.add(Restrictions.eq("senha", senha));
+            criterio.add(Restrictions.eq("ativo", true));
+
+            List dados = criterio.list();
+
+            if (dados.isEmpty()) {
+                return null;
+            } else {
+                return (Usuario) dados.get(0);
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
             return null;
         } finally {
             sessao.close();
