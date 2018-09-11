@@ -51,18 +51,19 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.listeners.envers.autoRegister">false</property>
     <mapping class="auditoria.UserRevEntity"/>
-    <mapping resource="entidades/Auditar.hbm.xml"/>
+    
     <mapping resource="entidades/Programas.hbm.xml"/>
     <mapping resource="entidades/Estado.hbm.xml"/>
     <mapping resource="entidades/PessoaJuridica.hbm.xml"/>
     <mapping resource="entidades/EnderecosPessoa.hbm.xml"/>
+    <mapping resource="entidades/GrupoAcao.hbm.xml"/>
     <mapping resource="entidades/PessoaFisica.hbm.xml"/>
     <mapping resource="entidades/UsuarioGrupos.hbm.xml"/>
     <mapping resource="entidades/Grupo.hbm.xml"/>
     <mapping resource="entidades/Cidade.hbm.xml"/>
-    <mapping resource="entidades/GrupoProgramas.hbm.xml"/>
-    <mapping resource="entidades/Viagem.hbm.xml"/>
     <mapping resource="entidades/Veiculo.hbm.xml"/>
+    <mapping resource="entidades/Viagem.hbm.xml"/>
+    <mapping resource="entidades/Acao.hbm.xml"/>
     <mapping resource="entidades/Frete.hbm.xml"/>
     <mapping resource="entidades/Pais.hbm.xml"/>
     <mapping resource="entidades/Erro.hbm.xml"/>
@@ -76,6 +77,8 @@ Contributor(s):
     <mapping resource="entidades/Pessoa.hbm.xml"/>
     <mapping resource="entidades/EstadoFrete.hbm.xml"/>
     <mapping resource="entidades/EstadoVeiculo.hbm.xml"/>
+    <mapping resource="entidades/Auditar.hbm.xml"/>
+    
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
     <listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>

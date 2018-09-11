@@ -6,7 +6,7 @@
 package daos;
 
 import entidades.Grupo;
-import entidades.GrupoProgramas;
+import entidades.GrupoAcao;
 import entidades.Programas;
 import java.util.List;
 import javax.swing.JTable;
@@ -16,17 +16,19 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import static org.hibernate.criterion.CriteriaSpecification.LEFT_JOIN;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import util.HibernateUtil;
 
 /**
  *
  * @author Matheus
  */
-public class GrupoProgamaDao {
+public class GrupoAcaoDao {
     
     public static void deletarTodos(Grupo grupo)
     {
@@ -37,13 +39,13 @@ public class GrupoProgamaDao {
             List dados = null;
             Criteria crit;
 
-            crit = sessao.createCriteria(GrupoProgramas.class);
+            crit = sessao.createCriteria(GrupoAcao.class);
             crit.add(Restrictions.eq("grupo", grupo));
             
             dados = crit.list();
 
             for (Object dado : dados) {
-                GrupoProgramas gp = (GrupoProgramas) dado;
+                GrupoAcao gp = (GrupoAcao) dado;
 
                 Transaction t = sessao.beginTransaction();
                 sessao.delete(gp);
@@ -56,11 +58,11 @@ public class GrupoProgamaDao {
             sessao.close();
         }
     }
-    public static GrupoProgramas buscaId(int id) {
+    public static GrupoAcao buscaId(int id) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            GrupoProgramas g = (GrupoProgramas) sessao.get(GrupoProgramas.class, id);
+            GrupoAcao g = (GrupoAcao) sessao.get(GrupoAcao.class, id);
             return g;
 
         } catch (HibernateException he) {
@@ -76,9 +78,10 @@ public class GrupoProgamaDao {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[2];
+        Object[] cabecalho = new Object[3];
         cabecalho[0] = "Id";
-        cabecalho[1] = "Programa";
+        cabecalho[1] = "Ação";
+        cabecalho[2] = "Permitir";
 
         Session sessao = null;
         List dados = null;
@@ -86,21 +89,20 @@ public class GrupoProgamaDao {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Criteria crit;
 
-            crit = sessao.createCriteria(GrupoProgramas.class);
-            
-            crit.add(Restrictions.eq(filtro, codigo));
+            crit = sessao.createCriteria(GrupoAcao.class);
+
             dados = crit.list();
 
-            dadosTabela = new Object[dados.size()][2];
+            dadosTabela = new Object[dados.size()][3];
 
             int lin = 0;
-
+            System.out.println(dados.size());
             for (Object dado : dados) {
-                GrupoProgramas gp = (GrupoProgramas) dado;
-                Programas p = ProgramaDao.buscaId(gp.getProgramas().getId());
+                GrupoAcao ga = (GrupoAcao) dado;
                 
-                dadosTabela[lin][0] = p.getId();
-                dadosTabela[lin][1] = p.getDescricao();
+                dadosTabela[lin][0] = ga.getId();
+                dadosTabela[lin][1] = ga.getAcao().getDescricao();
+                dadosTabela[lin][2] = ga.getPermissao();
                 
                 lin++;
             }
@@ -154,17 +156,17 @@ public class GrupoProgamaDao {
         }
     }
 
-    public static GrupoProgramas getMaxId() {
+    public static GrupoAcao getMaxId() {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List dados = null;
         Criteria crit;
 
-        crit = sessao.createCriteria(GrupoProgramas.class);
+        crit = sessao.createCriteria(GrupoAcao.class);
         
         crit.addOrder(Order.desc("id"));
         crit.setMaxResults(1);       
 
-        return (GrupoProgramas)crit.uniqueResult();
+        return (GrupoAcao)crit.uniqueResult();
         
     }
 }

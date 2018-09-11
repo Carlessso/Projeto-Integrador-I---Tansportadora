@@ -421,7 +421,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             usuario.setSenha(new String(pwdSenha.getPassword()));
             usuario.setAtivo(chkAtivo.isSelected());
             usuario.setPessoa(pessoaSelecionada);
-            usuario.setGrupo(GrupoDao.buscaId(((ComboItens) cmbGrupos.getSelectedItem()).getCodigo()));
+            //usuario.setGrupo(GrupoDao.buscaId(((ComboItens) cmbGrupos.getSelectedItem()).getCodigo()));
             if (Dao.salvar(usuario).equals("Sucesso")) {
                 JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
                 this.resetaCampos();

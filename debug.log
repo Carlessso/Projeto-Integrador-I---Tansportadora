@@ -4,3 +4,265 @@
 2018-08-27 20:58:48 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  This connection has been closed.
 2018-09-10 19:38:15 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Grupo, getter method of property: id
 2018-09-10 19:41:38 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Grupo, getter method of property: id
+2018-09-11 07:45:19 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario add column ref_grupo int4 not null
+2018-09-11 07:45:19 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: column "ref_grupo" contains null values
+2018-09-11 07:45:19 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario add constraint FK_gjuj84wuxmbsj41j55gm336ky foreign key (ref_grupo) references public.grupo
+2018-09-11 07:45:19 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: column "ref_grupo" referenced in foreign key constraint does not exist
+2018-09-11 08:25:26 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario add column ref_grupo int4 not null
+2018-09-11 08:25:26 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: column "ref_grupo" contains null values
+2018-09-11 08:25:26 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario add constraint FK_gjuj84wuxmbsj41j55gm336ky foreign key (ref_grupo) references public.grupo
+2018-09-11 08:25:26 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: column "ref_grupo" referenced in foreign key constraint does not exist
+2018-09-11 08:25:26 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: column this_.ref_grupo does not exist
+  Posição: 155
+2018-09-11 09:59:22 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 09:59:22 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:00:37 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:00:37 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.despesa_AUD add constraint FK_1bv46t1jiiyvme4now743hwde foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1bv46t1jiiyvme4now743hwde" for relation "despesa_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.endereco_AUD add constraint FK_1octn1iw2guo5xquj10xmqj3c foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1octn1iw2guo5xquj10xmqj3c" for relation "endereco_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.enderecos_pessoa_AUD add constraint FK_cnlhih9h9a1cfo3s7r0jdfxwt foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_cnlhih9h9a1cfo3s7r0jdfxwt" for relation "enderecos_pessoa_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.erro_AUD add constraint FK_njhd30k3lhy1wa3nfausriool foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_njhd30k3lhy1wa3nfausriool" for relation "erro_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_frete_AUD add constraint FK_glkiwsc8h6xd7iph3dgrndjfi foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_glkiwsc8h6xd7iph3dgrndjfi" for relation "estado_frete_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_veiculo_AUD add constraint FK_2inlfigot33r23pkidx6ybeq1 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2inlfigot33r23pkidx6ybeq1" for relation "estado_veiculo_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_AUD add constraint FK_ayhrjia826gd8wlr7muiocvay foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_ayhrjia826gd8wlr7muiocvay" for relation "frete_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_viagem_AUD add constraint FK_5bleu1a1b00rjoiv2m5l0fdek foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_5bleu1a1b00rjoiv2m5l0fdek" for relation "frete_viagem_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_AUD add constraint FK_8trcwra4b3ijras23lplhesj2 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_8trcwra4b3ijras23lplhesj2" for relation "grupo_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.permissoes_usuario_AUD add constraint FK_t04gc0ar3ypivdonnui9ow9yr foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_t04gc0ar3ypivdonnui9ow9yr" for relation "permissoes_usuario_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_AUD add constraint FK_60l0k2heovo32g0qgigvo64jt foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_60l0k2heovo32g0qgigvo64jt" for relation "pessoa_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_fisica_AUD add constraint FK_p184p2n0hay0qgd1en61k9bog foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_p184p2n0hay0qgd1en61k9bog" for relation "pessoa_fisica_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_juridica_AUD add constraint FK_gktooi0vcjif8srsmvfbajduk foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_gktooi0vcjif8srsmvfbajduk" for relation "pessoa_juridica_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.produtos_frete_AUD add constraint FK_pxv06ul338x0qr568k2p30xf9 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_pxv06ul338x0qr568k2p30xf9" for relation "produtos_frete_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.unidade_AUD add constraint FK_54ee74sqsugxvo2dg70d7pjkd foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_54ee74sqsugxvo2dg70d7pjkd" for relation "unidade_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_AUD add constraint FK_6oba3a8pnwggj7ddhebhewru6 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_6oba3a8pnwggj7ddhebhewru6" for relation "usuario_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_grupos_AUD add constraint FK_kupmd0w38bvj1964tf3ff4n4 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_kupmd0w38bvj1964tf3ff4n4" for relation "usuario_grupos_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.veiculo_AUD add constraint FK_2l2mtqpci1s9jp0dswvfmc9lr foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2l2mtqpci1s9jp0dswvfmc9lr" for relation "veiculo_aud" already exists
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.viagem_AUD add constraint FK_rufe0ovxbwkto416kyhix41s2 foreign key (REV) references public.REVINFO
+2018-09-11 10:10:18 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_rufe0ovxbwkto416kyhix41s2" for relation "viagem_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.despesa_AUD add constraint FK_1bv46t1jiiyvme4now743hwde foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1bv46t1jiiyvme4now743hwde" for relation "despesa_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.endereco_AUD add constraint FK_1octn1iw2guo5xquj10xmqj3c foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1octn1iw2guo5xquj10xmqj3c" for relation "endereco_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.enderecos_pessoa_AUD add constraint FK_cnlhih9h9a1cfo3s7r0jdfxwt foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_cnlhih9h9a1cfo3s7r0jdfxwt" for relation "enderecos_pessoa_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.erro_AUD add constraint FK_njhd30k3lhy1wa3nfausriool foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_njhd30k3lhy1wa3nfausriool" for relation "erro_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_frete_AUD add constraint FK_glkiwsc8h6xd7iph3dgrndjfi foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_glkiwsc8h6xd7iph3dgrndjfi" for relation "estado_frete_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_veiculo_AUD add constraint FK_2inlfigot33r23pkidx6ybeq1 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2inlfigot33r23pkidx6ybeq1" for relation "estado_veiculo_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_AUD add constraint FK_ayhrjia826gd8wlr7muiocvay foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_ayhrjia826gd8wlr7muiocvay" for relation "frete_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_viagem_AUD add constraint FK_5bleu1a1b00rjoiv2m5l0fdek foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_5bleu1a1b00rjoiv2m5l0fdek" for relation "frete_viagem_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_AUD add constraint FK_8trcwra4b3ijras23lplhesj2 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_8trcwra4b3ijras23lplhesj2" for relation "grupo_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.permissoes_usuario_AUD add constraint FK_t04gc0ar3ypivdonnui9ow9yr foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_t04gc0ar3ypivdonnui9ow9yr" for relation "permissoes_usuario_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_AUD add constraint FK_60l0k2heovo32g0qgigvo64jt foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_60l0k2heovo32g0qgigvo64jt" for relation "pessoa_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_fisica_AUD add constraint FK_p184p2n0hay0qgd1en61k9bog foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_p184p2n0hay0qgd1en61k9bog" for relation "pessoa_fisica_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_juridica_AUD add constraint FK_gktooi0vcjif8srsmvfbajduk foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_gktooi0vcjif8srsmvfbajduk" for relation "pessoa_juridica_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.produtos_frete_AUD add constraint FK_pxv06ul338x0qr568k2p30xf9 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_pxv06ul338x0qr568k2p30xf9" for relation "produtos_frete_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.unidade_AUD add constraint FK_54ee74sqsugxvo2dg70d7pjkd foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_54ee74sqsugxvo2dg70d7pjkd" for relation "unidade_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_AUD add constraint FK_6oba3a8pnwggj7ddhebhewru6 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_6oba3a8pnwggj7ddhebhewru6" for relation "usuario_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_grupos_AUD add constraint FK_kupmd0w38bvj1964tf3ff4n4 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_kupmd0w38bvj1964tf3ff4n4" for relation "usuario_grupos_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.veiculo_AUD add constraint FK_2l2mtqpci1s9jp0dswvfmc9lr foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2l2mtqpci1s9jp0dswvfmc9lr" for relation "veiculo_aud" already exists
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.viagem_AUD add constraint FK_rufe0ovxbwkto416kyhix41s2 foreign key (REV) references public.REVINFO
+2018-09-11 10:11:57 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_rufe0ovxbwkto416kyhix41s2" for relation "viagem_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.despesa_AUD add constraint FK_1bv46t1jiiyvme4now743hwde foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1bv46t1jiiyvme4now743hwde" for relation "despesa_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.endereco_AUD add constraint FK_1octn1iw2guo5xquj10xmqj3c foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1octn1iw2guo5xquj10xmqj3c" for relation "endereco_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.enderecos_pessoa_AUD add constraint FK_cnlhih9h9a1cfo3s7r0jdfxwt foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_cnlhih9h9a1cfo3s7r0jdfxwt" for relation "enderecos_pessoa_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.erro_AUD add constraint FK_njhd30k3lhy1wa3nfausriool foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_njhd30k3lhy1wa3nfausriool" for relation "erro_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_frete_AUD add constraint FK_glkiwsc8h6xd7iph3dgrndjfi foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_glkiwsc8h6xd7iph3dgrndjfi" for relation "estado_frete_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_veiculo_AUD add constraint FK_2inlfigot33r23pkidx6ybeq1 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2inlfigot33r23pkidx6ybeq1" for relation "estado_veiculo_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_AUD add constraint FK_ayhrjia826gd8wlr7muiocvay foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_ayhrjia826gd8wlr7muiocvay" for relation "frete_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_viagem_AUD add constraint FK_5bleu1a1b00rjoiv2m5l0fdek foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_5bleu1a1b00rjoiv2m5l0fdek" for relation "frete_viagem_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_AUD add constraint FK_8trcwra4b3ijras23lplhesj2 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_8trcwra4b3ijras23lplhesj2" for relation "grupo_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.permissoes_usuario_AUD add constraint FK_t04gc0ar3ypivdonnui9ow9yr foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_t04gc0ar3ypivdonnui9ow9yr" for relation "permissoes_usuario_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_AUD add constraint FK_60l0k2heovo32g0qgigvo64jt foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_60l0k2heovo32g0qgigvo64jt" for relation "pessoa_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_fisica_AUD add constraint FK_p184p2n0hay0qgd1en61k9bog foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_p184p2n0hay0qgd1en61k9bog" for relation "pessoa_fisica_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_juridica_AUD add constraint FK_gktooi0vcjif8srsmvfbajduk foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_gktooi0vcjif8srsmvfbajduk" for relation "pessoa_juridica_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.produtos_frete_AUD add constraint FK_pxv06ul338x0qr568k2p30xf9 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_pxv06ul338x0qr568k2p30xf9" for relation "produtos_frete_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.unidade_AUD add constraint FK_54ee74sqsugxvo2dg70d7pjkd foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_54ee74sqsugxvo2dg70d7pjkd" for relation "unidade_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_AUD add constraint FK_6oba3a8pnwggj7ddhebhewru6 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_6oba3a8pnwggj7ddhebhewru6" for relation "usuario_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_grupos_AUD add constraint FK_kupmd0w38bvj1964tf3ff4n4 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_kupmd0w38bvj1964tf3ff4n4" for relation "usuario_grupos_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.veiculo_AUD add constraint FK_2l2mtqpci1s9jp0dswvfmc9lr foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2l2mtqpci1s9jp0dswvfmc9lr" for relation "veiculo_aud" already exists
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.viagem_AUD add constraint FK_rufe0ovxbwkto416kyhix41s2 foreign key (REV) references public.REVINFO
+2018-09-11 10:12:44 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_rufe0ovxbwkto416kyhix41s2" for relation "viagem_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.despesa_AUD add constraint FK_1bv46t1jiiyvme4now743hwde foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1bv46t1jiiyvme4now743hwde" for relation "despesa_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.endereco_AUD add constraint FK_1octn1iw2guo5xquj10xmqj3c foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1octn1iw2guo5xquj10xmqj3c" for relation "endereco_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.enderecos_pessoa_AUD add constraint FK_cnlhih9h9a1cfo3s7r0jdfxwt foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_cnlhih9h9a1cfo3s7r0jdfxwt" for relation "enderecos_pessoa_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.erro_AUD add constraint FK_njhd30k3lhy1wa3nfausriool foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_njhd30k3lhy1wa3nfausriool" for relation "erro_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_frete_AUD add constraint FK_glkiwsc8h6xd7iph3dgrndjfi foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_glkiwsc8h6xd7iph3dgrndjfi" for relation "estado_frete_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_veiculo_AUD add constraint FK_2inlfigot33r23pkidx6ybeq1 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2inlfigot33r23pkidx6ybeq1" for relation "estado_veiculo_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_AUD add constraint FK_ayhrjia826gd8wlr7muiocvay foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_ayhrjia826gd8wlr7muiocvay" for relation "frete_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_viagem_AUD add constraint FK_5bleu1a1b00rjoiv2m5l0fdek foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_5bleu1a1b00rjoiv2m5l0fdek" for relation "frete_viagem_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_AUD add constraint FK_8trcwra4b3ijras23lplhesj2 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_8trcwra4b3ijras23lplhesj2" for relation "grupo_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.permissoes_usuario_AUD add constraint FK_t04gc0ar3ypivdonnui9ow9yr foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_t04gc0ar3ypivdonnui9ow9yr" for relation "permissoes_usuario_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_AUD add constraint FK_60l0k2heovo32g0qgigvo64jt foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_60l0k2heovo32g0qgigvo64jt" for relation "pessoa_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_fisica_AUD add constraint FK_p184p2n0hay0qgd1en61k9bog foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_p184p2n0hay0qgd1en61k9bog" for relation "pessoa_fisica_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_juridica_AUD add constraint FK_gktooi0vcjif8srsmvfbajduk foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_gktooi0vcjif8srsmvfbajduk" for relation "pessoa_juridica_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.produtos_frete_AUD add constraint FK_pxv06ul338x0qr568k2p30xf9 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_pxv06ul338x0qr568k2p30xf9" for relation "produtos_frete_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.unidade_AUD add constraint FK_54ee74sqsugxvo2dg70d7pjkd foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_54ee74sqsugxvo2dg70d7pjkd" for relation "unidade_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_AUD add constraint FK_6oba3a8pnwggj7ddhebhewru6 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_6oba3a8pnwggj7ddhebhewru6" for relation "usuario_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_grupos_AUD add constraint FK_kupmd0w38bvj1964tf3ff4n4 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_kupmd0w38bvj1964tf3ff4n4" for relation "usuario_grupos_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.veiculo_AUD add constraint FK_2l2mtqpci1s9jp0dswvfmc9lr foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2l2mtqpci1s9jp0dswvfmc9lr" for relation "veiculo_aud" already exists
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.viagem_AUD add constraint FK_rufe0ovxbwkto416kyhix41s2 foreign key (REV) references public.REVINFO
+2018-09-11 10:13:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_rufe0ovxbwkto416kyhix41s2" for relation "viagem_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.auditar_AUD add constraint FK_elbxkhcg3wneymwd4y1knhtww foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_elbxkhcg3wneymwd4y1knhtww" for relation "auditar_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.despesa_AUD add constraint FK_1bv46t1jiiyvme4now743hwde foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1bv46t1jiiyvme4now743hwde" for relation "despesa_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.endereco_AUD add constraint FK_1octn1iw2guo5xquj10xmqj3c foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_1octn1iw2guo5xquj10xmqj3c" for relation "endereco_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.enderecos_pessoa_AUD add constraint FK_cnlhih9h9a1cfo3s7r0jdfxwt foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_cnlhih9h9a1cfo3s7r0jdfxwt" for relation "enderecos_pessoa_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.erro_AUD add constraint FK_njhd30k3lhy1wa3nfausriool foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_njhd30k3lhy1wa3nfausriool" for relation "erro_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_frete_AUD add constraint FK_glkiwsc8h6xd7iph3dgrndjfi foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_glkiwsc8h6xd7iph3dgrndjfi" for relation "estado_frete_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.estado_veiculo_AUD add constraint FK_2inlfigot33r23pkidx6ybeq1 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2inlfigot33r23pkidx6ybeq1" for relation "estado_veiculo_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_AUD add constraint FK_ayhrjia826gd8wlr7muiocvay foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_ayhrjia826gd8wlr7muiocvay" for relation "frete_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.frete_viagem_AUD add constraint FK_5bleu1a1b00rjoiv2m5l0fdek foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_5bleu1a1b00rjoiv2m5l0fdek" for relation "frete_viagem_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_AUD add constraint FK_8trcwra4b3ijras23lplhesj2 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_8trcwra4b3ijras23lplhesj2" for relation "grupo_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.permissoes_usuario_AUD add constraint FK_t04gc0ar3ypivdonnui9ow9yr foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_t04gc0ar3ypivdonnui9ow9yr" for relation "permissoes_usuario_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_AUD add constraint FK_60l0k2heovo32g0qgigvo64jt foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_60l0k2heovo32g0qgigvo64jt" for relation "pessoa_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_fisica_AUD add constraint FK_p184p2n0hay0qgd1en61k9bog foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_p184p2n0hay0qgd1en61k9bog" for relation "pessoa_fisica_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.pessoa_juridica_AUD add constraint FK_gktooi0vcjif8srsmvfbajduk foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_gktooi0vcjif8srsmvfbajduk" for relation "pessoa_juridica_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.produtos_frete_AUD add constraint FK_pxv06ul338x0qr568k2p30xf9 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_pxv06ul338x0qr568k2p30xf9" for relation "produtos_frete_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.unidade_AUD add constraint FK_54ee74sqsugxvo2dg70d7pjkd foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_54ee74sqsugxvo2dg70d7pjkd" for relation "unidade_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_AUD add constraint FK_6oba3a8pnwggj7ddhebhewru6 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_6oba3a8pnwggj7ddhebhewru6" for relation "usuario_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.usuario_grupos_AUD add constraint FK_kupmd0w38bvj1964tf3ff4n4 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_kupmd0w38bvj1964tf3ff4n4" for relation "usuario_grupos_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.veiculo_AUD add constraint FK_2l2mtqpci1s9jp0dswvfmc9lr foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_2l2mtqpci1s9jp0dswvfmc9lr" for relation "veiculo_aud" already exists
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.viagem_AUD add constraint FK_rufe0ovxbwkto416kyhix41s2 foreign key (REV) references public.REVINFO
+2018-09-11 10:14:56 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_rufe0ovxbwkto416kyhix41s2" for relation "viagem_aud" already exists
+2018-09-11 10:15:29 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: insert or update on table "usuario_aud" violates foreign key constraint "fk_6oba3a8pnwggj7ddhebhewru6"
+  Detalhe: Key (rev)=(22) is not present in table "auditoria".
+2018-09-11 10:20:21 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 10:20:21 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:24:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:24:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:27:40 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:27:40 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:27:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:27:59 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:29:24 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:29:24 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:30:01 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:30:01 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:31:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:31:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:33:14 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:33:14 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:35:23 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:35:23 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:37:16 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:37:16 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 11:43:41 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 11:43:41 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:05:35 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:05:35 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:10:00 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:10:00 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:13:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:13:45 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:17:11 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:17:11 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:19:22 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:19:22 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:21:24 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:21:24 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:22:34 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:22:34 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:27:37 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  HHH000388: Unsuccessful: alter table public.grupo_acao_AUD add constraint FK_r1fdvwhmtcj2pmr7rxgb31lka foreign key (REV) references public.auditoria
+2018-09-11 13:27:37 ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate  ERROR: constraint "fk_r1fdvwhmtcj2pmr7rxgb31lka" for relation "grupo_acao_aud" already exists
+2018-09-11 13:33:06 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: insert or update on table "pessoa_fisica" violates foreign key constraint "fk_pessoa_fisica_ref_pessoa"
+  Detalhe: Key (ref_pessoa)=(0) is not present in table "pessoa".
+2018-09-11 13:33:28 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-09-11 13:36:03 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: insert or update on table "pessoa_fisica" violates foreign key constraint "fk_pessoa_fisica_ref_pessoa"
+  Detalhe: Key (ref_pessoa)=(0) is not present in table "pessoa".
+2018-09-11 13:36:41 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-09-11 13:39:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: duplicate key value violates unique constraint "pessoa_fisica_pkey"
+  Detalhe: Key (ref_pessoa)=(0) already exists.

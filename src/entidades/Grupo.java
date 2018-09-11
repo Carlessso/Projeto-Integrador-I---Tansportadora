@@ -1,5 +1,5 @@
 package entidades;
-// Generated 07/08/2018 15:26:29 by Hibernate Tools 4.3.1
+// Generated 11/09/2018 09:51:52 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,8 +15,9 @@ public class Grupo  implements java.io.Serializable {
 
      private int id;
      private String descricao;
-     private Set grupoProgramases = new HashSet(0);
      private Set usuarioGruposes = new HashSet(0);
+     private Set grupoAcaos = new HashSet(0);
+     private Set usuarios = new HashSet(0);
 
     public Grupo() {
     }
@@ -26,11 +27,12 @@ public class Grupo  implements java.io.Serializable {
         this.id = id;
         this.descricao = descricao;
     }
-    public Grupo(int id, String descricao, Set grupoProgramases, Set usuarioGruposes) {
+    public Grupo(int id, String descricao, Set usuarioGruposes, Set grupoAcaos, Set usuarios) {
        this.id = id;
        this.descricao = descricao;
-       this.grupoProgramases = grupoProgramases;
        this.usuarioGruposes = usuarioGruposes;
+       this.grupoAcaos = grupoAcaos;
+       this.usuarios = usuarios;
     }
    
     public int getId() {
@@ -47,19 +49,26 @@ public class Grupo  implements java.io.Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public Set getGrupoProgramases() {
-        return this.grupoProgramases;
-    }
-    
-    public void setGrupoProgramases(Set grupoProgramases) {
-        this.grupoProgramases = grupoProgramases;
-    }
     public Set getUsuarioGruposes() {
         return this.usuarioGruposes;
     }
     
     public void setUsuarioGruposes(Set usuarioGruposes) {
         this.usuarioGruposes = usuarioGruposes;
+    }
+    public Set getGrupoAcaos() {
+        return this.grupoAcaos;
+    }
+    
+    public void setGrupoAcaos(Set grupoAcaos) {
+        this.grupoAcaos = grupoAcaos;
+    }
+    public Set getUsuarios() {
+        return this.usuarios;
+    }
+    
+    public void setUsuarios(Set usuarios) {
+        this.usuarios = usuarios;
     }
 
 

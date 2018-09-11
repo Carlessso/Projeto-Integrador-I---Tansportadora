@@ -41,6 +41,7 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="transoft" match-schema="public"/>
+  <table-filter match-name="acao"/>
   <table-filter match-name="estado_frete"/>
   <table-filter match-name="programas"/>
   <table-filter match-name="usuario"/>
@@ -63,6 +64,6 @@ Contributor(s):
   <table-filter match-name="grupo"/>
   <table-filter match-name="veiculo"/>
   <table-filter match-name="estado_veiculo"/>
-  <table-filter match-name="grupo_programas"/>
+  <table-filter match-name="grupo_acao"/>
   <table-filter match-name="frete_viagem"/>
 </hibernate-reverse-engineering>

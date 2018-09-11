@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/08/2018 15:26:31 by Hibernate Tools 4.3.1 -->
+<!-- Generated 11/09/2018 09:51:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidades.Grupo" table="grupo" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -11,17 +11,23 @@
         <property name="descricao" type="string">
             <column name="descricao" length="30" not-null="true" />
         </property>
-        <set name="grupoProgramases" table="grupo_programas" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="ref_grupo" not-null="true" />
-            </key>
-            <one-to-many class="entidades.GrupoProgramas" />
-        </set>
         <set name="usuarioGruposes" table="usuario_grupos" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="ref_grupo" not-null="true" />
             </key>
             <one-to-many class="entidades.UsuarioGrupos" />
+        </set>
+        <set name="grupoAcaos" table="grupo_acao" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="ref_grupo" />
+            </key>
+            <one-to-many class="entidades.GrupoAcao" />
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_grupo" />
+            </key>
+            <one-to-many class="entidades.Usuario" />
         </set>
     </class>
 </hibernate-mapping>

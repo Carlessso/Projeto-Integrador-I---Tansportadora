@@ -16,11 +16,9 @@ import transoft.TranSOFT;
  * @author ramon
  */
 public class FrmLogin extends javax.swing.JFrame {
-
     /**
      * Creates new form FrmLogin
      */
-
     public FrmLogin() {
         initComponents();
     }
@@ -101,7 +99,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         Usuario u = UsuarioDao.validaLogin(tfdUsuario.getText(), new String(pwdSenha.getPassword()));
-        
+
         if (u != null) {
             TranSOFT.USUARIO = u;
             FrmPrincipal form = new FrmPrincipal();
@@ -140,7 +138,7 @@ public class FrmLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

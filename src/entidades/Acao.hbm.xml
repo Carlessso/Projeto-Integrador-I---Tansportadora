@@ -3,28 +3,25 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 11/09/2018 09:51:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entidades.Programas" table="programas" schema="public" optimistic-lock="version">
+    <class name="entidades.Acao" table="acao" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="identity" />
         </id>
+        <many-to-one name="programas" class="entidades.Programas" fetch="select" lazy="false">
+            <column name="ref_tela" />
+        </many-to-one>
         <property name="descricao" type="string">
-            <column name="descricao" length="45" not-null="true" />
+            <column name="descricao" />
         </property>
         <property name="variavel" type="string">
             <column name="variavel" />
         </property>
-        <set name="acaos" table="acao" inverse="true" lazy="true" fetch="select">
+        <set name="grupoAcaos" table="grupo_acao" inverse="true" lazy="false" fetch="select">
             <key>
-                <column name="ref_tela" />
+                <column name="ref_acao" />
             </key>
-            <one-to-many class="entidades.Acao" />
-        </set>
-        <set name="permissoesUsuarios" table="permissoes_usuario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="ref_programa" not-null="true" />
-            </key>
-            <one-to-many class="entidades.PermissoesUsuario" />
+            <one-to-many class="entidades.GrupoAcao" />
         </set>
     </class>
 </hibernate-mapping>

@@ -13,10 +13,15 @@ import daos.UnidadeDao;
 import entidades.Cidade;
 import entidades.ComboItens;
 import entidades.Endereco;
+import entidades.Programas;
 import entidades.Unidade;
+import java.awt.Component;
 import java.awt.Dimension;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import permissao.Controle;
 import util.FormataCampo;
 import util.Formatacao;
 
@@ -42,6 +47,11 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         inicializou = true;
         controlandoPais = false;
         endereco = new Endereco();
+        
+        Programas telaAtual = new Programas(0, "Unidade", "IfrUnidade");
+        
+        Controle.permissiona(jTabbedPane1, telaAtual);
+        
     }
 
     public void setPosicao() {
@@ -92,6 +102,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         setTitle("Cadastro de Unidades");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setName("btnSalvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -270,6 +281,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Cadastro", jPanel1);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setName("btnBuscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -298,6 +310,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblUnidades);
 
         btnEditar.setText("Editar");
+        btnEditar.setName("btnEditar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -305,6 +318,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setName("btnDeletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);

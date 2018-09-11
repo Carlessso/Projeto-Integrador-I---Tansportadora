@@ -1038,7 +1038,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             String mensagemAtualizar = "Sucesso";
             if (atual.getId() != 0) {
                 mensagemAtualizar = Dao.salvar(atual);
-            }
+            }            
 
             if (Dao.salvar(salvar).equals("Sucesso") && mensagemAtualizar.equals("Sucesso")) {
                 ftfCodigo.setEditable(false);
