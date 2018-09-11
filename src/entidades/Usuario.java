@@ -23,19 +23,21 @@ public class Usuario implements java.io.Serializable {
     private Set despesasForRefOperador = new HashSet(0);
     private Set fretes = new HashSet(0);
     private Set viagems = new HashSet(0);
+    private Grupo grupo;
 
     public Usuario() {
     }
 
-    public Usuario(int id, Pessoa pessoa, String login, String senha, boolean ativo) {
+    public Usuario(int id, Pessoa pessoa, String login, String senha, boolean ativo, Grupo grupo) {
         this.id = id;
         this.pessoa = pessoa;
         this.login = login;
         this.senha = senha;
         this.ativo = ativo;
+        this.grupo = grupo;
     }
 
-    public Usuario(int id, Pessoa pessoa, String login, String senha, boolean ativo, Set permissoesUsuarios, Set despesasForRefFuncionario, Set usuarioGruposes, Set erros, Set despesasForRefOperador, Set fretes, Set viagems) {
+    public Usuario(int id, Pessoa pessoa, String login, String senha, boolean ativo, Set permissoesUsuarios, Set despesasForRefFuncionario, Set usuarioGruposes, Set erros, Set despesasForRefOperador, Set fretes, Set viagems, Grupo grupo) {
         this.id = id;
         this.pessoa = pessoa;
         this.login = login;
@@ -48,6 +50,7 @@ public class Usuario implements java.io.Serializable {
         this.despesasForRefOperador = despesasForRefOperador;
         this.fretes = fretes;
         this.viagems = viagems;
+        this.grupo = grupo;
     }
 
     public int getId() {
@@ -145,5 +148,11 @@ public class Usuario implements java.io.Serializable {
     public void setViagems(Set viagems) {
         this.viagems = viagems;
     }
+    public Grupo getGrupo() {
+        return this.grupo;
+    }
 
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
 }

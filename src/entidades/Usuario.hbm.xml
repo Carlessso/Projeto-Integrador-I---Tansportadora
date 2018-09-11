@@ -62,5 +62,8 @@
             </key>
             <one-to-many class="entidades.Viagem" />
         </set>
+        <many-to-one name="grupo" class="entidades.Grupo" fetch="select"  lazy="false">
+            <column name="ref_grupo" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

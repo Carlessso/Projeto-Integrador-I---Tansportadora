@@ -6,9 +6,11 @@
 package telas;
 
 import daos.Dao;
+import daos.GrupoDao;
 import daos.PessoaDao;
 import daos.PessoaFisicaDao;
 import daos.UsuarioDao;
+import entidades.ComboItens;
 import entidades.Pessoa;
 import entidades.Usuario;
 import java.awt.Dimension;
@@ -28,6 +30,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
      */
     public IfrUsuario() {
         initComponents();
+        GrupoDao.populaCombo(cmbGrupos);
     }
 
     public void setPosicao() {
@@ -66,6 +69,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         pwdSenha = new javax.swing.JPasswordField();
         pwdConfirmarSenha = new javax.swing.JPasswordField();
         btnCancelar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cmbGrupos = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         tfdCriterio = new javax.swing.JTextField();
@@ -193,6 +198,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setText("<html>Grupo:<font color = red>*</font></html>");
+
+        cmbGrupos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -211,14 +220,16 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(chkAtivo)
                             .addComponent(tfdLogin)
                             .addComponent(tfdNome)
                             .addComponent(pwdSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(pwdConfirmarSenha))
+                            .addComponent(pwdConfirmarSenha)
+                            .addComponent(cmbGrupos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -243,12 +254,19 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkAtivo)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(chkAtivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnCancelar)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -403,7 +421,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             usuario.setSenha(new String(pwdSenha.getPassword()));
             usuario.setAtivo(chkAtivo.isSelected());
             usuario.setPessoa(pessoaSelecionada);
-
+            usuario.setGrupo(GrupoDao.buscaId(((ComboItens) cmbGrupos.getSelectedItem()).getCodigo()));
             if (Dao.salvar(usuario).equals("Sucesso")) {
                 JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
                 this.resetaCampos();
@@ -443,6 +461,13 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             pwdConfirmarSenha.setText(u.getSenha());
             chkAtivo.setSelected(u.isAtivo());
             tfdLogin.setEnabled(false);
+//            cmbGrupos.
+//            for (int i = 0; i < cmbGrupos.getItemCount(); i++) {
+//                if (cmbGrupos.getItemAt(i)) {
+//                    cmbGrupos.setSelectedIndex(i);
+//                    i = cmbGrupos.getItemCount();
+//                }
+//            }
             
             jTabbedPane1.setSelectedIndex(1);
         } catch (Exception e) {
@@ -501,6 +526,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbFiltro;
     private javax.swing.JComboBox<String> cbFiltroConsulta;
     private javax.swing.JCheckBox chkAtivo;
+    private javax.swing.JComboBox<String> cmbGrupos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -508,6 +534,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

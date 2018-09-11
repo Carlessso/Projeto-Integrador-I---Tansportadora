@@ -14,14 +14,20 @@ public class GrupoProgramas  implements java.io.Serializable {
      private int id;
      private Grupo grupo;
      private Programas programas;
+     private boolean incluir;
+     private boolean editar;
+     private boolean deletar;
 
     public GrupoProgramas() {
     }
 
-    public GrupoProgramas(int id, Grupo grupo, Programas programas) {
+    public GrupoProgramas(int id, Grupo grupo, Programas programas, boolean incluir, boolean editar, boolean deletar) {
        this.id = id;
        this.grupo = grupo;
        this.programas = programas;
+       this.incluir = incluir;
+       this.editar = editar;
+       this.deletar = deletar;
     }
    
     public int getId() {
@@ -46,7 +52,27 @@ public class GrupoProgramas  implements java.io.Serializable {
         this.programas = programas;
     }
 
-
+    public boolean isIncluir() {
+        return this.incluir;
+    }
+    
+    public void setIncluir(boolean incluir) {
+        this.incluir = incluir;
+    }
+    public boolean isEditar() {
+        return this.editar;
+    }
+    
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    public boolean isDeletar() {
+        return this.deletar;
+    }
+    
+    public void setDeletar(boolean deletar) {
+        this.deletar = deletar;
+    }
 
 
 }

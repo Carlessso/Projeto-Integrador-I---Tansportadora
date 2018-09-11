@@ -14,5 +14,14 @@
         <many-to-one name="programas" class="entidades.Programas" fetch="select">
             <column name="ref_programa" not-null="true" />
         </many-to-one>
+        <property name="incluir" type="boolean">
+            <column name="incluir" not-null="true" />
+        </property>
+        <property name="editar" type="boolean">
+            <column name="editar" not-null="true" />
+        </property>
+        <property name="deletar" type="boolean">
+            <column name="deletar" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

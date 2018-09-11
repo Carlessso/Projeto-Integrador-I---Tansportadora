@@ -2,3 +2,5 @@
 2018-08-27 20:58:47 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  This connection has been closed.
 2018-08-27 20:58:48 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  This connection has been closed.
 2018-08-27 20:58:48 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  This connection has been closed.
+2018-09-10 19:38:15 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Grupo, getter method of property: id
+2018-09-10 19:41:38 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Grupo, getter method of property: id
