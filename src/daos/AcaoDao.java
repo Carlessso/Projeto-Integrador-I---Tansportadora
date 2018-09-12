@@ -6,6 +6,7 @@
 package daos;
 
 import entidades.Acao;
+import entidades.GrupoAcao;
 import entidades.Programas;
 import java.util.List;
 import javax.swing.JTable;
@@ -39,7 +40,7 @@ public class AcaoDao {
         }
     }
     
-    public static void popularTabelaFiltro(JTable tabela, Programas programa) {
+    public static void popularTabelaFiltro(JTable tabela, Programas programa, int ref_grupo) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -69,6 +70,20 @@ public class AcaoDao {
                 dadosTabela[lin][0] = a.getId();
                 dadosTabela[lin][1] = a.getDescricao();
                 dadosTabela[lin][2] = false;
+                
+                if(ref_grupo > 0)
+                {
+                    Criteria crit2;
+                    crit2 = sessao.createCriteria(GrupoAcao.class);
+                    crit2.add(Restrictions.eq("grupo", GrupoDao.buscaId(ref_grupo)));
+                    crit2.add(Restrictions.eq("acao", a));
+                    
+                    if(crit2.uniqueResult() != null)
+                    {
+                        GrupoAcao ga = (GrupoAcao) crit2.uniqueResult();
+                        dadosTabela[lin][2] = ga.getPermissao();
+                    }
+                }
                 
                 lin++;
             }

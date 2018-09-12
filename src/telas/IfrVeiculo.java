@@ -8,12 +8,14 @@ package telas;
 import daos.Dao;
 import daos.EstadoVeiculoDao;
 import daos.VeiculoDao;
+import entidades.Programas;
 import entidades.Veiculo;
 import java.awt.Dimension;
 import java.math.BigDecimal;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import permissao.Controle;
 import util.FormataCampo;
 import util.Validacao;
 
@@ -31,6 +33,12 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
         cmbEstado.removeAllItems();
         EstadoVeiculoDao.populaCombo(cmbEstado);
         VeiculoDao.popularTabelaFiltro(tblVeiculos, "", "modelo");
+        btnSalvar.setName("btnSalvar");
+        btnDeletar.setName("btnDeletar");
+        btnBuscar.setName("btnBuscar");
+        btnEditar.setName("btnEditar");
+        Programas telaAtual = new Programas(0, "Veiculo", "IfrVeiculo");
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
@@ -97,6 +105,7 @@ public void setPosicao() {
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -182,6 +191,7 @@ public void setPosicao() {
         jTabbedPane1.addTab("Cadastro", jPanel1);
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -189,6 +199,7 @@ public void setPosicao() {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -196,6 +207,7 @@ public void setPosicao() {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);

@@ -357,7 +357,8 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
     private void tblProgramasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProgramasMouseClicked
         int idPrograma = Integer.parseInt(tblProgramas.getValueAt(tblProgramas.getSelectedRow(), 0) + "");
         Programas p = ProgramaDao.buscaId(idPrograma);
-        AcaoDao.popularTabelaFiltro(tblProgramasGrupo, p);
+               
+        AcaoDao.popularTabelaFiltro(tblProgramasGrupo, p, this.id);        
 
     }//GEN-LAST:event_tblProgramasMouseClicked
 
