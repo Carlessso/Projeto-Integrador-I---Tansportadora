@@ -23,6 +23,22 @@ import util.HibernateUtil;
  */
 public class AcaoDao {
     
+    public static Acao buscaId(int id) {
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Acao a = (Acao) sessao.get(Acao.class, id);
+            return a;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+
+            return null;
+        } finally {
+            sessao.close();
+        }
+    }
+    
     public static void popularTabelaFiltro(JTable tabela, Programas programa) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -46,7 +62,7 @@ public class AcaoDao {
             dadosTabela = new Object[dados.size()][3];
 
             int lin = 0;
-            System.out.println(dados.size());
+
             for (Object dado : dados) {
                 Acao a = (Acao) dado;
                 
@@ -68,6 +84,9 @@ public class AcaoDao {
             @Override
             // quando retorno for FALSE, a tabela nao é editavel
             public boolean isCellEditable(int row, int column) {
+                if (column == 2) {
+                    return true;
+                }
                 return false;
             }
 
@@ -76,7 +95,7 @@ public class AcaoDao {
             public Class getColumnClass(int column) {
 
                 if (column == 2) {
-                    //   return ImageIcon.class;
+                    return Boolean.class;
                 }
                 return Object.class;
             }

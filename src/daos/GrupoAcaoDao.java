@@ -5,6 +5,7 @@
  */
 package daos;
 
+import entidades.Acao;
 import entidades.Grupo;
 import entidades.GrupoAcao;
 import entidades.Programas;
@@ -16,10 +17,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import static org.hibernate.criterion.CriteriaSpecification.LEFT_JOIN;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import util.HibernateUtil;
@@ -30,7 +28,7 @@ import util.HibernateUtil;
  */
 public class GrupoAcaoDao {
     
-    public static void deletarTodos(Grupo grupo)
+    public static String deletarTodos(Grupo grupo)
     {
         Session sessao = null;
         try
@@ -43,7 +41,7 @@ public class GrupoAcaoDao {
             crit.add(Restrictions.eq("grupo", grupo));
             
             dados = crit.list();
-
+                
             for (Object dado : dados) {
                 GrupoAcao gp = (GrupoAcao) dado;
 
@@ -52,8 +50,46 @@ public class GrupoAcaoDao {
                 t.commit();
                            
             }
+            
+            return "Sucesso";
         } catch (HibernateException he) {
             he.printStackTrace();
+            return "Erro ao deletar";
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static String deletarAcaoGrupo(Grupo grupo, Acao acao)
+    {
+        Session sessao = null;
+        try
+            {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            List dados = null;
+            Criteria crit;
+
+            crit = sessao.createCriteria(GrupoAcao.class);
+            crit.add(Restrictions.eq("grupo", grupo));
+            crit.add(Restrictions.eq("acao", acao));
+            
+            dados = crit.list();
+            
+            System.out.println("deletados " + dados.size());
+                
+            for (Object dado : dados) {
+                GrupoAcao gp = (GrupoAcao) dado;
+
+                Transaction t = sessao.beginTransaction();
+                sessao.delete(gp);
+                t.commit();
+                           
+            }
+            
+            return "Sucesso";
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            return "Erro ao deletar";
         } finally {
             sessao.close();
         }
@@ -71,88 +107,6 @@ public class GrupoAcaoDao {
             return null;
         } finally {
             sessao.close();
-        }
-    }
-    public static void popularTabelaFiltro(JTable tabela, Grupo codigo, String filtro) {
-        // dados da tabela
-        Object[][] dadosTabela = null;
-
-        // cabecalho da tabela
-        Object[] cabecalho = new Object[3];
-        cabecalho[0] = "Id";
-        cabecalho[1] = "Ação";
-        cabecalho[2] = "Permitir";
-
-        Session sessao = null;
-        List dados = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Criteria crit;
-
-            crit = sessao.createCriteria(GrupoAcao.class);
-
-            dados = crit.list();
-
-            dadosTabela = new Object[dados.size()][3];
-
-            int lin = 0;
-            System.out.println(dados.size());
-            for (Object dado : dados) {
-                GrupoAcao ga = (GrupoAcao) dado;
-                
-                dadosTabela[lin][0] = ga.getId();
-                dadosTabela[lin][1] = ga.getAcao().getDescricao();
-                dadosTabela[lin][2] = ga.getPermissao();
-                
-                lin++;
-            }
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
-
-        // configuracoes adicionais no componente tabela
-        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
-            @Override
-            // quando retorno for FALSE, a tabela nao é editavel
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-
-            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
-            @Override
-            public Class getColumnClass(int column) {
-
-                if (column == 2) {
-                    //   return ImageIcon.class;
-                }
-                return Object.class;
-            }
-        });
-
-        // permite seleção de apenas uma linha da tabela
-        tabela.setSelectionMode(0);
-
-        // redimensiona as colunas de uma tabela
-        TableColumn column = null;
-        for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
-            switch (i) {
-                case 0:
-                    column.setPreferredWidth(50);
-                    column.setMaxWidth(50);
-                case 1:
-                    column.setPreferredWidth(140);
-                    break;
-                case 2:
-                    column.setPreferredWidth(70);
-                    break;
-                case 3:
-                    column.setPreferredWidth(25);
-                    break;
-            }
         }
     }
 

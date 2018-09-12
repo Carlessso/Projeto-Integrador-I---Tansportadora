@@ -7,8 +7,10 @@ package telas;
 
 import daos.Dao;
 import entidades.Auditar;
+import entidades.Programas;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import permissao.Controle;
 import transoft.TranSOFT;
 
 /**
@@ -23,6 +25,8 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
     public IfrAuditoria() {
         initComponents();
         chkAtivo.setSelected(TranSOFT.AUDITORIA);
+        Programas telaAtual = new Programas(0, "Auditoria", "IfrAuditoria");
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -49,6 +53,8 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jLabel1.setText("<html>Ativo:<font color = red>*</font></html>");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);

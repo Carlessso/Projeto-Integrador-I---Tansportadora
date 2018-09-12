@@ -35,6 +35,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
     private Endereco endereco;
     private boolean inicializou;
     private boolean controlandoPais;
+    private Programas telaAtual = new Programas(0, "Unidade", "IfrUnidade");
 
     /**
      * Creates new form IfrUnidade
@@ -47,8 +48,6 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         inicializou = true;
         controlandoPais = false;
         endereco = new Endereco();
-        
-        Programas telaAtual = new Programas(0, "Unidade", "IfrUnidade");
         
         Controle.permissiona(jTabbedPane1, telaAtual);
         
@@ -102,6 +101,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         setTitle("Cadastro de Unidades");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.setName("btnSalvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +281,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Cadastro", jPanel1);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.setName("btnBuscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,6 +311,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblUnidades);
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
         btnEditar.setName("btnEditar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +320,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
         });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
         btnDeletar.setName("btnDeletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,6 +442,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
                 UnidadeDao.popularTabelaFiltro(tblUnidades, "", "descricao");
                 endereco = new Endereco();
                 this.resetaCampos();
+                Controle.permissiona(jTabbedPane1, telaAtual);
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao cadastrar unidade!");
             }
@@ -450,6 +454,7 @@ public class IfrUnidade extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
+            btnSalvar.setEnabled(true);
             tfdDescricao.setText("");
             int idUnidade = Integer.parseInt(String.valueOf(tblUnidades.getValueAt(tblUnidades.getSelectedRow(), 0)));
             Unidade u;

@@ -266,3 +266,7 @@
 2018-09-11 13:36:41 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
 2018-09-11 13:39:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: duplicate key value violates unique constraint "pessoa_fisica_pkey"
   Detalhe: Key (ref_pessoa)=(0) already exists.
+2018-09-11 20:08:53 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
+2018-09-11 20:09:54 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
+2018-09-11 20:13:54 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
+2018-09-11 21:13:24 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
