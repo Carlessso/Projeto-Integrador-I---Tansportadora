@@ -12,9 +12,11 @@ import daos.PessoaFisicaDao;
 import daos.UsuarioDao;
 import entidades.ComboItens;
 import entidades.Pessoa;
+import entidades.Programas;
 import entidades.Usuario;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import permissao.Controle;
 
 /**
  *
@@ -24,6 +26,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
     private Pessoa pessoaSelecionada;
     private Usuario usuario;
+    private final Programas telaAtual = new Programas(0, "Usuário", "IfrUsuario");
 
     /**
      * Creates new form IfrUsuario
@@ -31,6 +34,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     public IfrUsuario() {
         initComponents();
         GrupoDao.populaCombo(cmbGrupos);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -110,6 +114,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
+        btnBuscar.setName("btnBuscar"); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -117,6 +123,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         });
 
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.setEnabled(false);
+        btnSelecionar.setName("btnSelecionar"); // NOI18N
         btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelecionarActionPerformed(evt);
@@ -181,6 +189,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -192,6 +202,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdNome.setEnabled(false);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.setName("btnCancelar"); // NOI18N
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -277,6 +289,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         cbFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Nome" }));
 
         btnConsultar.setText("Buscar");
+        btnConsultar.setEnabled(false);
+        btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
@@ -302,6 +316,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tblUsuario);
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.setName("btnConsultar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -468,7 +484,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 //                    i = cmbGrupos.getItemCount();
 //                }
 //            }
-            
+            btnSalvar.setEnabled(true);
+            btnCancelar.setEnabled(true);
             jTabbedPane1.setSelectedIndex(1);
         } catch (Exception e) {
             System.out.println(e);
@@ -513,6 +530,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         pessoaSelecionada = null;
         usuario = new Usuario();
         tfdLogin.setEnabled(true);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import daos.Dao;
 import daos.DespesaDao;
 import daos.UsuarioDao;
 import entidades.Despesa;
+import entidades.Programas;
 import entidades.Usuario;
 import java.awt.Dimension;
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import log4j.Log4J;
+import permissao.Controle;
 import util.Formatacao;
 import util.Validacao;
 
@@ -31,6 +33,7 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
     private int id = 0;
     private Usuario solicitante = null;
     Logger log = Logger.getLogger(Log4J.class.getName());
+    private final Programas telaAtual = new Programas(0, "Despesa", "IfrDespesa");
     /**
      * Creates new form IfrDespesa
      */
@@ -38,6 +41,7 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         initComponents();
         DespesaDao.popularTabelaFiltro(tblDespesas, tfdBuscarDespesa.getText(), "descricao");
         Validacao.formatarData(tfdData);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
     
     public void setPosicao() {
@@ -93,6 +97,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         jLabel4.setText("<html>Data:<font color = red>*</font></html>");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -155,6 +161,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         cbFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Nome" }));
 
         btnConsultar.setText("Buscar");
+        btnConsultar.setEnabled(false);
+        btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
@@ -226,6 +234,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblDespesas);
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.setName("btnEditar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -237,6 +247,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         cbFiltroConsulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Nome" }));
 
         btnBuscarDespesa.setText("Buscar");
+        btnBuscarDespesa.setEnabled(false);
+        btnBuscarDespesa.setName("btnBuscarDespesa"); // NOI18N
         btnBuscarDespesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDespesaActionPerformed(evt);
@@ -422,6 +434,7 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
         if (Dao.salvar(despesa).equals("Sucesso")) {
             id = 0;
             this.solicitante = null;
+            Controle.permissiona(jTabbedPane1, telaAtual);
             JOptionPane.showMessageDialog(this, "Despesa inserida com sucesso!");
             tfdDescricao.setText("");
             tfdMotivo.setText("");
@@ -454,6 +467,8 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             this.solicitante = d.getUsuarioByRefFuncionario();
 
             id = d.getId();
+            
+            btnSalvar.setEnabled(true);
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "Escolha a despesa a ser EDITADA!");

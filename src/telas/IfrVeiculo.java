@@ -25,6 +25,7 @@ import util.Validacao;
  */
 public class IfrVeiculo extends javax.swing.JInternalFrame {
     private int id = 0;
+    private final Programas telaAtual = new Programas(0, "Veiculo", "IfrVeiculo");
     /**
      * Creates new form IfrVeiculo
      */
@@ -37,7 +38,7 @@ public class IfrVeiculo extends javax.swing.JInternalFrame {
         btnDeletar.setName("btnDeletar");
         btnBuscar.setName("btnBuscar");
         btnEditar.setName("btnEditar");
-        Programas telaAtual = new Programas(0, "Veiculo", "IfrVeiculo");
+        
         Controle.permissiona(jTabbedPane1, telaAtual);
     }
 public void setPosicao() {
@@ -405,6 +406,7 @@ public void setPosicao() {
         if (Dao.salvar(veiculo).equals("Sucesso")) {
             id = 0;
             JOptionPane.showMessageDialog(this, "Veículo cadastrado com sucesso!");
+            Controle.permissiona(jTabbedPane1, telaAtual);
             this.resetaCampos();
             VeiculoDao.popularTabelaFiltro(tblVeiculos, "", "modelo");
         } else {
@@ -431,6 +433,7 @@ public void setPosicao() {
             tblVeiculos.clearSelection();
             jTabbedPane1.setSelectedIndex(0);
             id = v.getId();
+            btnSalvar.setEnabled(true);
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "Escolha o veículo a ser EDITADO!");

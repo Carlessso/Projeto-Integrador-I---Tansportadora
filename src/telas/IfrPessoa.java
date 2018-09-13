@@ -19,6 +19,7 @@ import entidades.EnderecosPessoa;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
+import entidades.Programas;
 import java.awt.Dimension;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import permissao.Controle;
 import util.FormataCampo;
 import util.Formatacao;
 import util.HibernateUtil;
@@ -50,6 +52,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private Endereco endereco = new Endereco();
     private boolean inicializou;
     private boolean controlandoPais;
+    private final Programas telaAtual = new Programas(0, "Pessoa", "IfrPessoa");
 
     public IfrPessoa() {
         inicializou = false;
@@ -59,6 +62,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         PaisDao.populaCombo(cmbPais, cmbEstado, cmbCidade);
         inicializou = true;
         controlandoPais = false;
+        Controle.permissiona(jTabbedPane4, telaAtual);
     }
 
     public void setPosicao() {
@@ -272,6 +276,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         lblAvisoData.setVisible(false);
 
         btnGravarPessoa.setText("Salvar");
+        btnGravarPessoa.setEnabled(false);
+        btnGravarPessoa.setName("btnGravarPessoa"); // NOI18N
         btnGravarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGravarPessoaActionPerformed(evt);
@@ -279,6 +285,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.setName("btnCancelar"); // NOI18N
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -474,6 +482,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         });
 
         btnGravarEndereco.setText("Salvar");
+        btnGravarEndereco.setEnabled(false);
+        btnGravarEndereco.setName("btnGravarEndereco"); // NOI18N
         btnGravarEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGravarEnderecoActionPerformed(evt);
@@ -481,6 +491,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         });
 
         btnCancelar2.setText("Cancelar");
+        btnCancelar2.setEnabled(false);
+        btnCancelar2.setName("btnCancelar2"); // NOI18N
         btnCancelar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelar2ActionPerformed(evt);
@@ -506,6 +518,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tblEndereco);
 
         btnEditarEnd.setText("Editar");
+        btnEditarEnd.setEnabled(false);
+        btnEditarEnd.setName("btnEditarEnd"); // NOI18N
         btnEditarEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarEndActionPerformed(evt);
@@ -513,6 +527,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
+        btnDeletar.setName("btnDeletar"); // NOI18N
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -638,6 +654,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
+        btnBuscar.setName("btnBuscar"); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -655,6 +673,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblPessoa);
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.setName("btnEditar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -790,6 +810,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             if (endereco.getId() == 0) {
                 if (Dao.salvar(endereco).equals("Sucesso") && Dao.salvar(enderecoPessoa).equals("Sucesso")) {
                     JOptionPane.showMessageDialog(this, "Endereço cadastrado com sucesso!");
+                    Controle.permissiona(jTabbedPane4, telaAtual);
                     EnderecoDao.popularTabelaEndereco(tblEndereco, atual);
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao cadastrar endereco!");
@@ -797,6 +818,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             } else {
                 if (Dao.salvar(endereco).equals("Sucesso")) {
                     JOptionPane.showMessageDialog(this, "Endereço editado com sucesso!");
+                    Controle.permissiona(jTabbedPane4, telaAtual);
                     EnderecoDao.popularTabelaEndereco(tblEndereco, atual);
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao editado endereco!");
@@ -997,7 +1019,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             ftfTelefone.setText(p.getTelefone());
 
             EnderecoDao.popularTabelaEndereco(tblEndereco, atual);
-
+            
+            btnGravarPessoa.setEnabled(true);
+            btnCancelar.setEnabled(true);
+            
             jTabbedPane4.setSelectedIndex(0);
         } catch (Exception e) {
             System.out.println(e);
@@ -1143,6 +1168,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     i = cmbCidade.getItemCount();
                 }
             }
+            
+            btnGravarEndereco.setEnabled(true);
+            btnCancelar2.setEnabled(true);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -1293,6 +1321,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         ftfCodigo.setEditable(true);
         radFisica.setEnabled(true);
         radJuridica.setEnabled(true);
+        Controle.permissiona(jTabbedPane4, telaAtual);
     }
 
     private void resetaEndereco() {
@@ -1303,6 +1332,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdBairro.setText("");
         tfdLogradouro.requestFocus();
         endereco = new Endereco();
+        Controle.permissiona(jTabbedPane4, telaAtual);
     }
 
     private void paraJuridica() {

@@ -18,7 +18,9 @@ import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import permissao.Controle;
 import transoft.TranSOFT;
+import util.Formatacao;
 
 /**
  *
@@ -29,6 +31,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     Object[] columns;
     private int id = 0;
+    private final Programas telaAtual = new Programas(0, "Grupos", "IfrGrupos");
 
     /**
      * Creates new form IfrGrupos
@@ -40,6 +43,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         tfdId.setEditable(false);
         ProgramaDao.popularTabelaFiltro(tblProgramas, "", "descricao");
         GrupoDao.popularTabelaFiltro(tblGrupos, "", "descricao");
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -70,6 +74,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProgramasGrupo = new javax.swing.JTable();
         btnSalvarPermissao = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -79,11 +84,18 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
 
         setTitle("Grupos");
 
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+
         jLabel1.setText("<html>Código:<font color = red>*</font></html>:");
 
         jLabel2.setText("<html>Grupo:<font color = red>*</font></html>");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -160,9 +172,18 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblProgramasGrupo);
 
         btnSalvarPermissao.setText("Salvar");
+        btnSalvarPermissao.setName("btnSalvarPermissao"); // NOI18N
         btnSalvarPermissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarPermissaoActionPerformed(evt);
+            }
+        });
+
+        btnFinalizar.setText("Finalizar");
+        btnFinalizar.setName("btnFinalizar"); // NOI18N
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
             }
         });
 
@@ -180,7 +201,9 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSalvarPermissao)))
+                        .addComponent(btnSalvarPermissao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFinalizar)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -190,16 +213,19 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addGap(64, 64, 64)
-                .addComponent(btnSalvarPermissao)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvarPermissao)
+                    .addComponent(btnFinalizar))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Permissões", jPanel3);
 
         btnEditar.setText("Editar");
+        btnEditar.setName("btnEditar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -207,6 +233,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setName("btnDeletar"); // NOI18N
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -303,6 +330,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         if (Dao.salvar(g).equals("Sucesso")) {
             JOptionPane.showMessageDialog(this, "Grupo cadastrado com sucesso!");
             tfdId.setText(g.getId() + "");
+            this.id = g.getId();
             GrupoDao.popularTabelaFiltro(tblGrupos, "", "descricao");
             jTabbedPane1.setSelectedIndex(1);
         } else {
@@ -322,9 +350,12 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
 
             tblGrupos.clearSelection();
             tblProgramas.clearSelection();
+            Formatacao.limpaTabela(tblProgramasGrupo);
 
             this.id = g.getId();
-
+            
+            btnSalvar.setEnabled(true);
+            
             jTabbedPane1.setSelectedIndex(0);
         } catch (Exception e) {
             System.out.println(e);
@@ -357,8 +388,8 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
     private void tblProgramasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProgramasMouseClicked
         int idPrograma = Integer.parseInt(tblProgramas.getValueAt(tblProgramas.getSelectedRow(), 0) + "");
         Programas p = ProgramaDao.buscaId(idPrograma);
-               
-        AcaoDao.popularTabelaFiltro(tblProgramasGrupo, p, this.id);        
+
+        AcaoDao.popularTabelaFiltro(tblProgramasGrupo, p, this.id);
 
     }//GEN-LAST:event_tblProgramasMouseClicked
 
@@ -366,7 +397,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         try {
             String mensagem = "Sucesso ao salvar permissões!";
             Acao a;
-            Grupo g = TranSOFT.USUARIO.getGrupo();
+            Grupo g = GrupoDao.buscaId(this.id);
 
             for (int i = 0; i < tblProgramasGrupo.getRowCount(); i++) {
                 int idAcao = (int) tblProgramasGrupo.getValueAt(i, 0);
@@ -383,11 +414,32 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSalvarPermissaoActionPerformed
 
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        if (jTabbedPane1.getSelectedIndex() == 1) {
+            if (this.id == 0) {
+                JOptionPane.showMessageDialog(this, "Escolha um Grupo para permissionar!");
+                jTabbedPane1.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        jTabbedPane1.setSelectedIndex(0);
+        this.id = 0;
+        tfdId.setText("");
+        tfdGrupo.setText("");
+        tblGrupos.clearSelection();
+        tblProgramas.clearSelection();
+        Formatacao.limpaTabela(tblProgramasGrupo);
+        Controle.permissiona(jTabbedPane1, telaAtual);
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarPermissao;
     private javax.swing.JLabel jLabel1;

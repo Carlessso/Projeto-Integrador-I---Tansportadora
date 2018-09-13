@@ -21,7 +21,7 @@ import transoft.TranSOFT;
  */
 public class Controle {
     public static void permissiona(JTabbedPane pane, Programas tela){
-        
+
         Set<GrupoAcao> grupoAcao = TranSOFT.USUARIO.getGrupo().getGrupoAcaos();
         ArrayList<GrupoAcao> ga = new ArrayList<>();
         

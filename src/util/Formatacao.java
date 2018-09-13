@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.*;
 
 public class Formatacao {
@@ -178,4 +179,12 @@ public class Formatacao {
     public static void formataJTextArea(JTextArea campo) {
         campo.setText(campo.getText().replaceAll("'", "").trim());
     }
+    
+    public static void limpaTabela(JTable tabela){
+        DefaultTableModel modelo;
+        modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        tabela.setModel(modelo);
+    }
+    
 }
