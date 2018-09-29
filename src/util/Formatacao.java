@@ -1,5 +1,6 @@
 package util;
 
+import java.sql.Timestamp;
 import java.text.*;
 import java.util.Date;
 import java.util.Locale;
@@ -171,6 +172,12 @@ public class Formatacao {
         Date date = (Date) format.parse(data);
         return date;
     }
+    
+    public static Date transformarParaDataHora(String data) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+        Date date = (Date) format.parse(data);
+        return date;
+    }
 
     public static void formataJTextField(JTextField campo) {
         campo.setText(campo.getText().replaceAll("'", "").trim());
@@ -187,4 +194,8 @@ public class Formatacao {
         tabela.setModel(modelo);
     }
     
+    public static Timestamp paraTimestamp(Date data){
+        System.out.println(new Timestamp(data.getTime()).getTime());
+        return new Timestamp(data.getTime());
+    }    
 }

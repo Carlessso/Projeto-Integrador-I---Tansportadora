@@ -270,3 +270,21 @@
 2018-09-11 20:09:54 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
 2018-09-11 20:13:54 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
 2018-09-11 21:13:24 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Acao, getter method of property: id
+2018-09-28 20:37:14 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: column "inicial" does not exist
+  Posição: 92
+2018-09-28 21:53:23 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: syntax error at or near ";"
+  Posição: 49
+2018-09-28 21:53:38 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: syntax error at or near ";"
+  Posição: 49
+2018-09-28 22:00:31 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: unterminated quoted string at or near "')"
+  Posição: 42
+2018-09-28 22:00:49 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: syntax error at or near "*"
+  Posição: 8
+2018-09-28 22:36:32 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: syntax error at or near "00"
+  Posição: 103
+2018-09-28 22:43:32 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: missing FROM-clause entry for table "a"
+  Posição: 29
+2018-09-28 22:49:30 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: missing FROM-clause entry for table "a"
+  Posição: 29
+2018-09-28 22:50:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: missing FROM-clause entry for table "a"
+  Posição: 29

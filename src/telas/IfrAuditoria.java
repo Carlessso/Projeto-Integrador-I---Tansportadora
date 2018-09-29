@@ -5,13 +5,16 @@
  */
 package telas;
 
+import daos.AuditarDao;
 import daos.Dao;
 import entidades.Auditar;
 import entidades.Programas;
 import java.awt.Dimension;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import permissao.Controle;
 import transoft.TranSOFT;
+import util.Formatacao;
 
 /**
  *
@@ -33,7 +36,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +51,12 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         chkAtivo = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnArquivar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        ftfInicio = new javax.swing.JFormattedTextField();
+        ftfFim = new javax.swing.JFormattedTextField();
         btnFechar = new javax.swing.JButton();
 
         jLabel1.setText("<html>Ativo:<font color = red>*</font></html>");
@@ -90,6 +99,82 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Cadastro", jPanel1);
 
+        btnArquivar.setText("Arquivar");
+        btnArquivar.setEnabled(false);
+        btnArquivar.setName("btnArquivar"); // NOI18N
+        btnArquivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArquivarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Inicio");
+
+        jLabel3.setText("Fim");
+
+        try {
+            ftfInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftfInicio.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        ftfInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftfInicioFocusLost(evt);
+            }
+        });
+
+        try {
+            ftfFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftfFim.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        ftfFim.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftfFimFocusLost(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 333, Short.MAX_VALUE)
+                        .addComponent(btnArquivar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftfFim, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftfInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(ftfInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ftfFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addComponent(btnArquivar)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Arquivar", jPanel2);
+
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,24 +206,24 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Auditar auditar = new Auditar(1, chkAtivo.isSelected());
-        
+
         boolean auditarAtual = TranSOFT.AUDITORIA;
-        
+
         TranSOFT.AUDITORIA = true;
-        
+
         if (Dao.salvar(auditar).equals("Sucesso")) {
-            
+
             TranSOFT.AUDITORIA = auditar.getAuditar();
-            
+
             if (chkAtivo.isSelected()) {
                 JOptionPane.showMessageDialog(this, "Auditoria ativada com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(this, "Auditoria desativada com sucesso!");
             }
         } else {
-            
+
             TranSOFT.AUDITORIA = auditarAtual;
-            
+
             JOptionPane.showMessageDialog(this, "Erro ao alterar auditoria!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -147,13 +232,64 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
+    private void ftfInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftfInicioFocusLost
+    }//GEN-LAST:event_ftfInicioFocusLost
+
+    private void ftfFimFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftfFimFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftfFimFocusLost
+
+    private void btnArquivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivarActionPerformed
+        String erro = "";
+        Date inicio = new Date();
+        Date fim = new Date();
+        try {
+            inicio = Formatacao.transformarParaData(ftfInicio.getText());
+            if (inicio.after(new Date(System.currentTimeMillis()))) {
+                erro = erro + "Data inicial inválida\n";
+            }
+        } catch (Exception e) {
+            erro = erro + "Data inicial inválida\n";
+            System.out.println(e);
+        }
+
+        try {
+            fim = Formatacao.transformarParaDataHora(ftfFim.getText() + " 23:59:59.999");
+        } catch (Exception e) {
+            erro = erro + "Data final inválida\n";
+            System.out.println(e);
+        }
+
+        if (erro.isEmpty()) {
+            if (inicio.after(fim)) {
+                erro = erro + "Data inicial depois da final\n";
+            }
+        }
+        
+        if (erro.isEmpty()) {
+            if (AuditarDao.arquivar(Formatacao.paraTimestamp(inicio), Formatacao.paraTimestamp(fim))) {
+                JOptionPane.showMessageDialog(this, "Sucesso ao arquivar auditoria!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao arquivar auditoria!");
+            }
+        } else{
+            JOptionPane.showMessageDialog(this, erro);
+        }
+    }//GEN-LAST:event_btnArquivarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArquivar;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chkAtivo;
+    private javax.swing.JFormattedTextField ftfFim;
+    private javax.swing.JFormattedTextField ftfInicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
