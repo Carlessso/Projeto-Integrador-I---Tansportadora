@@ -9,19 +9,15 @@ package daos;
  *
  * @author Matheus
  */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import entidades.Despesa;
-import entidades.Endereco;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import entidades.Pessoa;
+import entidades.PessoaFisica;
+import entidades.Unidade;
+import entidades.Veiculo;
+import entidades.Viagem;
 import java.util.List;
-import java.util.Scanner;
-import javax.swing.JComboBox;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -30,20 +26,17 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import util.Formatacao;
 import util.HibernateUtil;
 
-/**
- *
- * @author Ramon
- */
-public class DespesaDao extends Dao {
+public class ViagemDao {
 
-    public static Despesa buscaId(int id) {
+    public static Viagem buscaId(int id) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Despesa d = (Despesa) sessao.get(Despesa.class, id);
-            return d;
+            Viagem v = (Viagem) sessao.get(Viagem.class, id);
+            return v;
 
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -59,11 +52,12 @@ public class DespesaDao extends Dao {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[4];
+        Object[] cabecalho = new Object[5];
         cabecalho[0] = "Id";
-        cabecalho[1] = "Descrição";
-        cabecalho[2] = "Valor";
-        cabecalho[3] = "Data";
+        cabecalho[1] = "Origem";
+        cabecalho[2] = "Destino";
+        cabecalho[3] = "Motorista";
+        cabecalho[4] = "Veículo";
 
         Session sessao = null;
         List dados = null;
@@ -71,21 +65,21 @@ public class DespesaDao extends Dao {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Criteria crit;
 
-            crit = sessao.createCriteria(Despesa.class);
+            crit = sessao.createCriteria(Viagem.class);
 
-            crit.add(Restrictions.ilike(filtro, criterio, MatchMode.ANYWHERE));
             dados = crit.list();
 
-            dadosTabela = new Object[dados.size()][4];
+            dadosTabela = new Object[dados.size()][5];
 
             int lin = 0;
 
             for (Object dado : dados) {
-                Despesa d = (Despesa) dado;
-                dadosTabela[lin][0] = d.getId();
-                dadosTabela[lin][1] = d.getDescricao();
-                dadosTabela[lin][2] = d.getValor().toString();
-                dadosTabela[lin][3] = d.getData().toString();
+                Viagem v = (Viagem) dado;
+                dadosTabela[lin][0] = v.getId();
+                dadosTabela[lin][1] = v.getUnidadeByRefUnidadeOrigem().getDescricao();
+                dadosTabela[lin][2] = v.getUnidadeByRefUnidadeDestino().getDescricao();
+                dadosTabela[lin][3] = v.getUsuario().getPessoa().getNome();
+                dadosTabela[lin][4] = v.getVeiculo().getDescricao();
 
                 lin++;
             }
@@ -139,22 +133,8 @@ public class DespesaDao extends Dao {
         }
     }
 
-    public static void gravaArquivo(Despesa d) throws IOException {
-
-        Scanner ler = new Scanner(System.in);
-
-        FileWriter arq = new FileWriter("C:\\Users\\Matheus\\Documents\\Engenharia da computação\\java\\POO\\Projeto-Integrador-I---Tansportadora\\despesas\\despesa_"+d.getId()+".txt");
-        PrintWriter gravarArq = new PrintWriter(arq);
-
-        gravarArq.printf("Despesa de código: "+d.getId());
-        gravarArq.printf("\r\n\r\nDescrição: "+d.getDescricao());//descricao, valor, motivo, data, operador, funcionario
-        gravarArq.printf("\r\nValor: "+d.getValor());
-        gravarArq.printf("\r\nMotivo: "+d.getMotivo());
-        gravarArq.printf("\r\nData: "+d.getData());
-        gravarArq.printf("\r\nOperador: "+d.getUsuarioByRefOperador().getPessoa().getNome());
-        gravarArq.printf("\r\nFuncionário: "+d.getUsuarioByRefFuncionario().getPessoa().getNome());
+    public static void registrarChegada(int idViagem) 
+    {
         
-        arq.close();
     }
-
 }

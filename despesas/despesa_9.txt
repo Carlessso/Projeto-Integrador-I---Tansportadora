@@ -1,0 +1,8 @@
+Despesa de código: 9
+
+Descrição: adssdaasd
+Valor: 115.13
+Motivo: dsadsasd
+Data: Sun Aug 30 00:00:00 BRT 1998
+Operador: Juca bala
+Funcionário: Juca bala

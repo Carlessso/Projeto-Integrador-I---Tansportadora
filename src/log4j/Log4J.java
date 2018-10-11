@@ -7,6 +7,7 @@ package log4j;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import util.Server;
  
 /**
  *
@@ -16,7 +17,7 @@ public class Log4J {
  
 //initializing the logger
 static Logger log = Logger.getLogger(Log4J.class.getName());
- 
+static Server server;
 /**
  * @param args the command line arguments
  */
@@ -30,5 +31,15 @@ static Logger log = Logger.getLogger(Log4J.class.getName());
  log.error("This is an Error");
  log.fatal("This is a Fatal");
  
+ }
+ 
+ public static Server getServer()
+ {
+     if( server == null )
+     {
+         server = new Server();
+         server.start();
+     }
+     return server;
  }
 }

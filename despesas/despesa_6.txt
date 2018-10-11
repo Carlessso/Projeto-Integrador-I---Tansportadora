@@ -1,0 +1,1 @@
+Despesa de código: 6Descrição: TesteValor: 30.5Motivo: testandoarquivopaiData: Fri Oct 05 00:00:00 BRT 2018Operador: Juca balaFuncionário: Juca bala

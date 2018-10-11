@@ -5,7 +5,10 @@
  */
 package telas;
 
+import java.util.List;
+import javax.swing.JOptionPane;
 import transoft.TranSOFT;
+import util.Client;
 
 /**
  *
@@ -19,8 +22,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        
+        if (!client.isAlive()) {
+            client.start();
+        }
+        
     }
-
+    private static Client client = new Client() {
+        @Override
+        public void onRecive(Object data) throws Exception {
+            // o que ele deve fazer
+            notificarChegadaVeiculo();
+        }
+    };
+    
+    public static void notificarChegadaVeiculo() throws Exception {
+        TranSOFT.USUARIO.getGrupo().getGrupoAcaos();
+        JOptionPane.showMessageDialog(null, "Uma nova entrega chegou ao destino!");        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -273,7 +292,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-
+        IfrRegistrar IfrRegistrar = new IfrRegistrar();
+        jDesktopPane1.add(IfrRegistrar);
+        IfrRegistrar.setVisible(true);
+        IfrRegistrar.setPosicao();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed

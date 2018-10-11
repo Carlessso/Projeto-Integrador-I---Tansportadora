@@ -7,9 +7,12 @@ package telas;
 
 import daos.UsuarioDao;
 import entidades.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import transoft.TranSOFT;
+import util.MediaPlayer;
 
 /**
  *
@@ -101,6 +104,7 @@ public class FrmLogin extends javax.swing.JFrame {
         Usuario u = UsuarioDao.validaLogin(tfdUsuario.getText(), new String(pwdSenha.getPassword()));
 
         if (u != null) {
+                       
             TranSOFT.USUARIO = u;
             FrmPrincipal form = new FrmPrincipal();
             form.setExtendedState(JFrame.MAXIMIZED_BOTH);

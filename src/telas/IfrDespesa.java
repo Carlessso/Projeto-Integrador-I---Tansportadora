@@ -12,6 +12,7 @@ import entidades.Despesa;
 import entidades.Programas;
 import entidades.Usuario;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -440,6 +441,11 @@ public class IfrDespesa extends javax.swing.JInternalFrame {
             tfdMotivo.setText("");
             tfdData.setText("");
             tfdValor.setText("");
+            try {
+                DespesaDao.gravaArquivo(despesa);
+            } catch (IOException ex) {
+                Logger.getLogger(IfrDespesa.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar despesa!");
         }
