@@ -65,11 +65,9 @@ public class EnderecoDao extends Dao {
         }
     }
 
-    public static void populaCombo(JComboBox combo) {
+    public static void populaCombo(JComboBox combo, Pessoa p) {
         ComboItens item = new ComboItens();
-        item.setCodigo(0);
-        item.setDescricao("Selecione");
-        combo.addItem(item);
+        combo.removeAllItems();
 
         Session sessao = null;
         try {
@@ -77,20 +75,21 @@ public class EnderecoDao extends Dao {
             Criteria crit = null;
 
             crit = sessao.createCriteria(Endereco.class);
-
+            crit.createCriteria("enderecosPessoas").add(Restrictions.eq("pessoa", p));
+            
             List dados = crit.list();
 
             for (Object dado : dados) {
                 Endereco e = (Endereco) dado;
                 item = new ComboItens();
                 item.setCodigo(e.getId());
-                item.setDescricao(e.getCidade().getNome());
+                item.setDescricao(e.getCidade().getNome() + ", " + e.getBairro() + ", nº " + e.getNumero());
 
                 combo.addItem(item);
             }
 
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 

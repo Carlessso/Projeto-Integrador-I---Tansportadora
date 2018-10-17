@@ -288,3 +288,12 @@
   Posição: 29
 2018-09-28 22:50:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: missing FROM-clause entry for table "a"
   Posição: 29
+2018-10-17 10:01:08 ERROR org.hibernate.internal.util.xml.ErrorLogger  HHH000196: Error parsing XML (2) : O atributo "tch" deve ser declarado para o tipo de elemento "many-to-one".
+2018-10-17 10:01:08 ERROR org.hibernate.internal.util.xml.ErrorLogger  HHH000196: Error parsing XML (2) : O atributo "tch" deve ser declarado para o tipo de elemento "many-to-one".
+2018-10-17 11:39:19 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-17 15:24:55 ERROR org.hibernate.internal.util.xml.ErrorLogger  HHH000196: Error parsing XML (2) : O atributo "lazy" com o valor "true" deve ter um valor da lista "false proxy no-proxy ".
+2018-10-17 15:24:55 ERROR org.hibernate.internal.util.xml.ErrorLogger  HHH000196: Error parsing XML (2) : O atributo "lazy" com o valor "true" deve ter um valor da lista "false proxy no-proxy ".
+2018-10-17 15:30:19 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-17 15:32:07 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-17 15:34:07 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-17 16:04:41 ERROR util.ClientWS         java.lang.NullPointerException
