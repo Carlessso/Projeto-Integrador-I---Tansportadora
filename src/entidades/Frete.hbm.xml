@@ -47,5 +47,14 @@
             </key>
             <one-to-many class="entidades.ProdutosFrete" />
         </set>
+        <property name="quilometragem" type="string">
+            <column name="quilometragem" length="100" not-null="false" />
+        </property>
+        <property name="metragem" type="int">
+            <column name="metragem" not-null="false" />
+        </property>
+        <property name="tempo" type="string">
+            <column name="tempo" length="150" not-null="false" />
+        </property>
     </class>
 </hibernate-mapping>

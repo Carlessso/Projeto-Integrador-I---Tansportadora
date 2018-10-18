@@ -16,6 +16,14 @@ public class Quilometragem {
     private int metragem;
     private String tempo;
     
+    public Quilometragem(){
+        this.origem = "";
+        this.destino = "";
+        this.quilometragem = "";
+        this.tempo = "";
+        this.metragem = 0;
+    }
+    
     public Quilometragem(String origem, String destino, String quilometragem, String tempo, int metragem){
         this.origem = origem;
         this.destino = destino;

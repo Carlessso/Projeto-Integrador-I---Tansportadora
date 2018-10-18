@@ -27,12 +27,15 @@ public class Frete  implements java.io.Serializable {
      private Date dataEntrega;
      private Set freteViagems = new HashSet(0);
      private Set produtosFretes = new HashSet(0);
+     private String quilometragem;
+     private int metragem;
+     private String tempo;
 
     public Frete() {
     }
 
 	
-    public Frete(int id, Endereco endereco, EstadoFrete estadoFrete, Pessoa pessoaByRefDetinatario, Pessoa pessoaByRefSolicitante, Unidade unidade, Usuario usuario, BigDecimal valor, Date dataPedido) {
+    public Frete(int id, Endereco endereco, EstadoFrete estadoFrete, Pessoa pessoaByRefDetinatario, Pessoa pessoaByRefSolicitante, Unidade unidade, Usuario usuario, BigDecimal valor, Date dataPedido, String quilometragem, int metragem, String tempo) {
         this.id = id;
         this.endereco = endereco;
         this.estadoFrete = estadoFrete;
@@ -42,8 +45,11 @@ public class Frete  implements java.io.Serializable {
         this.usuario = usuario;
         this.valor = valor;
         this.dataPedido = dataPedido;
+        this.quilometragem = quilometragem;
+        this.metragem = metragem;
+        this.tempo = tempo;
     }
-    public Frete(int id, Endereco endereco, EstadoFrete estadoFrete, Pessoa pessoaByRefDetinatario, Pessoa pessoaByRefSolicitante, Unidade unidade, Usuario usuario, BigDecimal valor, Date dataPedido, Date dataEntrega, Set freteViagems, Set produtosFretes) {
+    public Frete(int id, Endereco endereco, EstadoFrete estadoFrete, Pessoa pessoaByRefDetinatario, Pessoa pessoaByRefSolicitante, Unidade unidade, Usuario usuario, BigDecimal valor, Date dataPedido, Date dataEntrega, Set freteViagems, Set produtosFretes, String quilometragem, int metragem, String tempo) {
        this.id = id;
        this.endereco = endereco;
        this.estadoFrete = estadoFrete;
@@ -56,6 +62,9 @@ public class Frete  implements java.io.Serializable {
        this.dataEntrega = dataEntrega;
        this.freteViagems = freteViagems;
        this.produtosFretes = produtosFretes;
+       this.quilometragem = quilometragem;
+       this.metragem = metragem;
+       this.tempo = tempo;
     }
    
     public int getId() {
@@ -141,6 +150,48 @@ public class Frete  implements java.io.Serializable {
     
     public void setProdutosFretes(Set produtosFretes) {
         this.produtosFretes = produtosFretes;
+    }
+
+    /**
+     * @return the quilometragem
+     */
+    public String getQuilometragem() {
+        return quilometragem;
+    }
+
+    /**
+     * @param quilometragem the quilometragem to set
+     */
+    public void setQuilometragem(String quilometragem) {
+        this.quilometragem = quilometragem;
+    }
+
+    /**
+     * @return the metragem
+     */
+    public int getMetragem() {
+        return metragem;
+    }
+
+    /**
+     * @param metragem the metragem to set
+     */
+    public void setMetragem(int metragem) {
+        this.metragem = metragem;
+    }
+
+    /**
+     * @return the tempo
+     */
+    public String getTempo() {
+        return tempo;
+    }
+
+    /**
+     * @param tempo the tempo to set
+     */
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
     }
 
 

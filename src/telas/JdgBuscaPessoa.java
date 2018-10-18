@@ -53,7 +53,7 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
         cbFiltro = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,7 +166,12 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Busca", jPanel1);
 
-        jButton1.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,7 +179,7 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnCancelar)
                 .addContainerGap())
             .addComponent(jTabbedPane1)
         );
@@ -183,7 +188,7 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnCancelar)
                 .addContainerGap())
         );
 
@@ -228,6 +233,10 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione a Pessoa!");
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,9 +286,9 @@ public class JdgBuscaPessoa extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JComboBox<String> cbFiltro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

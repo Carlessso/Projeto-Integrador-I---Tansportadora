@@ -7,19 +7,20 @@ package telas;
 
 import daos.EnderecoDao;
 import daos.EstadoFreteDao;
+import daos.FreteDao;
+import daos.ProdutosFreteDao;
 import entidades.ComboItens;
 import entidades.Endereco;
-import entidades.EnderecosPessoa;
+import entidades.Frete;
 import entidades.Pessoa;
+import entidades.ProdutosFrete;
 import entidades.Quilometragem;
 import java.awt.Dimension;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigDecimal;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import transoft.TranSOFT;
 import util.ClientWS;
 import util.FormataCampo;
 import util.Formatacao;
@@ -32,6 +33,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
     private Pessoa remetente;
     private Pessoa destinatario;
+    private int linhaProduto;
+    private Quilometragem quilometragem;
 
     /**
      * Creates new form IfrFrete
@@ -41,6 +44,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         EstadoFreteDao.populaCombo(cbEstado);
         this.remetente = null;
         this.destinatario = null;
+        this.linhaProduto = -1;
+        this.quilometragem = new Quilometragem();
     }
 
     public void setPosicao() {
@@ -81,9 +86,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         tfdValorProduto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tfdPeso = new javax.swing.JTextField();
-        btnAdicionar = new javax.swing.JButton();
+        btnSalvarProduto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProduto = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -91,6 +96,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         tfdTempo = new javax.swing.JTextField();
         btnFechar = new javax.swing.JButton();
+
+        setTitle("Cadastro de Frete");
 
         jLabel1.setText("<html>Remetente:<font color = red>*</font></html>");
 
@@ -108,6 +115,12 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
         tfdDestinatario.setEnabled(false);
 
+        cbEndDestinatario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEndDestinatarioActionPerformed(evt);
+            }
+        });
+
         btnSelecionarRemetente.setText("Selecionar");
         btnSelecionarRemetente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +135,18 @@ public class IfrFrete extends javax.swing.JInternalFrame {
             }
         });
 
+        tfdValorFrete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfdValorFreteKeyTyped(evt);
+            }
+        });
+
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("<html>Produto:<font color = red>*</font></html>");
 
@@ -138,14 +162,20 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
         jLabel10.setText("<html>Peso:<font color = red>*</font></html>");
 
-        btnAdicionar.setText("Adicionar");
-        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarActionPerformed(evt);
+        tfdPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfdPesoKeyTyped(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btnSalvarProduto.setText("Salvar");
+        btnSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarProdutoActionPerformed(evt);
+            }
+        });
+
+        tblProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,7 +191,13 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblProduto);
+        if (tblProduto.getColumnModel().getColumnCount() > 0) {
+            tblProduto.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tblProduto.getColumnModel().getColumn(2).setPreferredWidth(125);
+            tblProduto.getColumnModel().getColumn(3).setPreferredWidth(125);
+        }
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -200,9 +236,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfdRemetente)
-                                    .addComponent(cbEndRemetente, 0, 242, Short.MAX_VALUE)
+                                    .addComponent(cbEndRemetente, 0, 311, Short.MAX_VALUE)
                                     .addComponent(tfdDestinatario)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
@@ -240,7 +276,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                                 .addComponent(btnSalvar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnAdicionar)
+                                    .addComponent(btnSalvarProduto)
                                     .addComponent(btnSelecionarDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                     .addComponent(btnSelecionarRemetente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -291,7 +327,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                     .addComponent(tfdValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar))
+                    .addComponent(btnSalvarProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -337,31 +373,43 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFechar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void btnSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProdutoActionPerformed
+        String erro = validarProduto();
+        if (erro.isEmpty()) {
+            if (this.linhaProduto < 0) {
+                DefaultTableModel model = (DefaultTableModel) tblProduto.getModel();
 
-        Object[] linha = {"", tfdDescricao.getText(), tfdValorProduto.getText(), tfdPeso.getText()};
+                Object[] linha = {"", tfdDescricao.getText(), tfdValorProduto.getText(), tfdPeso.getText()};
 
-        model.addRow(linha);
+                model.addRow(linha);
+            } else {
+                tblProduto.setValueAt(tfdDescricao.getText(), 0, 1);
+                tblProduto.setValueAt(tfdValorProduto.getText(), 0, 2);
+                tblProduto.setValueAt(tfdPeso.getText(), 0, 3);
 
-        calculaValor();
-        
-        tfdDescricao.setText("");
-        tfdValorProduto.setText("");
-        tfdPeso.setText("");
-    }//GEN-LAST:event_btnAdicionarActionPerformed
+                this.linhaProduto = -1;
+            }
+            calculaValor();
+
+            tfdDescricao.setText("");
+            tfdValorProduto.setText("");
+            tfdPeso.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, erro);
+        }
+    }//GEN-LAST:event_btnSalvarProdutoActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        if (jTable1.getSelectedRow() >= 0) {
-            model.removeRow(jTable1.getSelectedRow());
-            jTable1.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) tblProduto.getModel();
+        if (tblProduto.getSelectedRow() >= 0) {
+            model.removeRow(tblProduto.getSelectedRow());
+            tblProduto.setModel(model);
         } else {
             JOptionPane.showMessageDialog(null, "Favor selecionar um produto para remover!");
         }
@@ -369,10 +417,11 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (jTable1.getSelectedRow() >= 0) {
-            tfdDescricao.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
-            tfdValorProduto.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
-            tfdPeso.setText(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3)));
+        if (tblProduto.getSelectedRow() >= 0) {
+            this.linhaProduto = tblProduto.getSelectedRow();
+            tfdDescricao.setText(String.valueOf(tblProduto.getValueAt(tblProduto.getSelectedRow(), 1)));
+            tfdValorProduto.setText(String.valueOf(tblProduto.getValueAt(tblProduto.getSelectedRow(), 2)));
+            tfdPeso.setText(String.valueOf(tblProduto.getValueAt(tblProduto.getSelectedRow(), 3)));
         } else {
             JOptionPane.showMessageDialog(null, "Favor selecionar um produto para editar!");
         }
@@ -387,8 +436,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
             this.remetente = p;
             tfdRemetente.setText(p.getNome());
             EnderecoDao.populaCombo(cbEndRemetente, this.remetente);
+        } else {
+            calculaValor();
         }
-        calculaValor();
     }//GEN-LAST:event_btnSelecionarRemetenteActionPerformed
 
     private void btnSelecionarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarDestinatarioActionPerformed
@@ -412,57 +462,150 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         FormataCampo.formataValor(tfdValorProduto, evt);
     }//GEN-LAST:event_tfdValorProdutoKeyTyped
 
-    private void calculaValor() {
-        if (validarDados().isEmpty()) {
-            Quilometragem quilometragem;
-            try {
-                Endereco endRemetente = EnderecoDao.buscaId(((ComboItens) cbEndRemetente.getSelectedItem()).getCodigo());
-                Endereco endDestinatario = EnderecoDao.buscaId(((ComboItens) cbEndDestinatario.getSelectedItem()).getCodigo());
-                quilometragem = ClientWS.quilometragemXML(ClientWS.recebeWS(endRemetente.getCep(), endDestinatario.getCep()));
-                tfdDistancia.setText(quilometragem.getQuilometragem());
-                tfdTempo.setText(quilometragem.getTempo());
+    private void tfdPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdPesoKeyTyped
+        FormataCampo.formataValor(tfdPeso, evt);
+    }//GEN-LAST:event_tfdPesoKeyTyped
 
-                Double valor;
-                valor = 0.00003 * quilometragem.getMetragem();
-                if (valor < 20) {
-                    valor = 20.0;
-                }
-                for (int i = 0; i < jTable1.getRowCount(); i++) {
-                    Double peso = Double.parseDouble(jTable1.getValueAt(i, 3).toString());
-                    valor = valor + peso * 2;
-                }
+    private void tfdValorFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdValorFreteKeyTyped
+        FormataCampo.formataValor(tfdValorFrete, evt);
+    }//GEN-LAST:event_tfdValorFreteKeyTyped
 
-                tfdValorFrete.setText(Formatacao.formatarDecimal(valor));
-            } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Erro na verificação da quilometragem, defina o valor manualmente!");
+    private void cbEndDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEndDestinatarioActionPerformed
+        calculaValor();
+    }//GEN-LAST:event_cbEndDestinatarioActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String erro = validarDados();
+
+        if (tfdValorFrete.getText().isEmpty()) {
+            erro = erro + "Insira o valor do frete!";
+        }
+
+        if (erro.isEmpty()) {
+            Frete f = new Frete();
+            f.setUnidade(TranSOFT.UNIDADE);
+            f.setEndereco(EnderecoDao.buscaId(((ComboItens) cbEndDestinatario.getSelectedItem()).getCodigo()));
+            f.setPessoaByRefSolicitante(remetente);
+            f.setPessoaByRefDetinatario(destinatario);
+            f.setUsuario(TranSOFT.USUARIO);
+            f.setValor(BigDecimal.valueOf(Double.parseDouble(tfdValorFrete.getText().replace(',', '.'))));
+            f.setDataPedido(new Date());
+            f.setEstadoFrete(EstadoFreteDao.buscaId(((ComboItens) cbEstado.getSelectedItem()).getCodigo()));
+            f.setQuilometragem(quilometragem.getQuilometragem());
+            f.setMetragem(quilometragem.getMetragem());
+            f.setTempo(quilometragem.getTempo());
+
+            if (FreteDao.salvar(f).equals("Sucesso")) {
+                for (int i = 0; i < tblProduto.getRowCount(); i++) {
+                    ProdutosFrete p = new ProdutosFrete();
+                    String id = String.valueOf(tblProduto.getValueAt(i, 0));
+                    if (!id.isEmpty()) {
+                        p.setId(Integer.parseInt(id));
+                    }
+                    p.setDescricao(String.valueOf(tblProduto.getValueAt(i, 1)));
+                    p.setValor(BigDecimal.valueOf(Double.parseDouble(String.valueOf(tblProduto.getValueAt(i, 2)).replace(',', '.'))));
+                    p.setPeso(BigDecimal.valueOf(Double.parseDouble(String.valueOf(tblProduto.getValueAt(i, 3)).replace(',', '.'))));
+                    p.setFrete(f);
+                    if (ProdutosFreteDao.salvar(p).equals("Erro ao salvar")) {
+                        erro = erro + "Erro ao salvar o produto: " + p.getDescricao() + "\n";
+                    }
+                }
+                if (erro.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Sucesso ao salvar Frete!");
+                    limparDados();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar Frete!\n" + erro);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar Frete!");
             }
         }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void calculaValor() {
+        if (validarDados().isEmpty()) {
+            Endereco endOrigem = TranSOFT.UNIDADE.getEndereco();
+            Endereco endDestinatario = EnderecoDao.buscaId(((ComboItens) cbEndDestinatario.getSelectedItem()).getCodigo());
+            this.quilometragem = ClientWS.quilometragemXML(ClientWS.recebeWS(endOrigem.getCep(), endDestinatario.getCep()));
+
+            tfdDistancia.setText(quilometragem.getQuilometragem());
+            tfdTempo.setText(quilometragem.getTempo());
+
+            Double valor;
+            valor = 0.00003 * quilometragem.getMetragem();
+            if (valor < 20) {
+                valor = 20.0;
+            }
+            for (int i = 0; i < tblProduto.getRowCount(); i++) {
+                Double peso = Double.parseDouble(tblProduto.getValueAt(i, 3).toString().replace(',', '.'));
+                valor = valor + peso * 2;
+            }
+
+            tfdValorFrete.setText(Formatacao.formatarDecimal(valor));
+
+            if (this.quilometragem.getOrigem().isEmpty()) {
+                tfdValorFrete.setText("");
+                JOptionPane.showMessageDialog(this, "Erro na verificação da quilometragem, defina o valor manualmente!");
+            }
+        }
+    }
+
+    private String validarProduto() {
+        String erro = "";
+        if (tfdDescricao.getText().trim().isEmpty()) {
+            erro = erro + "Insira a descrição do produto!\n";
+        }
+        if (tfdValorProduto.getText().isEmpty()) {
+            erro = erro + "Insira o valor do produto!\n";
+        }
+        if (tfdPeso.getText().isEmpty()) {
+            erro = erro + "Insira o peso do produto!\n";
+        }
+
+        return erro;
     }
 
     private String validarDados() {
         String erro = "";
 
-        if (cbEndRemetente.getItemCount() < 0) {
+        if (cbEndRemetente.getItemCount() == 0) {
             erro = erro + "Remetente sem endereço!\n";
         }
 
-        if (cbEndDestinatario.getItemCount() < 0) {
+        if (cbEndDestinatario.getItemCount() == 0) {
             erro = erro + "Destinatário sem endereço!\n";
         }
 
-        if (jTable1.getRowCount() == 0) {
+        if (tblProduto.getRowCount() == 0) {
             erro = erro + "Insira algum produto!\n";
         }
 
         return erro;
     }
 
+    private void limparDados() {
+        tfdRemetente.setText("");
+        tfdDestinatario.setText("");
+        DefaultTableModel model = (DefaultTableModel) tblProduto.getModel();
+        model.setRowCount(0);
+        tblProduto.setModel(model);
+        tfdDistancia.setText("");
+        tfdTempo.setText("");
+        tfdValorFrete.setText("");
+        cbEndRemetente.removeAllItems();
+        cbEndDestinatario.removeAllItems();
+        this.remetente = null;
+        this.destinatario = null;
+        this.linhaProduto = -1;
+        this.quilometragem = new Quilometragem();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvarProduto;
     private javax.swing.JButton btnSelecionarDestinatario;
     private javax.swing.JButton btnSelecionarRemetente;
     private javax.swing.JComboBox<ComboItens> cbEndDestinatario;
@@ -483,7 +626,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblProduto;
     private javax.swing.JTextField tfdDescricao;
     private javax.swing.JTextField tfdDestinatario;
     private javax.swing.JTextField tfdDistancia;

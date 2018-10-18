@@ -10,6 +10,7 @@ import entidades.EstadoFrete;
 import java.util.List;
 import javax.swing.JComboBox;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
@@ -18,6 +19,22 @@ import util.HibernateUtil;
  * @author ramon
  */
 public class EstadoFreteDao extends Dao {
+    
+    public static EstadoFrete buscaId(int id) {
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            EstadoFrete ef = (EstadoFrete) sessao.get(EstadoFrete.class, id);
+            return ef;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+
+            return null;
+        } finally {
+            sessao.close();
+        }
+    }
     
     public static void populaCombo(JComboBox grupo) {
         ComboItens item;

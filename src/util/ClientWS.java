@@ -8,11 +8,13 @@ package util;
 import entidades.Quilometragem;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.xml.sax.InputSource;
@@ -29,7 +31,11 @@ public class ClientWS {
 
     public static String recebeWS(String origem, String destino) {
         try {
-            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + origem + "&destinations=" + destino + "&mode=driving&language=pt-BR&sensor=false&key={chaveGoogle}");
+            Properties prop = new Properties();
+            prop.load(new FileInputStream("conf.properties"));
+            String chave = prop.getProperty("api.chave");
+            
+            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + origem + "&destinations=" + destino + "&mode=driving&language=pt-BR&sensor=false&key=" + chave);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -76,7 +82,7 @@ public class ClientWS {
         } catch (Exception e) {
             Logger log = Logger.getLogger(ClientWS.class.getName());
             log.log(Level.ERROR, e);
-            return null;
+            return new Quilometragem();
         }
     }
 }
