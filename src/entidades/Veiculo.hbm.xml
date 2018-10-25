@@ -20,6 +20,9 @@
         <property name="ano" type="string">
             <column name="ano" length="45" not-null="true" />
         </property>
+        <property name="imagem" type="byte[]">
+            <column name="imagem"/>
+        </property>
         <property name="capacidade" type="big_decimal">
             <column name="capacidade" precision="10" not-null="true" />
         </property>

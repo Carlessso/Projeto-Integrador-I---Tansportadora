@@ -37,7 +37,7 @@ public class ConfigurationManager
             {
                 properties = new Properties();
 
-                InputStream fileInputStream = new FileInputStream( "application.properties"  );
+                InputStream fileInputStream = new FileInputStream( "conf.properties"  );
 
                 properties.load( fileInputStream );
 

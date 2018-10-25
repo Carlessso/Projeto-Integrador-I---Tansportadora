@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import transoft.TranSOFT;
 import util.Client;
+import util.MailManager;
 
 /**
  *
@@ -38,7 +39,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
     
     public static void notificarChegadaVeiculo() throws Exception {
         TranSOFT.USUARIO.getGrupo().getGrupoAcaos();
-        JOptionPane.showMessageDialog(null, "Uma nova entrega chegou ao destino!");        
+        JOptionPane.showMessageDialog(null, "Uma nova entrega chegou ao destino!");
+        enviarEmailCliente();
+    }
+    
+    public static void enviarEmailCliente() throws Exception
+    {        
+        MailManager mail = MailManager.getInstance();
+        
+        mail.setHtml( "<html>"+
+                            "<body>" +
+                                "<h1> A sua entrega chegou ao destino!</h1>" +
+                            "</body>" +
+                      "</html>" );
+                      
+        mail.setSubject( "Seu frete foi concluído!" );
+        mail.setFileName("C:\\Users\\Matheus\\Documentos\\caminhao2.jpg");
+        mail.sendTo( "matheuscarlesso1998@gmail.com" );
     }
     /**
      * This method is called from within the constructor to initialize the form.

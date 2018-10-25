@@ -304,3 +304,10 @@
 2018-10-18 13:12:06 ERROR util.ClientWS         java.lang.NullPointerException
 2018-10-18 14:27:55 ERROR util.ClientWS         java.lang.NullPointerException
 2018-10-18 15:12:04 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-25 21:05:19 ERROR util.ClientWS         java.lang.NullPointerException
+2018-10-25 21:08:03 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "id" violates not-null constraint
+  Detalhe: Failing row contains (null, 2, 6, 1, 2, 2, 20.220, 2018-10-25, null, 1, 69,2 km, 69208, 1 hora 34 minutos).
+2018-10-25 21:10:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-10-25 21:10:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-10-25 21:13:44 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-10-25 21:13:44 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block

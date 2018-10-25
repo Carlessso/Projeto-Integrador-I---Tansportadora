@@ -23,7 +23,8 @@ public class Veiculo  implements java.io.Serializable {
      private BigDecimal quilometragem;
      private String placa;
      private Set viagems = new HashSet(0);
-
+     private byte[] imagem;
+     
     public Veiculo() {
     }
 
@@ -70,6 +71,13 @@ public class Veiculo  implements java.io.Serializable {
     
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
     public String getModelo() {
         return this.modelo;
