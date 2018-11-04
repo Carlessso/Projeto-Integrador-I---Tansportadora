@@ -41,7 +41,7 @@
             </key>
             <one-to-many class="entidades.FreteViagem" />
         </set>
-        <set name="produtosFretes" table="produtos_frete" inverse="true" lazy="true" fetch="select">
+        <set name="produtosFretes" table="produtos_frete" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="ref_frete" not-null="true" />
             </key>

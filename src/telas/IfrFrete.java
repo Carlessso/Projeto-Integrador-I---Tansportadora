@@ -5,6 +5,8 @@
  */
 package telas;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import daos.EnderecoDao;
 import daos.EstadoFreteDao;
 import daos.FreteDao;
@@ -16,9 +18,17 @@ import entidades.Pessoa;
 import entidades.ProdutosFrete;
 import entidades.Quilometragem;
 import java.awt.Dimension;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import transoft.TranSOFT;
 import util.ClientWS;
@@ -35,6 +45,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private Pessoa destinatario;
     private int linhaProduto;
     private Quilometragem quilometragem;
+    private Frete frete;
+    private ArrayList<Integer> produtosExclusao;
 
     /**
      * Creates new form IfrFrete
@@ -46,6 +58,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.destinatario = null;
         this.linhaProduto = -1;
         this.quilometragem = new Quilometragem();
+        this.frete = null;
+        this.produtosExclusao = new ArrayList<>();
     }
 
     public void setPosicao() {
@@ -95,6 +109,15 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         tfdDistancia = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         tfdTempo = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        tfdConsulta = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFrete = new javax.swing.JTable();
+        btnEditar1 = new javax.swing.JButton();
+        btnExportarXML = new javax.swing.JButton();
+        btnImportarXML = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
         setTitle("Cadastro de Frete");
@@ -287,7 +310,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEditar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 96, Short.MAX_VALUE)))
+                        .addGap(0, 204, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -350,6 +373,98 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Cadastro", jPanel1);
 
+        jLabel16.setText("Remetente");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.setName("btnBuscar"); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        tblFrete.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Remetente", "Destinatário", "Data Inicial", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblFrete);
+
+        btnEditar1.setText("Editar");
+        btnEditar1.setName("btnEditar"); // NOI18N
+        btnEditar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditar1ActionPerformed(evt);
+            }
+        });
+
+        btnExportarXML.setText("Exportar XML");
+        btnExportarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarXMLActionPerformed(evt);
+            }
+        });
+
+        btnImportarXML.setText("Importar XML");
+        btnImportarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarXMLActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnImportarXML)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExportarXML)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfdConsulta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar1)
+                    .addComponent(btnExportarXML)
+                    .addComponent(btnImportarXML))
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Consulta", jPanel2);
+
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,6 +523,10 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblProduto.getModel();
         if (tblProduto.getSelectedRow() >= 0) {
+            String id = String.valueOf(tblProduto.getValueAt(tblProduto.getSelectedRow(), 0));
+            if (!id.isEmpty()) {
+                produtosExclusao.add(Integer.parseInt(id));
+            }
             model.removeRow(tblProduto.getSelectedRow());
             tblProduto.setModel(model);
         } else {
@@ -483,13 +602,19 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
         if (erro.isEmpty()) {
             Frete f = new Frete();
+            f.setId(frete.getId());
             f.setUnidade(TranSOFT.UNIDADE);
             f.setEndereco(EnderecoDao.buscaId(((ComboItens) cbEndDestinatario.getSelectedItem()).getCodigo()));
             f.setPessoaByRefSolicitante(remetente);
             f.setPessoaByRefDetinatario(destinatario);
             f.setUsuario(TranSOFT.USUARIO);
             f.setValor(BigDecimal.valueOf(Double.parseDouble(tfdValorFrete.getText().replace(',', '.'))));
-            f.setDataPedido(new Date());
+            if (frete == null) {
+                f.setDataPedido(new Date());
+            } else {
+                f.setDataPedido(frete.getDataPedido());
+                f.setDataEntrega(frete.getDataEntrega());
+            }
             f.setEstadoFrete(EstadoFreteDao.buscaId(((ComboItens) cbEstado.getSelectedItem()).getCodigo()));
             f.setQuilometragem(quilometragem.getQuilometragem());
             f.setMetragem(quilometragem.getMetragem());
@@ -510,6 +635,12 @@ public class IfrFrete extends javax.swing.JInternalFrame {
                         erro = erro + "Erro ao salvar o produto: " + p.getDescricao() + "\n";
                     }
                 }
+                for (int i = 0; i < produtosExclusao.size(); i++) {
+                    ProdutosFrete p = ProdutosFreteDao.buscaId(produtosExclusao.get(i));
+                    if (ProdutosFreteDao.deletar(p).equals("Erro ao deletar")) {
+                        erro = erro + "Erro ao excluir o produto";
+                    }
+                }
                 if (erro.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Sucesso ao salvar Frete!");
                     limparDados();
@@ -521,6 +652,118 @@ public class IfrFrete extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        FreteDao.popularTabelaFiltro(tblFrete, tfdConsulta.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
+        try {
+            this.limparDados();
+            int idFrete = Integer.parseInt(String.valueOf(tblFrete.getValueAt(tblFrete.getSelectedRow(), 0)));
+            this.frete = FreteDao.buscaId(idFrete);
+            this.remetente = frete.getPessoaByRefSolicitante();
+            tfdRemetente.setText(remetente.getNome());
+            EnderecoDao.populaCombo(cbEndRemetente, remetente);
+
+            this.destinatario = frete.getPessoaByRefDetinatario();
+            tfdDestinatario.setText(destinatario.getNome());
+            EnderecoDao.populaCombo(cbEndDestinatario, destinatario);
+
+            for (int i = 0; i < cbEndDestinatario.getItemCount(); i++) {
+                if (cbEndDestinatario.getItemAt(i).getCodigo() == frete.getEndereco().getId()) {
+                    cbEndDestinatario.setSelectedIndex(i);
+                    i = cbEndDestinatario.getItemCount();
+                }
+            }
+
+            for (int i = 0; i < cbEstado.getItemCount(); i++) {
+                if (cbEstado.getItemAt(i).getDescricao().equals(frete.getEstadoFrete().getDescricao())) {
+                    cbEstado.setSelectedIndex(i);
+                    i = cbEstado.getItemCount();
+                }
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tblProduto.getModel();
+
+            Iterator<ProdutosFrete> produtosFreteAsIterator = frete.getProdutosFretes().iterator();
+            while (produtosFreteAsIterator.hasNext()) {
+                ProdutosFrete pf = produtosFreteAsIterator.next();
+                Object[] linha = {pf.getId(), pf.getDescricao(), Formatacao.decimalParaString(pf.getValor()), Formatacao.decimalParaString(pf.getPeso())};
+                model.addRow(linha);
+            }
+
+            tfdDistancia.setText(frete.getQuilometragem());
+            tfdTempo.setText(frete.getTempo());
+            tfdValorFrete.setText(Formatacao.decimalParaString(frete.getValor()));
+
+            btnSalvar.setEnabled(true);
+
+            jTabbedPane1.setSelectedIndex(0);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Escolha o frete a ser EDITADO!");
+        }
+    }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void btnExportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarXMLActionPerformed
+        try {
+            int idFrete = Integer.parseInt(String.valueOf(tblFrete.getValueAt(tblFrete.getSelectedRow(), 0)));
+            Frete frete = FreteDao.buscaId(idFrete);
+
+            XStream xstream = new XStream();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("fretes\\frete" + idFrete + ".xml"));
+            writer.write(xstream.toXML(frete)); //salva fisicamente
+            writer.close();
+            JOptionPane.showMessageDialog(this, "Frete exportado com Sucesso!");
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Escolha o frete a ser EXPORTADO!");
+        }
+    }//GEN-LAST:event_btnExportarXMLActionPerformed
+
+    private void btnImportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarXMLActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("XML", "xml"));
+        int result = fileChooser.showOpenDialog(this);
+        File file = null;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+        }
+
+        if (file != null) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                //create FileInputStream which obtains input bytes from a file in a file system
+                //FileInputStream is meant for reading streams of raw bytes such as image data. For reading streams of characters, consider using FileReader.
+                XStream xstream = new XStream(new DomDriver());
+                Frete frete = (Frete) xstream.fromXML(fis);
+                if (FreteDao.salvar(frete).equalsIgnoreCase("Sucesso")) {
+                    String erro = "";
+                    Iterator<ProdutosFrete> produtosFreteAsIterator = frete.getProdutosFretes().iterator();
+                    while (produtosFreteAsIterator.hasNext()) {
+                        ProdutosFrete pf = produtosFreteAsIterator.next();
+
+                        if (!ProdutosFreteDao.salvar(pf).equals("Sucesso")) {
+                            erro = "Erro ao salvar Produtos!";
+                        }
+                    }
+                    if (erro.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Frete importado com Sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, erro);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha ao importar Frete!");
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
+                JOptionPane.showMessageDialog(this, "Falha ao importar Frete!");
+                return;
+            }
+        }
+    }//GEN-LAST:event_btnImportarXMLActionPerformed
 
     private void calculaValor() {
         if (validarDados().isEmpty()) {
@@ -598,11 +841,17 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.destinatario = null;
         this.linhaProduto = -1;
         this.quilometragem = new Quilometragem();
+        this.frete = null;
+        this.produtosExclusao = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEditar1;
+    private javax.swing.JButton btnExportarXML;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnImportarXML;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarProduto;
@@ -610,11 +859,12 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSelecionarRemetente;
     private javax.swing.JComboBox<ComboItens> cbEndDestinatario;
     private javax.swing.JComboBox<ComboItens> cbEndRemetente;
-    private javax.swing.JComboBox<String> cbEstado;
+    private javax.swing.JComboBox<ComboItens> cbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -624,9 +874,13 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tblFrete;
     private javax.swing.JTable tblProduto;
+    private javax.swing.JTextField tfdConsulta;
     private javax.swing.JTextField tfdDescricao;
     private javax.swing.JTextField tfdDestinatario;
     private javax.swing.JTextField tfdDistancia;

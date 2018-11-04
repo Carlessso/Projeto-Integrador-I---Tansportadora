@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.*;
 import java.util.Date;
@@ -172,7 +173,7 @@ public class Formatacao {
         Date date = (Date) format.parse(data);
         return date;
     }
-    
+
     public static Date transformarParaDataHora(String data) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
         Date date = (Date) format.parse(data);
@@ -186,16 +187,25 @@ public class Formatacao {
     public static void formataJTextArea(JTextArea campo) {
         campo.setText(campo.getText().replaceAll("'", "").trim());
     }
-    
-    public static void limpaTabela(JTable tabela){
+
+    public static void limpaTabela(JTable tabela) {
         DefaultTableModel modelo;
         modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         tabela.setModel(modelo);
     }
-    
-    public static Timestamp paraTimestamp(Date data){
+
+    public static Timestamp paraTimestamp(Date data) {
         System.out.println(new Timestamp(data.getTime()).getTime());
         return new Timestamp(data.getTime());
-    }    
+    }
+
+    public static String decimalParaString(BigDecimal df) {
+        String numero = df.toString();
+        numero = numero.replace('.', ',');
+        
+        String[] partes = numero.split(",");
+
+        return partes[0] + "," + partes[1].substring(0, 2);
+    }
 }

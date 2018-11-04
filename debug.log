@@ -311,3 +311,16 @@
 2018-10-25 21:10:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
 2018-10-25 21:13:44 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
 2018-10-25 21:13:44 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-11-04 16:20:00 ERROR util.ClientWS         java.lang.NullPointerException
+2018-11-04 17:14:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "id" violates not-null constraint
+  Detalhe: Failing row contains (null, 3, 4, 1, 2, 1, 30.000, 2018-10-05, null, 1, 1, 1, 1).
+2018-11-04 17:16:21 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-11-04 17:17:04 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "id" violates not-null constraint
+  Detalhe: Failing row contains (null, 3, 4, 1, 2, 1, 30.000, 2018-10-05, null, 1, 1, 1, 1).
+2018-11-04 17:18:14 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "id" violates not-null constraint
+  Detalhe: Failing row contains (null, 3, 4, 1, 2, 1, 30.000, 2018-10-05, null, 1, 1, 1, 1).
+2018-11-04 17:19:20 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "id" violates not-null constraint
+  Detalhe: Failing row contains (null, 3, 2, 1, 1, 4, 22.460, 2018-11-04, null, 1, 14,5 km, 14511, 20 minutos).
+2018-11-04 17:25:23 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: duplicate key value violates unique constraint "frete_pkey"
+  Detalhe: Key (id)=(1) already exists.
+2018-11-04 18:27:58 ERROR util.ClientWS         java.lang.NullPointerException
