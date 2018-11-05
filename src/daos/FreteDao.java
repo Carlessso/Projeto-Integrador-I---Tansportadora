@@ -5,6 +5,7 @@
  */
 package daos;
 
+import entidades.EstadoFrete;
 import entidades.Frete;
 import java.util.List;
 import javax.swing.JTable;
@@ -22,7 +23,8 @@ import util.HibernateUtil;
  *
  * @author ramon
  */
-public class FreteDao extends Dao{
+public class FreteDao extends Dao {
+
     public static Frete buscaId(int id) {
         Session sessao = null;
         try {
@@ -38,8 +40,51 @@ public class FreteDao extends Dao{
             sessao.close();
         }
     }
-    
-    
+
+    public static List getFretes() {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Frete.class);
+
+            dados = crit.list();
+
+            return dados;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
+
+    public static int getFretesByEstado(EstadoFrete e) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Frete.class);
+            crit.add(Restrictions.eq("estadoFrete", e));
+            dados = crit.list();
+
+            dados = crit.list();
+
+            return dados.size();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return 0;
+    }
+
     public static void popularTabelaFiltro(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -74,7 +119,7 @@ public class FreteDao extends Dao{
                 dadosTabela[lin][2] = f.getPessoaByRefDetinatario().getNome();
                 dadosTabela[lin][3] = Formatacao.ajustaDataDMA(f.getDataPedido().toString());
                 dadosTabela[lin][4] = f.getEstadoFrete().getDescricao();
-                
+
                 lin++;
             }
 

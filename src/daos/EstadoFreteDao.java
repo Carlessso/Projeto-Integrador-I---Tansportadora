@@ -20,6 +20,27 @@ import util.HibernateUtil;
  */
 public class EstadoFreteDao extends Dao {
     
+    public static List getEstados()
+    {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(EstadoFrete.class);
+
+            dados = crit.list();
+
+            return dados;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
     public static EstadoFrete buscaId(int id) {
         Session sessao = null;
         try {

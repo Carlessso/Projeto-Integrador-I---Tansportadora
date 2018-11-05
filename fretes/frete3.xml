@@ -1,6 +1,6 @@
 <entidades.Frete>
   <id>3</id>
-  <endereco class="entidades.Endereco_$$_jvst293_19" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+  <endereco class="entidades.Endereco_$$_jvst2ba_19" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
     <persistentClass>entidades.Endereco</persistentClass>
     <interfaces>
       <java-class>org.hibernate.proxy.HibernateProxy</java-class>
@@ -13,9 +13,9 @@
       <java-class>int</java-class>
     </setIdentifierMethodParams>
     <entityName>entidades.Endereco</entityName>
-    <id class="int">2</id>
+    <id class="int">6</id>
   </endereco>
-  <estadoFrete class="entidades.EstadoFrete_$$_jvst293_e" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+  <estadoFrete class="entidades.EstadoFrete_$$_jvst2ba_e" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
     <persistentClass>entidades.EstadoFrete</persistentClass>
     <interfaces>
       <java-class>org.hibernate.proxy.HibernateProxy</java-class>
@@ -30,7 +30,7 @@
     <entityName>entidades.EstadoFrete</entityName>
     <id class="int">1</id>
   </estadoFrete>
-  <pessoaByRefDetinatario class="entidades.Pessoa_$$_jvst293_d" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+  <pessoaByRefDetinatario class="entidades.Pessoa_$$_jvst2ba_d" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
     <persistentClass>entidades.Pessoa</persistentClass>
     <interfaces>
       <java-class>org.hibernate.proxy.HibernateProxy</java-class>
@@ -43,10 +43,22 @@
       <java-class>int</java-class>
     </setIdentifierMethodParams>
     <entityName>entidades.Pessoa</entityName>
-    <id class="int">1</id>
+    <id class="int">2</id>
   </pessoaByRefDetinatario>
-  <pessoaByRefSolicitante class="entidades.Pessoa_$$_jvst293_d" reference="../pessoaByRefDetinatario"/>
-  <unidade class="entidades.Unidade_$$_jvst293_2" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+  <pessoaByRefSolicitante class="entidades.Pessoa_$$_jvst2ba_d" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+    <persistentClass>entidades.Pessoa</persistentClass>
+    <interfaces reference="../../pessoaByRefDetinatario/interfaces"/>
+    <getIdentifierMethodClass>entidades.Pessoa</getIdentifierMethodClass>
+    <setIdentifierMethodClass>entidades.Pessoa</setIdentifierMethodClass>
+    <getIdentifierMethodName>getId</getIdentifierMethodName>
+    <setIdentifierMethodName>setId</setIdentifierMethodName>
+    <setIdentifierMethodParams>
+      <java-class>int</java-class>
+    </setIdentifierMethodParams>
+    <entityName>entidades.Pessoa</entityName>
+    <id class="int">1</id>
+  </pessoaByRefSolicitante>
+  <unidade class="entidades.Unidade_$$_jvst2ba_2" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
     <persistentClass>entidades.Unidade</persistentClass>
     <interfaces>
       <java-class>org.hibernate.proxy.HibernateProxy</java-class>
@@ -59,9 +71,9 @@
       <java-class>int</java-class>
     </setIdentifierMethodParams>
     <entityName>entidades.Unidade</entityName>
-    <id class="int">3</id>
+    <id class="int">2</id>
   </unidade>
-  <usuario class="entidades.Usuario_$$_jvst293_6" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
+  <usuario class="entidades.Usuario_$$_jvst2ba_6" resolves-to="org.hibernate.proxy.pojo.javassist.SerializableProxy">
     <persistentClass>entidades.Usuario</persistentClass>
     <interfaces>
       <java-class>org.hibernate.proxy.HibernateProxy</java-class>
@@ -74,9 +86,9 @@
       <java-class>int</java-class>
     </setIdentifierMethodParams>
     <entityName>entidades.Usuario</entityName>
-    <id class="int">4</id>
+    <id class="int">2</id>
   </usuario>
-  <valor>46.600</valor>
+  <valor>25.000</valor>
   <dataPedido class="sql-date">2018-11-04</dataPedido>
   <freteViagems class="org.hibernate.collection.internal.PersistentSet">
     <initialized>false</initialized>
@@ -85,24 +97,24 @@
     <role>entidades.Frete.freteViagems</role>
     <key class="int">3</key>
     <dirty>false</dirty>
-    <sessionFactoryUuid>7c41c6ae-e354-44ca-a2c8-9e31318b4c29</sessionFactoryUuid>
+    <sessionFactoryUuid>bcbba603-3a27-4e1a-a1f7-9b7e1e76952c</sessionFactoryUuid>
     <specjLazyLoad>true</specjLazyLoad>
   </freteViagems>
   <produtosFretes class="org.hibernate.collection.internal.PersistentSet">
     <set>
       <entidades.ProdutosFrete>
-        <id>5</id>
+        <id>2</id>
         <frete reference="../../../.."/>
-        <descricao>FOI</descricao>
-        <valor>0.990</valor>
-        <peso>0.990</peso>
+        <descricao>mouse</descricao>
+        <valor>3.680</valor>
+        <peso>3.500</peso>
       </entidades.ProdutosFrete>
       <entidades.ProdutosFrete>
         <id>3</id>
         <frete reference="../../../.."/>
-        <descricao>memoriaRAM</descricao>
-        <valor>12.310</valor>
-        <peso>12.310</peso>
+        <descricao>teste</descricao>
+        <valor>2.000</valor>
+        <peso>3.500</peso>
       </entidades.ProdutosFrete>
     </set>
     <initialized>true</initialized>
@@ -121,10 +133,10 @@
         <entidades.ProdutosFrete reference="../../../set/entidades.ProdutosFrete[2]"/>
       </entry>
     </storedSnapshot>
-    <sessionFactoryUuid>7c41c6ae-e354-44ca-a2c8-9e31318b4c29</sessionFactoryUuid>
+    <sessionFactoryUuid>bcbba603-3a27-4e1a-a1f7-9b7e1e76952c</sessionFactoryUuid>
     <specjLazyLoad>true</specjLazyLoad>
   </produtosFretes>
-  <quilometragem>14,5 km</quilometragem>
-  <metragem>14511</metragem>
-  <tempo>20 minutos</tempo>
+  <quilometragem></quilometragem>
+  <metragem>0</metragem>
+  <tempo></tempo>
 </entidades.Frete>

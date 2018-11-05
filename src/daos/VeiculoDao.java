@@ -78,7 +78,7 @@ public class VeiculoDao {
                 dadosTabela[lin][1] = v.getDescricao();
                 dadosTabela[lin][2] = v.getModelo();
                 dadosTabela[lin][3] = v.getEstadoVeiculo().getDescricao();
-                
+
                 lin++;
             }
 

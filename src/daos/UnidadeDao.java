@@ -9,6 +9,7 @@ package daos;
  *
  * @author Matheus
  */
+import entidades.Frete;
 import entidades.Pessoa;
 import entidades.PessoaFisica;
 import entidades.Unidade;
@@ -43,6 +44,51 @@ public class UnidadeDao {
         } finally {
             sessao.close();
         }
+    }
+    
+    public static List getUnidades()
+    {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Unidade.class);
+
+            dados = crit.list();
+
+            return dados;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
+    
+    public static int getFretesByUnidadeOrigem(int ref_unidade)
+    {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Frete.class);
+            
+            crit.add(Restrictions.eq("unidade", buscaId(ref_unidade)));
+            dados = crit.list();
+
+            return dados.size();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return 0;
     }
 
     public static void popularTabelaFiltro(JTable tabela, String criterio, String filtro) {

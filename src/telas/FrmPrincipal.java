@@ -5,7 +5,11 @@
  */
 package telas;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import transoft.TranSOFT;
 import util.Client;
@@ -54,7 +58,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                       "</html>" );
                       
         mail.setSubject( "Seu frete foi concluído!" );
-        mail.setFileName("C:\\Users\\Matheus\\Documentos\\caminhao2.jpg");
+        File f = new File("C:\\Users\\Matheus\\Desktop\\caminhao.jpg");
+        mail.setFileName(f.getPath());
         mail.sendTo( "matheuscarlesso1998@gmail.com" );
     }
     /**
@@ -82,6 +87,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -196,6 +202,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem11);
+
+        jMenuItem13.setText("Dashboard");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem13);
 
         jMenuItem12.setText("Gastos");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +383,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         IfrGrupos.setPosicao();
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        IfrDashboard IfrDashboard = null;
+        try {
+            IfrDashboard = new IfrDashboard();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jDesktopPane1.add(IfrDashboard);
+        IfrDashboard.setVisible(true);
+        IfrDashboard.setPosicao();
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -421,6 +447,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;

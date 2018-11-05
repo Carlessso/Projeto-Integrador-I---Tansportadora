@@ -1,13 +1,20 @@
 package util;
 
 import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Part;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class MailManager
 {
@@ -108,6 +115,11 @@ public class MailManager
         
         Message message = new MimeMessage( session );
         
+        MimeBodyPart mbp = new MimeBodyPart();
+       
+        mbp.setDisposition(Part.ATTACHMENT);
+        
+        
         message.setFrom( new InternetAddress( USERNAME ) ); 
 
         Address[] toUser = InternetAddress.parse( recipient );  
@@ -126,9 +138,14 @@ public class MailManager
             message.setText( text );
         }
         
-        if ( fileName != null && ! fileName.isEmpty() )
+        if ( fileName != null && !fileName.isEmpty() )
         {
-            message.setFileName( fileName );
+            DataSource fds = new FileDataSource(fileName);
+            mbp.setDataHandler(new DataHandler(fds));
+            mbp.setFileName(fds.getName());
+            Multipart mp = new MimeMultipart();   
+            mp.addBodyPart(mbp);
+            message.setContent(mp);
         }
         
         

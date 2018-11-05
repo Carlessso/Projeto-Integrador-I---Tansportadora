@@ -324,3 +324,5 @@
 2018-11-04 17:25:23 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: duplicate key value violates unique constraint "frete_pkey"
   Detalhe: Key (id)=(1) already exists.
 2018-11-04 18:27:58 ERROR util.ClientWS         java.lang.NullPointerException
+2018-11-05 19:36:07 ERROR util.ClientWS         java.lang.NullPointerException
+2018-11-05 20:06:29 ERROR util.ClientWS         java.lang.NullPointerException
