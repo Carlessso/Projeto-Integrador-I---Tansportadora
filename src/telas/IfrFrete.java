@@ -611,9 +611,11 @@ public class IfrFrete extends javax.swing.JInternalFrame {
             f.setValor(BigDecimal.valueOf(Double.parseDouble(tfdValorFrete.getText().replace(',', '.'))));
             if (frete == null) {
                 f.setDataPedido(new Date());
+                f.setUnidadeAtual(TranSOFT.UNIDADE);
             } else {
                 f.setDataPedido(frete.getDataPedido());
                 f.setDataEntrega(frete.getDataEntrega());
+                f.setUnidadeAtual(frete.getUnidadeAtual());
             }
             f.setEstadoFrete(EstadoFreteDao.buscaId(((ComboItens) cbEstado.getSelectedItem()).getCodigo()));
             f.setQuilometragem(quilometragem.getQuilometragem());

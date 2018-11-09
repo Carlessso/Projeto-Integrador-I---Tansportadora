@@ -56,5 +56,8 @@
         <property name="tempo" type="string">
             <column name="tempo" length="150" not-null="false" />
         </property>
+        <many-to-one name="unidadeAtual" class="entidades.Unidade" fetch="select">
+            <column name="ref_unidade_atual" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

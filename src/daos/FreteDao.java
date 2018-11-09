@@ -7,6 +7,9 @@ package daos;
 
 import entidades.EstadoFrete;
 import entidades.Frete;
+import entidades.Unidade;
+import entidades.Viagem;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -83,6 +86,71 @@ public class FreteDao extends Dao {
             sessao.close();
         }
         return 0;
+    }
+
+    public static void populaFreteDisponivel(JTable tabela, Unidade origem) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Frete.class);
+            crit.add(Restrictions.eq("unidadeAtual", origem));
+            dados = crit.list();
+
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setRowCount(0);
+            
+            Iterator<Frete> freteAsIterator = dados.iterator();
+            while (freteAsIterator.hasNext()) {
+                Frete f = freteAsIterator.next();
+                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome() + 
+                        "/" + f.getEndereco().getCidade().getEstado().getSigla(), 
+                    Formatacao.ajustaDataDMA(f.getDataPedido().toString())};
+                model.addRow(linha);
+            }
+            
+            tabela.setModel(model);
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static void populaFreteViagem(JTable tabela, Viagem viagem) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Frete.class);
+            crit.createAlias("freteViagems", "fv");
+            crit.add(Restrictions.eq("fv.viagem", viagem));
+            dados = crit.list();
+
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setRowCount(0);
+            
+            Iterator<Frete> freteAsIterator = dados.iterator();
+            while (freteAsIterator.hasNext()) {
+                Frete f = freteAsIterator.next();
+                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome() + 
+                        "/" + f.getEndereco().getCidade().getEstado().getSigla(), 
+                    Formatacao.ajustaDataDMA(f.getDataPedido().toString())};
+                model.addRow(linha);
+            }
+            
+            tabela.setModel(model);
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
     }
 
     public static void popularTabelaFiltro(JTable tabela, String criterio) {

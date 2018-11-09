@@ -15,13 +15,13 @@
             <column name="ref_unidade_origem" not-null="true" />
         </many-to-one>
         <many-to-one name="usuario" class="entidades.Usuario" fetch="select">
-            <column name="ref_motorista" not-null="true" />
+            <column name="ref_motorista" />
         </many-to-one>
         <many-to-one name="veiculo" class="entidades.Veiculo" fetch="select">
             <column name="ref_veiculo" not-null="true" />
         </many-to-one>
         <property name="dataInicio" type="date">
-            <column name="data_inicio" length="13" not-null="true" />
+            <column name="data_inicio" length="13" />
         </property>
         <property name="dataFinal" type="date">
             <column name="data_final" length="13" />

@@ -27,11 +27,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        
+
         if (!client.isAlive()) {
             client.start();
         }
-        
+
     }
     private static Client client = new Client() {
         @Override
@@ -40,28 +40,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
             notificarChegadaVeiculo();
         }
     };
-    
+
     public static void notificarChegadaVeiculo() throws Exception {
         TranSOFT.USUARIO.getGrupo().getGrupoAcaos();
         JOptionPane.showMessageDialog(null, "Uma nova entrega chegou ao destino!");
         enviarEmailCliente();
     }
-    
-    public static void enviarEmailCliente() throws Exception
-    {        
+
+    public static void enviarEmailCliente() throws Exception {
         MailManager mail = MailManager.getInstance();
-        
-        mail.setHtml( "<html>"+
-                            "<body>" +
-                                "<h1> A sua entrega chegou ao destino!</h1>" +
-                            "</body>" +
-                      "</html>" );
-                      
-        mail.setSubject( "Seu frete foi concluído!" );
+
+        mail.setHtml("<html>"
+                + "<body>"
+                + "<h1> A sua entrega chegou ao destino!</h1>"
+                + "</body>"
+                + "</html>");
+
+        mail.setSubject("Seu frete foi concluído!");
         File f = new File("C:\\Users\\Matheus\\Desktop\\caminhao.jpg");
         mail.setFileName(f.getPath());
-        mail.sendTo( "matheuscarlesso1998@gmail.com" );
+        mail.sendTo("matheuscarlesso1998@gmail.com");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -322,7 +322,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
+        IfrViagem ifrViagem = new IfrViagem();
+        jDesktopPane1.add(ifrViagem);
+        ifrViagem.setVisible(true);
+        ifrViagem.setPosicao();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -422,7 +425,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

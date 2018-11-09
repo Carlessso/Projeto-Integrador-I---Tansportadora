@@ -9,27 +9,22 @@ package daos;
  *
  * @author Matheus
  */
-import entidades.Pessoa;
-import entidades.PessoaFisica;
-import entidades.Unidade;
-import entidades.Veiculo;
 import entidades.Viagem;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
-import util.Formatacao;
+import org.hibernate.jdbc.Work;
 import util.HibernateUtil;
 
-public class ViagemDao {
+public class ViagemDao extends Dao {
 
     public static Viagem buscaId(int id) {
         Session sessao = null;
@@ -78,7 +73,9 @@ public class ViagemDao {
                 dadosTabela[lin][0] = v.getId();
                 dadosTabela[lin][1] = v.getUnidadeByRefUnidadeOrigem().getDescricao();
                 dadosTabela[lin][2] = v.getUnidadeByRefUnidadeDestino().getDescricao();
-                dadosTabela[lin][3] = v.getUsuario().getPessoa().getNome();
+                if (v.getUsuario() != null) {
+                    dadosTabela[lin][3] = v.getUsuario().getPessoa().getNome();
+                }
                 dadosTabela[lin][4] = v.getVeiculo().getDescricao();
 
                 lin++;
@@ -133,8 +130,31 @@ public class ViagemDao {
         }
     }
 
-    public static void registrarChegada(int idViagem) 
-    {
+    public static Double capacidadeRestante(Viagem viagem) {
+        Session sessao = null;
         
+        try {
+            Double retorno = 0.00;
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            sessao.doWork((Connection connection) -> {
+                CallableStatement callTabelas = connection.prepareCall("SELECT capacidade_restante(" + viagem.getId() + ")");
+                callTabelas.execute();
+                ResultSet capacidade = callTabelas.executeQuery();
+                capacidade.next();
+                    //retorno += capacidade.getBigDecimal("capacidade_restante").doubleValue();
+                
+            });
+            sessao.getTransaction().commit();
+            return retorno;
+        } catch (Exception e) {
+            System.out.println("erro arquivar auditoria: " + e);
+            return null;
+        }
+    }
+
+    public static void registrarChegada(int idViagem) {
+
     }
 }

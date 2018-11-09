@@ -70,7 +70,7 @@ public class IfrDashboard extends javax.swing.JInternalFrame {
         g2.setRenderingHint(JFreeChart.KEY_SUPPRESS_SHADOW_GENERATION, true);
         Rectangle r = new Rectangle(0, 0, 450, 450);
         grafico.draw(g2, r);
-        File f = new File("C:\\Users\\Matheus\\Documents\\painel1.png");
+        File f = new File("tmp\\painel1.png");
 
         BufferedImage chartImage = grafico.createBufferedImage(500, 500, null);
         ImageIO.write(chartImage, "png", f);
@@ -108,7 +108,7 @@ public class IfrDashboard extends javax.swing.JInternalFrame {
         g3.setRenderingHint(JFreeChart.KEY_SUPPRESS_SHADOW_GENERATION, true);
         Rectangle ret = new Rectangle(0, 0, 450, 450);
         grafico.draw(g2, ret);
-        File f2 = new File("C:\\Users\\Matheus\\Documents\\painel2.png");
+        File f2 = new File("tmp\\painel2.png");
 
         BufferedImage chartImage2 = grafico2.createBufferedImage(500, 500, null);
         ImageIO.write(chartImage2, "png", f2);
