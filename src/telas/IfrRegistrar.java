@@ -28,7 +28,7 @@ public class IfrRegistrar extends javax.swing.JInternalFrame {
      */
     public IfrRegistrar() {
         initComponents();
-        ViagemDao.popularTabelaFiltro(tblViagens, "", "id");
+        ViagemDao.popularTabelaFiltro(tblViagens, null, "");
 //        Controle.permissiona(jTabbedPane1, telaAtual);
     }
     

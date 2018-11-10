@@ -57,7 +57,7 @@
             <column name="tempo" length="150" not-null="false" />
         </property>
         <many-to-one name="unidadeAtual" class="entidades.Unidade" fetch="select">
-            <column name="ref_unidade_atual" not-null="true" />
+            <column name="ref_unidade_atual" />
         </many-to-one>
     </class>
 </hibernate-mapping>

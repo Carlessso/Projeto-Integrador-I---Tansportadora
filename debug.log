@@ -326,3 +326,26 @@
 2018-11-04 18:27:58 ERROR util.ClientWS         java.lang.NullPointerException
 2018-11-05 19:36:07 ERROR util.ClientWS         java.lang.NullPointerException
 2018-11-05 20:06:29 ERROR util.ClientWS         java.lang.NullPointerException
+2018-11-09 21:44:28 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=-5 foi registrado.
+2018-11-09 21:45:35 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Parâmetro do tipo java.sql.Types=2 foi registrado, mas uma chamada a getDouble (tiposql=java.sql.Types=8) foi feita.
+2018-11-09 21:50:34 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Método org.postgresql.jdbc.PgCallableStatement.registerOutParameter(String,int) ainda não foi implementado.
+2018-11-09 21:51:21 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Nenhum valor especificado para parâmetro 2.
+2018-11-09 21:52:42 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=8 foi registrado.
+2018-11-09 21:53:27 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: function capacidade_restante(double precision) does not exist
+  Dica: No function matches the given name and argument types. You might need to add explicit type casts.
+  Posição: 15
+2018-11-09 21:54:18 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=8 foi registrado.
+2018-11-09 21:56:52 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Nenhum valor especificado para parâmetro 2.
+2018-11-09 22:01:27 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: function capacidade_restante(double precision) does not exist
+  Dica: No function matches the given name and argument types. You might need to add explicit type casts.
+  Posição: 15
+2018-11-09 22:02:16 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=4 foi registrado.
+2018-11-09 22:03:01 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=4 foi registrado.
+2018-11-09 22:06:03 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=-5 foi registrado.
+2018-11-09 22:07:37 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: function capacidade_restante(bigint) does not exist
+  Dica: No function matches the given name and argument types. You might need to add explicit type casts.
+  Posição: 15
+2018-11-09 22:12:25 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Uma função foi executada e o parâmetro de retorno 1 era do tipo java.sql.Types=2 contudo tipo java.sql.Types=-5 foi registrado.
+2018-11-09 22:12:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Parâmetro do tipo java.sql.Types=2 foi registrado, mas uma chamada a getLong (tiposql=java.sql.Types=-5) foi feita.
+2018-11-09 22:13:55 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Parâmetro do tipo java.sql.Types=2 foi registrado, mas uma chamada a getInt (tiposql=java.sql.Types=4) foi feita.
+2018-11-09 22:15:49 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  Parâmetro do tipo java.sql.Types=2 foi registrado, mas uma chamada a getByte (tiposql=java.sql.Types=5) foi feita.

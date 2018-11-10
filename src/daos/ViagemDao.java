@@ -9,11 +9,10 @@ package daos;
  *
  * @author Matheus
  */
+import entidades.Unidade;
 import entidades.Viagem;
 import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +20,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
 public class ViagemDao extends Dao {
@@ -42,7 +41,7 @@ public class ViagemDao extends Dao {
         }
     }
 
-    public static void popularTabelaFiltro(JTable tabela, String criterio, String filtro) {
+    public static void popularTabelaFiltro(JTable tabela, Unidade origem, String ativo) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -61,7 +60,16 @@ public class ViagemDao extends Dao {
             Criteria crit;
 
             crit = sessao.createCriteria(Viagem.class);
-
+            if(origem != null){
+                crit.add(Restrictions.eq("unidadeByRefUnidadeOrigem", origem));
+            }
+            if(!ativo.isEmpty()){
+                if(ativo.equals("true")){
+                    crit.add(Restrictions.isNull("dataFinal"));
+                } else if(ativo.equals("false")){
+                    crit.add(Restrictions.isNotNull("dataFinal"));
+                }
+            }
             dados = crit.list();
 
             dadosTabela = new Object[dados.size()][5];
@@ -132,24 +140,22 @@ public class ViagemDao extends Dao {
 
     public static Double capacidadeRestante(Viagem viagem) {
         Session sessao = null;
-        
         try {
-            Double retorno = 0.00;
             sessao = HibernateUtil.getSessionFactory().openSession();
-            sessao.beginTransaction();
-            
-            sessao.doWork((Connection connection) -> {
-                CallableStatement callTabelas = connection.prepareCall("SELECT capacidade_restante(" + viagem.getId() + ")");
-                callTabelas.execute();
-                ResultSet capacidade = callTabelas.executeQuery();
-                capacidade.next();
-                    //retorno += capacidade.getBigDecimal("capacidade_restante").doubleValue();
-                
+
+            Long retorno = sessao.doReturningWork(connection -> {
+                try (CallableStatement function = connection.prepareCall(
+                        "{ ? = call capacidade_restante(?) }")) {
+                    function.registerOutParameter(1, Types.NUMERIC);
+                    function.setInt(2, viagem.getId());
+                    function.execute();
+                    return function.getBigDecimal(1).longValue();
+                }
             });
-            sessao.getTransaction().commit();
-            return retorno;
+            
+            return retorno + 0.00;
         } catch (Exception e) {
-            System.out.println("erro arquivar auditoria: " + e);
+            System.out.println("erro consulta capacidade: " + e);
             return null;
         }
     }
