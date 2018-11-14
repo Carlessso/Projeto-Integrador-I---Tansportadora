@@ -167,6 +167,14 @@ public class Formatacao {
 
         return dataHoje;
     }
+    
+    public static String getDataHoraAtualArquivo() {
+        Date now = new Date();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy - HH mm");
+        String dataHoje = df.format(now);
+
+        return dataHoje;
+    }
 
     public static Date transformarParaData(String data) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
