@@ -1,1 +1,17 @@
 2018-11-13 09:14:23 ERROR transoft.TranSOFT     java.io.FileNotFoundException: conf.properties (O sistema n�o pode encontrar o arquivo especificado)
+2018-11-16 09:14:35 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: column "procpid" does not exist
+  Posição: 29
+2018-11-16 09:17:15 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: column "procpid" does not exist
+  Posição: 29
+2018-11-16 09:19:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 09:19:39 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-11-16 09:51:06 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 09:51:06 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-11-16 09:52:01 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 09:52:01 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-11-16 09:53:45 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 09:53:45 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-11-16 09:54:24 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 09:54:24 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-11-16 10:28:43 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
+2018-11-16 10:28:43 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.

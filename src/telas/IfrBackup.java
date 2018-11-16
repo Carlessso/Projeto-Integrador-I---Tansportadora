@@ -53,7 +53,7 @@ public class IfrBackup extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         rbtDados = new javax.swing.JRadioButton();
         rbtCompleto = new javax.swing.JRadioButton();
-        btnGerar = new javax.swing.JButton();
+        btnBackup = new javax.swing.JButton();
         btnRestaurar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
@@ -66,10 +66,10 @@ public class IfrBackup extends javax.swing.JInternalFrame {
         buttonGroup1.add(rbtCompleto);
         rbtCompleto.setText("Completo");
 
-        btnGerar.setText("Gerar");
-        btnGerar.addActionListener(new java.awt.event.ActionListener() {
+        btnBackup.setText("Backup");
+        btnBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerarActionPerformed(evt);
+                btnBackupActionPerformed(evt);
             }
         });
 
@@ -94,7 +94,7 @@ public class IfrBackup extends javax.swing.JInternalFrame {
                 .addContainerGap(209, Short.MAX_VALUE)
                 .addComponent(btnRestaurar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGerar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,12 +106,12 @@ public class IfrBackup extends javax.swing.JInternalFrame {
                 .addComponent(rbtCompleto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGerar)
+                    .addComponent(btnBackup)
                     .addComponent(btnRestaurar))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Realizar", jPanel1);
+        jTabbedPane1.addTab("Restauração/Backup", jPanel1);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,9 +147,8 @@ public class IfrBackup extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
-
-        //Zip.extrairZip(new File("C:\\Google Drive\\Univates\\2018 B\\Projeto integredor I\\zipado.zip"), new File("."));
         try {
+            JOptionPane.showMessageDialog(this, "Ao fim da restauração, o aplicativo será FINALIZADO!");
             JFileChooser fileChooser = new JFileChooser();
             if (rbtDados.isSelected()) {
                 fileChooser.setFileFilter(new FileNameExtensionFilter("BackUp", "backup"));
@@ -163,14 +162,25 @@ public class IfrBackup extends javax.swing.JInternalFrame {
             }
 
             if (file != null) {
-                boolean sucesso = false;
+                boolean sucesso;
                 if (rbtDados.isSelected()) {
                     sucesso = Backup.restoreBD(file.getAbsolutePath());
                 } else {
-                    
+                    sucesso = Zip.extrairZipArquivoUnico(file, new File("."), "./TranSOFT.backup");
+                    if (sucesso) {
+                        sucesso = Backup.restoreBD("TranSOFT.backup");
+                    }
+                    if (sucesso) {
+                        sucesso = Zip.extrairZip(file, new File("."));
+                    }
+                    new File("TranSOFT.backup").delete();
+                    if (sucesso) {
+                        System.exit(0);
+                    }
                 }
                 if (sucesso) {
-                    JOptionPane.showMessageDialog(this, "Backup efetuado com Sucesso!");
+                    JOptionPane.showMessageDialog(this, "Restauração efetuada com Sucesso!");
+                    System.exit(0);
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao restaurar Backup!");
                 }
@@ -183,7 +193,7 @@ public class IfrBackup extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
-    private void btnGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarActionPerformed
+    private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -221,12 +231,12 @@ public class IfrBackup extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Erro ao efetuar Backup!");
             Logger.getLogger(IfrBackup.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnGerarActionPerformed
+    }//GEN-LAST:event_btnBackupActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnGerar;
     private javax.swing.JButton btnRestaurar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;

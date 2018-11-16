@@ -78,6 +78,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -95,8 +97,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TranSOFT");
@@ -147,6 +147,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem16);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Fretes");
+
+        jMenuItem5.setText("Cadastro");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Viagens");
 
@@ -230,7 +242,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu9.add(jMenuItem14);
 
-        jMenuItem15.setText("Backup");
+        jMenuItem15.setText("Backup/Restauração");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem15ActionPerformed(evt);
@@ -259,18 +271,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu8.add(jMenuItem10);
 
         jMenuBar1.add(jMenu8);
-
-        jMenu2.setText("Fretes");
-
-        jMenuItem5.setText("Cadastro");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 

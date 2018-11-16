@@ -53,8 +53,8 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Realizar">
-                <Property name="tabTitle" type="java.lang.String" value="Realizar"/>
+              <JTabbedPaneConstraints tabName="Restaura&#xe7;&#xe3;o/Backup">
+                <Property name="tabTitle" type="java.lang.String" value="Restaura&#xe7;&#xe3;o/Backup"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -74,7 +74,7 @@
                       <EmptySpace pref="209" max="32767" attributes="0"/>
                       <Component id="btnRestaurar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnGerar" min="-2" pref="83" max="-2" attributes="0"/>
+                      <Component id="btnBackup" min="-2" pref="83" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -88,7 +88,7 @@
                       <Component id="rbtCompleto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="122" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnGerar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnBackup" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRestaurar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -114,12 +114,12 @@
                 <Property name="text" type="java.lang.String" value="Completo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGerar">
+            <Component class="javax.swing.JButton" name="btnBackup">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerar"/>
+                <Property name="text" type="java.lang.String" value="Backup"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGerarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackupActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRestaurar">
