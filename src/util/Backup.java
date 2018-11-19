@@ -65,7 +65,7 @@ public class Backup {
     }
 
     public static boolean restoreBD(String local) throws IOException {
-        if (derrubarConexoes()) {
+        derrubarConexoes();
             Runtime rt = Runtime.getRuntime();
             Process p;
             ProcessBuilder pb;
@@ -99,12 +99,9 @@ public class Backup {
                 System.out.println(e.getMessage());
                 return false;
             }
-        } else {
-            return false;
-        }
     }
 
-    public static boolean derrubarConexoes() {
+    public static void derrubarConexoes() {
         Runtime rt = Runtime.getRuntime();
         Process p;
         ProcessBuilder pb;
@@ -131,10 +128,8 @@ public class Backup {
             }
             System.out.println(p.exitValue());
 
-            return p.exitValue() == 0;
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return false;
         }
     }
 }
