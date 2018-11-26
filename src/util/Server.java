@@ -41,7 +41,7 @@ public class Server extends Thread {
                     source = null;
                 }
             } catch (InterruptedException | IOException e) {
-
+                System.out.println(e);
             }
         }
     }

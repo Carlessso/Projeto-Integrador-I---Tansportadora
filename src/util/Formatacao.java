@@ -129,6 +129,20 @@ public class Formatacao {
             return (dataFormatada);
         }
     }
+    
+    public static String ajustaDataDMAHHMM(Date data) {
+        if (data == null) {
+            return null;
+        } else {
+            String dataFormatada = null;
+            try {
+                dataFormatada = new SimpleDateFormat("dd/MM/yyyy - hh:mm").format(data);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+            return (dataFormatada);
+        }
+    }
 
     public static String ajustaDataAMD(String data) {
         String dataFormatada = null;

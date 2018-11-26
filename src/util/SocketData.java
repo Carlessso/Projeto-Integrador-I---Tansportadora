@@ -1,31 +1,62 @@
 package util;
 
+import entidades.Viagem;
 import java.io.Serializable;
+import java.util.Date;
 
 public class SocketData 
     implements 
         Serializable
 {
-    private String name;
+    private String notificacao;
+    private Date data;
+    private int idViagem;
 
-    public SocketData( String name ) 
-    {
-        this.name = name;
+    public SocketData(String notificacao, Date data, int idViagem){
+        this.notificacao = notificacao;
+        this.data = data;
+        this.idViagem = idViagem;
     }
 
-    public String getName() 
-    {
-        return name;
+    /**
+     * @return the notificacao
+     */
+    public String getNotificacao() {
+        return notificacao;
     }
 
-    public void setName(String name) 
-    {
-        this.name = name;
+    /**
+     * @param notificacao the notificacao to set
+     */
+    public void setNotificacao(String notificacao) {
+        this.notificacao = notificacao;
     }
 
-    @Override
-    public String toString() 
-    {
-        return name;
+    /**
+     * @return the data
+     */
+    public Date getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    /**
+     * @return the idViagem
+     */
+    public int getIdViagem() {
+        return idViagem;
+    }
+
+    /**
+     * @param idViagem the idViagem to set
+     */
+    public void setIdViagem(int idViagem) {
+        this.idViagem = idViagem;
     }
 }

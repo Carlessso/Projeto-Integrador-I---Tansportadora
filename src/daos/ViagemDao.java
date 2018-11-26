@@ -21,6 +21,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import transoft.TranSOFT;
+import util.Formatacao;
 import util.HibernateUtil;
 
 public class ViagemDao extends Dao {
@@ -60,13 +62,13 @@ public class ViagemDao extends Dao {
             Criteria crit;
 
             crit = sessao.createCriteria(Viagem.class);
-            if(origem != null){
+            if (origem != null) {
                 crit.add(Restrictions.eq("unidadeByRefUnidadeOrigem", origem));
             }
-            if(!ativo.isEmpty()){
-                if(ativo.equals("true")){
+            if (!ativo.isEmpty()) {
+                if (ativo.equals("true")) {
                     crit.add(Restrictions.isNull("dataFinal"));
-                } else if(ativo.equals("false")){
+                } else if (ativo.equals("false")) {
                     crit.add(Restrictions.isNotNull("dataFinal"));
                 }
             }
@@ -152,7 +154,7 @@ public class ViagemDao extends Dao {
                     return function.getBigDecimal(1).longValue();
                 }
             });
-            
+
             return retorno + 0.00;
         } catch (Exception e) {
             System.out.println("erro consulta capacidade: " + e);
@@ -162,5 +164,182 @@ public class ViagemDao extends Dao {
 
     public static void registrarChegada(int idViagem) {
 
+    }
+
+    public static void popularTabelaSaida(JTable tabela) {
+        // dados da tabela
+        Object[][] dadosTabela = null;
+
+        // cabecalho da tabela
+        Object[] cabecalho = new Object[3];
+        cabecalho[0] = "Id";
+        cabecalho[1] = "Veículo";
+        cabecalho[2] = "Destino";
+
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Viagem.class);
+
+            crit.add(Restrictions.eq("unidadeByRefUnidadeOrigem", TranSOFT.UNIDADE));
+            crit.add(Restrictions.isNull("usuario"));
+
+            dados = crit.list();
+
+            dadosTabela = new Object[dados.size()][3];
+
+            int lin = 0;
+
+            for (Object dado : dados) {
+                Viagem v = (Viagem) dado;
+                dadosTabela[lin][0] = v.getId();
+                dadosTabela[lin][1] = v.getVeiculo().getDescricao() + ", " + v.getVeiculo().getPlaca();
+                dadosTabela[lin][2] = v.getUnidadeByRefUnidadeDestino().getDescricao() + ", " + 
+                        v.getUnidadeByRefUnidadeDestino().getEndereco().getCidade().getNome() + "/" + 
+                        v.getUnidadeByRefUnidadeDestino().getEndereco().getCidade().getEstado().getSigla();
+
+                lin++;
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+        // configuracoes adicionais no componente tabela
+        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
+            @Override
+            // quando retorno for FALSE, a tabela nao é editavel
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
+            @Override
+            public Class getColumnClass(int column) {
+
+                if (column == 2) {
+                    //   return ImageIcon.class;
+                }
+                return Object.class;
+            }
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        tabela.setSelectionMode(0);
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            column = tabela.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(50);
+                    column.setMaxWidth(50);
+                case 1:
+                    column.setPreferredWidth(140);
+                    break;
+                case 2:
+                    column.setPreferredWidth(70);
+                    break;
+                case 3:
+                    column.setPreferredWidth(25);
+                    break;
+            }
+        }
+    }
+    
+    public static void popularTabelaChegada(JTable tabela) {
+        // dados da tabela
+        Object[][] dadosTabela = null;
+
+        // cabecalho da tabela
+        Object[] cabecalho = new Object[4];
+        cabecalho[0] = "Id";
+        cabecalho[1] = "Veículo";
+        cabecalho[2] = "Origem";
+        cabecalho[3] = "Data Saída";
+
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+
+            crit = sessao.createCriteria(Viagem.class);
+
+            crit.add(Restrictions.eq("unidadeByRefUnidadeDestino", TranSOFT.UNIDADE));
+            crit.add(Restrictions.isNull("dataFinal"));
+            crit.add(Restrictions.eq("usuario", TranSOFT.USUARIO));
+
+            dados = crit.list();
+
+            dadosTabela = new Object[dados.size()][4];
+
+            int lin = 0;
+
+            for (Object dado : dados) {
+                Viagem v = (Viagem) dado;
+                dadosTabela[lin][0] = v.getId();
+                dadosTabela[lin][1] = v.getVeiculo().getDescricao() + ", " + v.getVeiculo().getPlaca();
+                dadosTabela[lin][2] = v.getUnidadeByRefUnidadeOrigem().getDescricao() + ", " + 
+                        v.getUnidadeByRefUnidadeOrigem().getEndereco().getCidade().getNome() + "/" + 
+                        v.getUnidadeByRefUnidadeOrigem().getEndereco().getCidade().getEstado().getSigla();
+                dadosTabela[lin][3] = Formatacao.ajustaDataDMA(v.getDataInicio().toString());
+
+                lin++;
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+        // configuracoes adicionais no componente tabela
+        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
+            @Override
+            // quando retorno for FALSE, a tabela nao é editavel
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
+            @Override
+            public Class getColumnClass(int column) {
+
+                if (column == 2) {
+                    //   return ImageIcon.class;
+                }
+                return Object.class;
+            }
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        tabela.setSelectionMode(0);
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            column = tabela.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(50);
+                    column.setMaxWidth(50);
+                case 1:
+                    column.setPreferredWidth(140);
+                    break;
+                case 2:
+                    column.setPreferredWidth(70);
+                    break;
+                case 3:
+                    column.setPreferredWidth(25);
+                    break;
+            }
+        }
     }
 }

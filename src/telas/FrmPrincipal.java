@@ -5,21 +5,29 @@
  */
 package telas;
 
+import daos.ViagemDao;
+import entidades.Viagem;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import transoft.TranSOFT;
 import util.Client;
+import util.Formatacao;
 import util.MailManager;
+import util.SocketData;
 
 /**
  *
  * @author rhentges
  */
 public class FrmPrincipal extends javax.swing.JFrame {
+
+    private static ArrayList<SocketData> notificacoes = new ArrayList<>();
 
     /**
      * Creates new form FrmPrincipal
@@ -37,15 +45,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         @Override
         public void onRecive(Object data) throws Exception {
             // o que ele deve fazer
-            notificarChegadaVeiculo();
+            notificacoes.add((SocketData) data);
+            DefaultTableModel modelAdicionar = (DefaultTableModel) tblNotificacoes.getModel();
+            Object[] linha = {((SocketData) data).getNotificacao(), Formatacao.ajustaDataDMAHHMM(((SocketData) data).getData())};
+            modelAdicionar.addRow(linha);
+            //enviarEmailCliente();
         }
     };
-
-    public static void notificarChegadaVeiculo() throws Exception {
-        TranSOFT.USUARIO.getGrupo().getGrupoAcaos();
-        JOptionPane.showMessageDialog(null, "Uma nova entrega chegou ao destino!");
-        enviarEmailCliente();
-    }
 
     public static void enviarEmailCliente() throws Exception {
         MailManager mail = MailManager.getInstance();
@@ -72,6 +78,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNotificacoes = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -101,15 +109,49 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TranSOFT");
 
+        tblNotificacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Notificações", "Data/Hora"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblNotificacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNotificacoesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblNotificacoes);
+        if (tblNotificacoes.getColumnModel().getColumnCount() > 0) {
+            tblNotificacoes.getColumnModel().getColumn(1).setMinWidth(120);
+            tblNotificacoes.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblNotificacoes.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
+
+        jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 949, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 565, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 694, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 603, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Cadastros");
@@ -324,10 +366,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        IfrRegistrar IfrRegistrar = new IfrRegistrar();
-        jDesktopPane1.add(IfrRegistrar);
-        IfrRegistrar.setVisible(true);
-        IfrRegistrar.setPosicao();
+        IfrChegadaSaida IfrChegadaSaida = new IfrChegadaSaida();
+        jDesktopPane1.add(IfrChegadaSaida);
+        IfrChegadaSaida.setVisible(true);
+        IfrChegadaSaida.setPosicao();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -396,6 +438,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         IfrBackup.setPosicao();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
+    private void tblNotificacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNotificacoesMouseClicked
+        if (evt.getClickCount() == 2) {
+            int linha = tblNotificacoes.getSelectedRow();
+            String trocar = tblNotificacoes.getValueAt(0, 0).toString().replaceAll("\\<.*?>", "");
+            tblNotificacoes.setValueAt(trocar, linha, 0);
+            Viagem v = ViagemDao.buscaId(notificacoes.get(linha).getIdViagem());
+            JdgNotificacaoViagem busca = new JdgNotificacaoViagem(v);
+            busca.setModal(true);
+            busca.setVisible(true);
+        }
+    }//GEN-LAST:event_tblNotificacoesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -459,5 +513,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JTable tblNotificacoes;
     // End of variables declaration//GEN-END:variables
 }
