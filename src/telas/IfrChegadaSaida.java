@@ -9,6 +9,7 @@ import daos.FreteDao;
 import daos.ViagemDao;
 import entidades.Frete;
 import entidades.FreteViagem;
+import entidades.Programas;
 import entidades.Viagem;
 import java.awt.Dimension;
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import log4j.Log4J;
+import permissao.Controle;
 import transoft.TranSOFT;
 import util.FormataCampo;
 import util.Formatacao;
@@ -32,6 +34,8 @@ import util.SocketData;
  */
 public class IfrChegadaSaida extends javax.swing.JInternalFrame {
 
+    private final Programas telaAtual = new Programas(0, "Chegada Saída de Frete", "IfrChegadaSaida");
+
     /**
      * Creates new form IfrChegadaSaida
      */
@@ -39,6 +43,7 @@ public class IfrChegadaSaida extends javax.swing.JInternalFrame {
         initComponents();
         ViagemDao.popularTabelaChegada(tblChegada);
         ViagemDao.popularTabelaSaida(tblSaida);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -90,6 +95,8 @@ public class IfrChegadaSaida extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblChegada);
 
         btnRegistrarChegada.setText("Registrar Chegada");
+        btnRegistrarChegada.setEnabled(false);
+        btnRegistrarChegada.setName("btnRegistrarChegada"); // NOI18N
         btnRegistrarChegada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarChegadaActionPerformed(evt);
@@ -157,6 +164,8 @@ public class IfrChegadaSaida extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblSaida);
 
         btnRegistrarSaida.setText("Registrar Saída");
+        btnRegistrarSaida.setEnabled(false);
+        btnRegistrarSaida.setName("btnRegistrarSaida"); // NOI18N
         btnRegistrarSaida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarSaidaActionPerformed(evt);

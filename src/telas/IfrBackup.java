@@ -5,6 +5,7 @@
  */
 package telas;
 
+import entidades.Programas;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import permissao.Controle;
 import util.Backup;
 import util.Formatacao;
 import util.Zip;
@@ -27,11 +29,14 @@ import util.Zip;
  */
 public class IfrBackup extends javax.swing.JInternalFrame {
 
+    private final Programas telaAtual = new Programas(0, "Backup", "IfrBackup");
+
     /**
      * Creates new form IfrBackup
      */
     public IfrBackup() {
         initComponents();
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -67,6 +72,8 @@ public class IfrBackup extends javax.swing.JInternalFrame {
         rbtCompleto.setText("Completo");
 
         btnBackup.setText("Backup");
+        btnBackup.setEnabled(false);
+        btnBackup.setName("btnBackup"); // NOI18N
         btnBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackupActionPerformed(evt);
@@ -74,6 +81,8 @@ public class IfrBackup extends javax.swing.JInternalFrame {
         });
 
         btnRestaurar.setText("Restaurar");
+        btnRestaurar.setEnabled(false);
+        btnRestaurar.setName("btnRestaurar"); // NOI18N
         btnRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRestaurarActionPerformed(evt);

@@ -16,6 +16,7 @@ import entidades.Endereco;
 import entidades.Frete;
 import entidades.Pessoa;
 import entidades.ProdutosFrete;
+import entidades.Programas;
 import entidades.Quilometragem;
 import java.awt.Dimension;
 import java.io.BufferedWriter;
@@ -30,6 +31,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import permissao.Controle;
 import transoft.TranSOFT;
 import util.ClientWS;
 import util.FormataCampo;
@@ -47,6 +49,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
     private Quilometragem quilometragem;
     private Frete frete;
     private ArrayList<Integer> produtosExclusao;
+    private final Programas telaAtual = new Programas(0, "Frete", "IfrFrete");
 
     /**
      * Creates new form IfrFrete
@@ -60,6 +63,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.quilometragem = new Quilometragem();
         this.frete = null;
         this.produtosExclusao = new ArrayList<>();
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -145,6 +149,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnSelecionarRemetente.setText("Selecionar");
+        btnSelecionarRemetente.setEnabled(false);
+        btnSelecionarRemetente.setName("btnSelecionarRemetente"); // NOI18N
         btnSelecionarRemetente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelecionarRemetenteActionPerformed(evt);
@@ -152,6 +158,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnSelecionarDestinatario.setText("Selecionar");
+        btnSelecionarDestinatario.setEnabled(false);
+        btnSelecionarDestinatario.setName("btnSelecionarDestinatario"); // NOI18N
         btnSelecionarDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelecionarDestinatarioActionPerformed(evt);
@@ -165,6 +173,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -192,6 +202,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnSalvarProduto.setText("Salvar");
+        btnSalvarProduto.setEnabled(false);
+        btnSalvarProduto.setName("btnSalvarProduto"); // NOI18N
         btnSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarProdutoActionPerformed(evt);
@@ -223,6 +235,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         }
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.setName("btnEditar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -230,6 +244,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.setEnabled(false);
+        btnRemover.setName("btnRemover"); // NOI18N
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -376,6 +392,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         jLabel16.setText("Remetente");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.setName("btnBuscar"); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,7 +419,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblFrete);
 
         btnEditar1.setText("Editar");
-        btnEditar1.setName("btnEditar"); // NOI18N
+        btnEditar1.setEnabled(false);
+        btnEditar1.setName("btnEditar1"); // NOI18N
         btnEditar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditar1ActionPerformed(evt);
@@ -410,6 +428,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnExportarXML.setText("Exportar XML");
+        btnExportarXML.setEnabled(false);
+        btnExportarXML.setName("btnExportarXML"); // NOI18N
         btnExportarXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarXMLActionPerformed(evt);
@@ -417,6 +437,8 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         });
 
         btnImportarXML.setText("Importar XML");
+        btnImportarXML.setEnabled(false);
+        btnImportarXML.setName("btnImportarXML"); // NOI18N
         btnImportarXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImportarXMLActionPerformed(evt);
@@ -661,6 +683,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         try {
+            btnSalvar.setEnabled(true);
             this.limparDados();
             int idFrete = Integer.parseInt(String.valueOf(tblFrete.getValueAt(tblFrete.getSelectedRow(), 0)));
             this.frete = FreteDao.buscaId(idFrete);
@@ -845,6 +868,7 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.quilometragem = new Quilometragem();
         this.frete = null;
         this.produtosExclusao = new ArrayList<>();
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

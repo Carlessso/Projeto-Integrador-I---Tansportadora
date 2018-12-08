@@ -9,9 +9,13 @@ import entidades.ComboItens;
 import entidades.EstadoFrete;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
 /**
@@ -19,9 +23,31 @@ import util.HibernateUtil;
  * @author ramon
  */
 public class EstadoFreteDao extends Dao {
-    
-    public static List getEstados()
-    {
+
+    public static void populaTabela(String criterio, JTable tabela) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+            crit = sessao.createCriteria(EstadoFrete.class);
+            crit.add(Restrictions.ilike("descricao", criterio, MatchMode.ANYWHERE));
+            dados = crit.list();
+
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setRowCount(0);
+            for (Object dado : dados) {
+                Object[] linha = {((EstadoFrete) dado).getId(), ((EstadoFrete) dado).getDescricao()};
+                model.addRow(linha);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static List getEstados() {
         Session sessao = null;
         List dados = null;
         try {
@@ -41,6 +67,7 @@ public class EstadoFreteDao extends Dao {
         }
         return null;
     }
+
     public static EstadoFrete buscaId(int id) {
         Session sessao = null;
         try {
@@ -56,11 +83,11 @@ public class EstadoFreteDao extends Dao {
             sessao.close();
         }
     }
-    
+
     public static void populaCombo(JComboBox grupo) {
         ComboItens item;
         grupo.removeAllItems();
-        
+
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -69,17 +96,17 @@ public class EstadoFreteDao extends Dao {
             crit = sessao.createCriteria(EstadoFrete.class);
 
             List dados = crit.list();
-            
+
             for (Object dado : dados) {
                 EstadoFrete ef = (EstadoFrete) dado;
                 item = new ComboItens();
                 item.setCodigo(ef.getId());
                 item.setDescricao(ef.getDescricao());
-                grupo.addItem(item);                
+                grupo.addItem(item);
             }
         } catch (Exception e) {
 
         }
     }
-    
+
 }

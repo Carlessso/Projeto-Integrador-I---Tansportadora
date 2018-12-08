@@ -12,6 +12,7 @@ import daos.ViagemDao;
 import entidades.Frete;
 import entidades.FreteViagem;
 import entidades.ProdutosFrete;
+import entidades.Programas;
 import entidades.Unidade;
 import entidades.Veiculo;
 import entidades.Viagem;
@@ -21,6 +22,7 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import permissao.Controle;
 import transoft.TranSOFT;
 
 /**
@@ -34,6 +36,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
     private Veiculo veiculo;
     private Viagem viagem;
     private Unidade origemBusca;
+    private final Programas telaAtual = new Programas(0, "Viagem", "IfrViagem");
 
     /**
      * Creates new form IfrViagem
@@ -46,6 +49,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdOrigemBusca.setText(this.origemBusca.getDescricao());
         viagem = new Viagem();
         ViagemDao.popularTabelaFiltro(tblViagem, origem, "");
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -107,6 +111,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdOrigem.setEnabled(false);
 
         btnOrigem.setText("Selecionar");
+        btnOrigem.setEnabled(false);
+        btnOrigem.setName("btnOrigem"); // NOI18N
         btnOrigem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrigemActionPerformed(evt);
@@ -118,6 +124,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdDestino.setEnabled(false);
 
         btnDestino.setText("Selecionar");
+        btnDestino.setEnabled(false);
+        btnDestino.setName("btnDestino"); // NOI18N
         btnDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDestinoActionPerformed(evt);
@@ -129,6 +137,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdVeiculo.setEnabled(false);
 
         btnVeiculo.setText("Selecionar");
+        btnVeiculo.setEnabled(false);
+        btnVeiculo.setName("btnVeiculo"); // NOI18N
         btnVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVeiculoActionPerformed(evt);
@@ -136,6 +146,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         });
 
         btnSalvarViagem.setText("Salvar e Continuar");
+        btnSalvarViagem.setEnabled(false);
+        btnSalvarViagem.setName("btnSalvarViagem"); // NOI18N
         btnSalvarViagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarViagemActionPerformed(evt);
@@ -221,6 +233,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblFreteDisponivel);
 
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.setEnabled(false);
+        btnAdicionar.setName("btnAdicionar"); // NOI18N
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarActionPerformed(evt);
@@ -248,6 +262,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblFreteViagem);
 
         btnRemover.setText("Remover");
+        btnRemover.setEnabled(false);
+        btnRemover.setName("btnRemover"); // NOI18N
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -263,6 +279,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdDestinoFrete.setEnabled(false);
 
         btnFinalizar.setText("Finalizar");
+        btnFinalizar.setName("btnFinalizar"); // NOI18N
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinalizarActionPerformed(evt);
@@ -345,6 +362,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tblViagem);
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.setName("btnEditar"); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -356,6 +375,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         tfdOrigemBusca.setEnabled(false);
 
         btnOrigemBusca.setText("Selecionar");
+        btnOrigemBusca.setEnabled(false);
+        btnOrigemBusca.setName("btnOrigemBusca"); // NOI18N
         btnOrigemBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrigemBuscaActionPerformed(evt);
@@ -363,6 +384,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
+        btnBuscar.setName("btnBuscar"); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -512,6 +535,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
             this.resetaCampos();
+            btnSalvarViagem.setEnabled(true);
             int idViagem = Integer.parseInt(String.valueOf(tblViagem.getValueAt(tblViagem.getSelectedRow(), 0)));
             viagem = ViagemDao.buscaId(idViagem);
             if (viagem.getDataFinal() == null) {
@@ -651,6 +675,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         DefaultTableModel model2 = (DefaultTableModel) tblFreteViagem.getModel();
         model2.setRowCount(0);
         tblFreteViagem.setModel(model2);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     private void preencheFrete() {

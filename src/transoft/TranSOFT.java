@@ -38,7 +38,7 @@ public class TranSOFT {
         licenca.setEmpresa("seu cuca é eu");
         Date validade = null;
         try {
-            validade = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").parse("28/11/2018 - 23:59:59");
+            validade = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").parse("01/01/2019 - 23:59:59");
         } catch (Exception e) {
         }
         

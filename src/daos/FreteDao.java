@@ -19,6 +19,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import transoft.TranSOFT;
 import util.Formatacao;
 import util.HibernateUtil;
 
@@ -65,6 +66,34 @@ public class FreteDao extends Dao {
         return null;
     }
 
+    public static void populaTabelaUnidade(String criterio, JTable tabela) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+            crit = sessao.createCriteria(Frete.class);
+            crit.add(Restrictions.eq("unidadeAtual", TranSOFT.UNIDADE));
+            crit.add(Restrictions.isNull("dataEntrega"));
+            crit.createAlias("pessoaByRefSolicitante", "pessoa");
+            crit.add(Restrictions.ilike("pessoa.nome", criterio, MatchMode.ANYWHERE));
+            dados = crit.list();
+
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setRowCount(0);
+            for (Object dado : dados) {
+                Frete frete = (Frete) dado;
+                Object[] linha = {frete.getId(), frete.getPessoaByRefSolicitante().getNome(), frete.getPessoaByRefDetinatario().getNome(),
+                    Formatacao.ajustaDataDMA(frete.getDataPedido().toString())};
+                model.addRow(linha);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            sessao.close();
+        }
+    }
+
     public static int getFretesByEstado(EstadoFrete e) {
         Session sessao = null;
         List dados = null;
@@ -101,16 +130,16 @@ public class FreteDao extends Dao {
 
             DefaultTableModel model = (DefaultTableModel) tabela.getModel();
             model.setRowCount(0);
-            
+
             Iterator<Frete> freteAsIterator = dados.iterator();
             while (freteAsIterator.hasNext()) {
                 Frete f = freteAsIterator.next();
-                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome() + 
-                        "/" + f.getEndereco().getCidade().getEstado().getSigla(), 
+                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome()
+                    + "/" + f.getEndereco().getCidade().getEstado().getSigla(),
                     Formatacao.ajustaDataDMA(f.getDataPedido().toString())};
                 model.addRow(linha);
             }
-            
+
             tabela.setModel(model);
 
         } catch (HibernateException he) {
@@ -119,7 +148,7 @@ public class FreteDao extends Dao {
             sessao.close();
         }
     }
-    
+
     public static void populaFreteViagem(JTable tabela, Viagem viagem) {
         Session sessao = null;
         List dados = null;
@@ -134,16 +163,16 @@ public class FreteDao extends Dao {
 
             DefaultTableModel model = (DefaultTableModel) tabela.getModel();
             model.setRowCount(0);
-            
+
             Iterator<Frete> freteAsIterator = dados.iterator();
             while (freteAsIterator.hasNext()) {
                 Frete f = freteAsIterator.next();
-                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome() + 
-                        "/" + f.getEndereco().getCidade().getEstado().getSigla(), 
+                Object[] linha = {f.getId(), f.getPessoaByRefSolicitante().getNome(), f.getEndereco().getCidade().getNome()
+                    + "/" + f.getEndereco().getCidade().getEstado().getSigla(),
                     Formatacao.ajustaDataDMA(f.getDataPedido().toString())};
                 model.addRow(linha);
             }
-            
+
             tabela.setModel(model);
 
         } catch (HibernateException he) {

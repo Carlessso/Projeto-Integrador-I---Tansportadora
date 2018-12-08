@@ -5,27 +5,17 @@
  */
 package daos;
 
-import entidades.Estado;
 import entidades.EstadoVeiculo;
-import entidades.Pessoa;
-import entidades.PessoaFisica;
-import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import entidades.ComboItens;
-import util.Formatacao;
 import util.HibernateUtil;
 
 /**
@@ -45,6 +35,29 @@ public class EstadoVeiculoDao extends Dao {
             he.printStackTrace();
            
             return null;
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static void populaTabela(String criterio, JTable tabela) {
+        Session sessao = null;
+        List dados = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria crit;
+            crit = sessao.createCriteria(EstadoVeiculo.class);
+            crit.add(Restrictions.ilike("descricao", criterio, MatchMode.ANYWHERE));
+            dados = crit.list();
+
+            DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+            model.setRowCount(0);
+            for (Object dado : dados) {
+                Object[] linha = {((EstadoVeiculo) dado).getId(), ((EstadoVeiculo) dado).getDescricao()};
+                model.addRow(linha);
+            }
+        } catch (Exception e) {
+
         } finally {
             sessao.close();
         }

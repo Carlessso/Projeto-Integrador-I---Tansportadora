@@ -43,7 +43,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         tfdId.setEditable(false);
         ProgramaDao.popularTabelaFiltro(tblProgramas, "", "descricao");
         GrupoDao.popularTabelaFiltro(tblGrupos, "", "descricao");
-//        Controle.permissiona(jTabbedPane1, telaAtual);
+        Controle.permissiona(jTabbedPane1, telaAtual);
     }
 
     public void setPosicao() {
@@ -233,6 +233,7 @@ public class IfrGrupos extends javax.swing.JInternalFrame {
         });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
         btnDeletar.setName("btnDeletar"); // NOI18N
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
