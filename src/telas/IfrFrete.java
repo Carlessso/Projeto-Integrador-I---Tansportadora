@@ -61,7 +61,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.destinatario = null;
         this.linhaProduto = -1;
         this.quilometragem = new Quilometragem();
-        this.frete = null;
+        this.frete = new Frete();
+        this.frete.setUnidadeAtual(TranSOFT.UNIDADE);
+        this.frete.setDataPedido(new Date());
         this.produtosExclusao = new ArrayList<>();
         Controle.permissiona(jTabbedPane1, telaAtual);
     }
@@ -631,14 +633,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
             f.setPessoaByRefDetinatario(destinatario);
             f.setUsuario(TranSOFT.USUARIO);
             f.setValor(BigDecimal.valueOf(Double.parseDouble(tfdValorFrete.getText().replace(',', '.'))));
-            if (frete == null) {
-                f.setDataPedido(new Date());
-                f.setUnidadeAtual(TranSOFT.UNIDADE);
-            } else {
-                f.setDataPedido(frete.getDataPedido());
-                f.setDataEntrega(frete.getDataEntrega());
-                f.setUnidadeAtual(frete.getUnidadeAtual());
-            }
+            f.setDataPedido(frete.getDataPedido());
+            f.setDataEntrega(frete.getDataEntrega());
+            f.setUnidadeAtual(frete.getUnidadeAtual());
             f.setEstadoFrete(EstadoFreteDao.buscaId(((ComboItens) cbEstado.getSelectedItem()).getCodigo()));
             f.setQuilometragem(quilometragem.getQuilometragem());
             f.setMetragem(quilometragem.getMetragem());
@@ -866,7 +863,9 @@ public class IfrFrete extends javax.swing.JInternalFrame {
         this.destinatario = null;
         this.linhaProduto = -1;
         this.quilometragem = new Quilometragem();
-        this.frete = null;
+        this.frete = new Frete();
+        this.frete.setUnidadeAtual(TranSOFT.UNIDADE);
+        this.frete.setDataPedido(new Date());
         this.produtosExclusao = new ArrayList<>();
         Controle.permissiona(jTabbedPane1, telaAtual);
     }
