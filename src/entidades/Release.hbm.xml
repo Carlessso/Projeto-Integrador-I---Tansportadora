@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/09/2018 09:51:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Release" table="release" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" />
+        </property>
+        <property name="versao" type="string">
+            <column name="versao" />
+        </property>
+        <property name="data" type="date">
+            <column name="data" />
+        </property>
+    </class>
+</hibernate-mapping>

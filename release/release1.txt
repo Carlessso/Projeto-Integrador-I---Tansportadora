@@ -1,0 +1,4 @@
+descricao=nova teste
+versao=v1
+itens=Implementando dashboard,Cadastro de fretes,Exemplos
+data=2018-12-11

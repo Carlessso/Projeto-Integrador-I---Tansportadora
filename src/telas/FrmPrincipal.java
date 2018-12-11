@@ -5,6 +5,8 @@
  */
 package telas;
 
+import daos.ReleaseDao;
+import daos.ReleaseUsuarioDao;
 import daos.ViagemDao;
 import entidades.Viagem;
 import java.io.File;
@@ -39,6 +41,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (!client.isAlive()) {
             client.start();
         }
+        
+        ReleaseDao.popularTabelaFiltro(tblReleases, "", "versao");
 
     }
     private static Client client = new Client() {
@@ -80,6 +84,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNotificacoes = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblReleases = new javax.swing.JTable();
+        btnMarcar = new javax.swing.JButton();
+        btnHistorico = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -139,21 +147,69 @@ public class FrmPrincipal extends javax.swing.JFrame {
             tblNotificacoes.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
+        tblReleases.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblReleases.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReleasesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblReleases);
+
+        btnMarcar.setText("Marcar como lido");
+        btnMarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarcarActionPerformed(evt);
+            }
+        });
+
+        btnHistorico.setText("Histórico");
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnMarcar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnHistorico, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 565, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(btnMarcar)
+                .addGap(97, 97, 97)
+                .addComponent(btnHistorico)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 603, Short.MAX_VALUE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMarcar)
+                    .addComponent(btnHistorico))
+                .addGap(0, 560, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Cadastros");
@@ -482,6 +538,44 @@ public class FrmPrincipal extends javax.swing.JFrame {
         ifrFinalizarFrete.setPosicao();
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
+    private void btnMarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcarActionPerformed
+        boolean att = false;
+        for (int i = 0; i < tblReleases.getRowCount(); i++)
+        {
+            if(tblReleases.getValueAt(i, 2).toString().equals("true"))
+            {
+                ReleaseUsuarioDao.marcarComoLida(tblReleases.getValueAt(i, 1).toString());
+                att = true;
+            }
+        }
+
+        if(att)
+        {
+            ReleaseDao.popularTabelaFiltro(tblReleases, "descricao", "");
+            JOptionPane.showMessageDialog(this, "Releases atualizadas!");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos um release para atualizar!");
+        }
+    }//GEN-LAST:event_btnMarcarActionPerformed
+
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
+        IfrReleases IfrRelease = new IfrReleases(tblReleases);
+        jDesktopPane1.add(IfrRelease);
+        IfrRelease.setVisible(true);
+        IfrRelease.setPosicao();
+    }//GEN-LAST:event_btnHistoricoActionPerformed
+
+    private void tblReleasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReleasesMouseClicked
+        String descricao = tblReleases.getValueAt(tblReleases.getSelectedRow(), 1).toString();
+        
+        IfrItems IfrItems = new IfrItems(descricao);
+        jDesktopPane1.add(IfrItems);
+        IfrItems.setVisible(true);
+        IfrItems.setPosicao();
+    }//GEN-LAST:event_tblReleasesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -519,6 +613,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHistorico;
+    private javax.swing.JButton btnMarcar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -548,6 +644,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private static javax.swing.JTable tblNotificacoes;
+    private javax.swing.JTable tblReleases;
     // End of variables declaration//GEN-END:variables
 }

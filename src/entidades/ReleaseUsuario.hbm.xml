@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/09/2018 09:51:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.ReleaseUsuario" table="release_usuario" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="fl_lido" type="boolean">
+            <column name="fl_lido" not-null="true" />
+        </property>
+       <many-to-one name="usuario" class="entidades.Usuario" fetch="select">
+            <column name="ref_user" not-null="true" />
+        </many-to-one>
+        <many-to-one name="release" class="entidades.Release" fetch="select">
+            <column name="ref_release" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -66,4 +66,7 @@ Contributor(s):
   <table-filter match-name="estado_veiculo"/>
   <table-filter match-name="grupo_acao"/>
   <table-filter match-name="frete_viagem"/>
+  <table-filter match-name="release"/>
+  <table-filter match-name="release_usuario"/>
+  <table-filter match-name="release_item"/>
 </hibernate-reverse-engineering>

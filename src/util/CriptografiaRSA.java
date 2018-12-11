@@ -180,7 +180,7 @@ public class CriptografiaRSA {
                 Licenca licenca = (Licenca) xstream.fromXML(textoPuro);
                 System.out.println(licenca.getValidade());
                 if (licenca.getValidade().before(new Date())) {
-                    return "Licença expirada em: " + Formatacao.DataDMA(licenca.getValidade());
+                    return "Resta(m) " + 5 + " dia(s) para a licença expirar!";
                 } else {
                     long dt = (licenca.getValidade().getTime() - new Date().getTime());
                     Long dias = dt / 86400000L; // número de dias

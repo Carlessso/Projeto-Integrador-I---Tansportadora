@@ -6,12 +6,15 @@
 package transoft;
 
 import daos.AuditarDao;
+import daos.ReleaseDao;
 import daos.UnidadeDao;
 import entidades.Licenca;
 import entidades.Unidade;
 import entidades.Usuario;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -31,7 +34,7 @@ public class TranSOFT {
     public static Logger log = Logger.getLogger(TranSOFT.class.getName());
     public static Unidade UNIDADE;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ParseException {
         log.removeAllAppenders();
 
         Licenca licenca = new Licenca();
@@ -66,7 +69,9 @@ public class TranSOFT {
         } catch (IOException | NumberFormatException e) {
             log.error(e);
         }
-
+        
+        ReleaseDao.gravaReleases();
+        
         FrmLogin form = new FrmLogin();
         form.setVisible(true);
 

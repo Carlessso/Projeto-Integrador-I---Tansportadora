@@ -15,3 +15,34 @@
 2018-11-16 09:54:24 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
 2018-11-16 10:28:43 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  FATAL: terminating connection due to administrator command
 2018-11-16 10:28:43 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  An I/O error occurred while sending to the backend.
+2018-12-10 23:42:28 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Usuario, getter method of property: id
+2018-12-10 23:42:28 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Usuario, getter method of property: id
+2018-12-10 23:42:29 ERROR org.hibernate.property.BasicPropertyAccessor  HHH000122: IllegalArgumentException in class: entidades.Usuario, getter method of property: id
+2018-12-10 23:44:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "ref_usuario" violates not-null constraint
+  Detalhe: Failing row contains (1, 1, null, t, 2).
+2018-12-10 23:44:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:54 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:56 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:57 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:58 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:59 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:59 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:44:59 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:46:15 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: null value in column "ref_user" violates not-null constraint
+  Detalhe: Failing row contains (2, 1, 2, t, null).
+2018-12-10 23:46:15 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:46:15 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
+2018-12-10 23:46:15 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper  ERROR: current transaction is aborted, commands ignored until end of transaction block
